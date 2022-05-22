@@ -1,6 +1,7 @@
 package UI.Structures.MenuBar;
 
 import UI.Buttons.Menu.CustomMenuButton;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -12,11 +13,15 @@ public class CustomMenuBar extends VBox {
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("custom-menu-bar");
 
+
+        Label label = new Label();
+
         // Add in the buttons in the menubar
         for (CustomMenuButton c : arrayMenuButtonList) {
-            this.getChildren().add(c);
-            this.getChildren().add(new CustomMenuSeperator());
+            this.getChildren().addAll(new CustomMenuBarPart(c),new CustomMenuSeperator());
         }
+
+
 
     }
 

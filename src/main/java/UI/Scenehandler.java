@@ -7,7 +7,6 @@ import UI.Buttons.Menu.CustomMenuButton;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,6 +18,8 @@ import java.util.ArrayList;
 public class Scenehandler {
 
     private Stage stage = new Stage();
+
+
 
     public Scenehandler(){}
 
