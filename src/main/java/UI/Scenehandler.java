@@ -39,17 +39,14 @@ public class Scenehandler {
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
-                System.out.println("Home");
                 stage.setTitle("Client Startup - Home");
                 stage.setScene(getHomeScene());
             }
             case Overview ->{
-                System.out.println("Overview");
                 stage.setTitle("Client Startup - Overview");
                 stage.setScene(getOverview());
             }
             case DoToday -> {
-                System.out.println("DoToday");
                 stage.setTitle("Client Startup - DoToday");
                 stage.setScene(getDoTodayScene());
             }
@@ -106,9 +103,31 @@ public class Scenehandler {
      */
     private Scene getOverview(){
 
-        Scene scene = new Scene(new Pane(), 1500, 750);
+        HBox root = new HBox();
+
+        // Add the menu bar with 3 buttons
+        ArrayList<CustomMenuButton> customMenuButtons = new ArrayList<>();
+        customMenuButtons.add(new CustomButton_Home());
+        customMenuButtons.add(new CustomButton_Overview());
+        customMenuButtons.add(new CustomButton_DoToday());
+
+        CustomMenuBar customMenuBar = new CustomMenuBar(customMenuButtons);
+
+        root.getChildren().addAll(customMenuBar);
+
+        // Add content
+        VBox vBox = new VBox();
+
+        root.getChildren().add(vBox);
 
 
+        // Create the scene with the root
+        Scene scene = new Scene(root, 1500, 750);
+
+        // Set the stylesheet for the scene
+        scene.getStylesheets().add(new File("src/main/resources/ClientStyleSheet.css").toURI().toString());
+
+        // Return the scene
         return scene;
     }
 
@@ -118,9 +137,31 @@ public class Scenehandler {
      */
     private Scene getDoTodayScene() {
 
-        Scene scene = new Scene(new Pane(), 1500, 750);
+        HBox root = new HBox();
+
+        // Add the menu bar with 3 buttons
+        ArrayList<CustomMenuButton> customMenuButtons = new ArrayList<>();
+        customMenuButtons.add(new CustomButton_Home());
+        customMenuButtons.add(new CustomButton_Overview());
+        customMenuButtons.add(new CustomButton_DoToday());
+
+        CustomMenuBar customMenuBar = new CustomMenuBar(customMenuButtons);
+
+        root.getChildren().addAll(customMenuBar);
+
+        // Add content
+        VBox vBox = new VBox();
+
+        root.getChildren().add(vBox);
 
 
+        // Create the scene with the root
+        Scene scene = new Scene(root, 1500, 750);
+
+        // Set the stylesheet for the scene
+        scene.getStylesheets().add(new File("src/main/resources/ClientStyleSheet.css").toURI().toString());
+
+        // Return the scene
         return scene;
     }
 

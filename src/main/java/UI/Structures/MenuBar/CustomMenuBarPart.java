@@ -17,14 +17,12 @@ public class CustomMenuBarPart extends StackPane{
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("custom-menu-bar-part");
 
-
+        // The text that will be shown
         Label label = new Label();
         label.setText(customMenuButton.getButtonText());
 
+        // Add the label behind the menu button
         this.getChildren().addAll(label,customMenuButton);
-
-
-
 
 
         this.setOnMouseEntered(e -> {
@@ -43,15 +41,8 @@ public class CustomMenuBarPart extends StackPane{
         });
 
         this.setOnMouseExited(e -> {
-
-            TranslateTransition transition = new TranslateTransition(ANIMATION_SPEED, label);
-
-            if (expandState == ExpandState.CHANGING) {
-                transition.jumpTo(ANIMATION_SPEED);
-
-                expandState = ExpandState.HIDDEN;
-            }
             if (expandState == ExpandState.EXPANDED) {
+                TranslateTransition transition = new TranslateTransition(ANIMATION_SPEED, label);
                 transition.setByX(-this.getWidth());
 
                 expandState = ExpandState.CHANGING;
