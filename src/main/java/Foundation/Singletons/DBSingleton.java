@@ -1,22 +1,22 @@
 package Foundation.Singletons;
 
-import Foundation.DBConnect;
+import Foundation.DB;
 
-public class DBConnectSingleton {
+public class DBSingleton {
 
-    private static DBConnect instance;
+    private static DB instance;
 
     // Private so you can't "new" it
-    private DBConnectSingleton(){}
+    private DBSingleton(){}
 
     /**
      * Gets the instance, it is synchronized because in teori it can be used by multiple threads
      * @return the instance
      */
-    public synchronized static DBConnect getInstance(){
+    public synchronized static DB getInstance(){
         // Create the instance if it hasn't been initiated
         if (instance==null){
-            instance = new DBConnect();
+            instance = new DB();
         }
         // Return the instance
         return instance;

@@ -1,61 +1,140 @@
-.custom-menu-button
-{
-    -fx-background-color: #ECC9C7;
-    -fx-padding: 40 60 40 60;
-    -fx-background-radius: 0;
-}
-
 
 /*
------------------------------------------------------------------Menu--------------------------------------------------
+-----------------------------------------------------------------Bar-V-START-------------------------------------------------
  */
+.custom-menu-button
+{
+    -fx-background-color: mainColor;
+    -fx-padding: 20 60 20 60;
+    -fx-background-radius: 0;
+}
 .custom-menu-bar
 {
     -fx-background-color: #ECC9C7;
 }
+.custom-menu-bar-part-pane
+{
+    -fx-background-color: #ECC9C7;
+}
+.custom-menu-bar-part-label
+{
+    -fx-font-size: 20;
+}
 .custom-menu-button-home
 {
-    -fx-background-image: url("Scenes/ButtonImg/homeicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Home/homeicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 
 }
 .custom-menu-button-home:hover
 {
-    -fx-background-image: url("/CSS/Scenes/ButtonImg/homefillicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Home/homefillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-dotoday
 {
-    -fx-background-image: url("/CSS/Scenes/ButtonImg/calendaricon.png");
+    -fx-background-image: url("Scenes/ButtonImg/DoToday/calendaricon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-dotoday:hover
 {
-    -fx-background-image: url("/CSS/Scenes/ButtonImg/calendarfillicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/DoToday/calendarfillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-overview
 {
-    -fx-background-image: url("/CSS/Scenes/ButtonImg/menuicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Overview/menuicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-overview:hover
 {
-    -fx-background-image: url("/CSS/Scenes/ButtonImg/menufillicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Overview/menufillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
-
-
-
 
 .custom-menu-seperator
 {
     -fx-max-width: 90;
     -fx-translate-x: 15;
 }
+/*
+-----------------------------------------------------------------Bar-V-END--------------------------------------------------
+ */
+/*
+-----------------------------------------------------------------Bar-V-START--------------------------------------------------
+ */
+.button-bar-h
+{
+    -fx-background-color: #ECC9C7;
+    -fx-background-radius: 0;
+}
+
+
+/*
+-----------------------------------------------------------------Bar-V-END--------------------------------------------------
+ */
+/*
+-----------------------------------------------------------------ChoiceLines-START-----------------------------------------
+ */
+.choice-textfield
+{
+    -fx-background-color: #E1E1E1;
+    -fx-padding: 15 30 15 30;
+    -fx-background-radius: 3;
+}
+.choice-textfield-error
+{
+    -fx-padding: 15 30 15 30;
+    -fx-background-color: red;
+}
+.choice-textfield-label
+{
+    -fx-font-size: 20;
+}
+.choice-textfield-textfield
+{
+    -fx-background-color: white;
+    -fx-border-color: grey;
+}
+.choice-combobox
+{
+    -fx-background-color: #E1E1E1;
+    -fx-padding: 15 30 15 30;
+    -fx-background-radius: 3;
+}
+.choice-combobox-error
+{
+    -fx-padding: 15 30 15 30;
+    -fx-background-color: red;
+}
+.choice-combobox-label
+{
+    -fx-font-size: 20;
+}
+.choice-combobox-combobox
+{
+    -fx-background-color: white;
+    -fx-border-color: grey;
+}
+/*
+-----------------------------------------------------------------ChoiceLines-END---------------------------------------------
+ */
+/*
+-----------------------------------------------------------------SceneParts-START--------------------------------------------
+ */
+
+.window-settings
+{
+    -fx-spacing: 5;
+    -fx-padding: 20 30 20 30;
+}
+
+/*
+-----------------------------------------------------------------SceneParts-END-----------------------------------------------
+ */

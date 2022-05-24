@@ -1,22 +1,12 @@
-package UI.Buttons.Menu;
+package UI.Buttons;
 
 import Application.Singleton.ControllerSingleton;
-import UI.Buttons.CustomButton;
 
-public class CustomMenuButton extends CustomButton {
+public class CustomButtonMenu extends CustomButton {
 
-    private String buttonText;
+    protected CustomButtonMenu(){}
 
-    public String getButtonText() {
-        return buttonText;
-    }
-
-    public CustomMenuButton(){
-        // Make this button use the custom-menu-button css styling
-        this.getStyleClass().add("custom-menu-button");
-    }
-
-    public CustomMenuButton CustomButton_Home() {
+    public CustomButton home() {
 
         // Set the text for the hover text
         this.buttonText = "Home";
@@ -33,7 +23,7 @@ public class CustomMenuButton extends CustomButton {
     }
 
 
-    public CustomMenuButton CustomButton_Overview() {
+    public CustomButton overview() {
 
         // Set the text for the hover text
         this.buttonText = "Overview";
@@ -49,7 +39,7 @@ public class CustomMenuButton extends CustomButton {
         return this;
     }
 
-    public CustomMenuButton CustomButton_DoToday() {
+    public CustomButton doToday() {
 
         // Set the text for the hover text
         this.buttonText = "Do-Today";

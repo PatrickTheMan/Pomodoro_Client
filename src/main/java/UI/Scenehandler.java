@@ -1,14 +1,12 @@
 package UI;
 
-import UI.Buttons.Menu.CustomMenuButton;
+import UI.Buttons.CustomButton;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
-import javafx.scene.Node;
+import UI.Structures.SceneStructureParts.SettingsWindow;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -17,18 +15,34 @@ import java.util.ArrayList;
 
 public class Scenehandler {
 
-    private Stage stage = new Stage();
-    private Scene scene = new Scene();
-    private BorderPane root = new BorderPane();
+    private Stage stage;
+    private Scene scene;
+    private BorderPane root;
 
-    public Scenehandler(){}
+    public Scenehandler(){
+
+        // Initiate the root
+        this.root = new BorderPane();
+
+        // Add the content to the root
+        this.root.setLeft(getMenuBar());
+
+        // Create the scene with the root
+        this.scene = new Scene(root, 1500, 750);
+
+        // Initiate the stage
+        this.stage = new Stage();
+
+        // Set the stage's scene
+        this.stage.setScene(scene);
+    }
 
     /**
      *
      * @return
      */
     public Stage getStage(){
-        return stage;
+        return this.stage;
     }
 
     /**
@@ -37,33 +51,39 @@ public class Scenehandler {
      */
     public void setStage(SceneType sceneType){
 
-        // Create the scene with the root
-        this.scene = new Scene(root, 1500, 750);
-
-        //
+        // Set the scene
         stage.setScene(this.scene);
 
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
-                stage.setTitle("Client Startup - Home");
+                this.stage.setTitle("Client Startup - Home");
+
+                // Set the main content
+                this.root.setCenter(getHomeScreen());
 
                 // Set the stylesheet for the scene
-                scene.getStylesheets().add(new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Home.css").toURI().toString());
+                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Home.css").toURI().toString());
 
             }
             case Overview ->{
-                stage.setTitle("Client Startup - Overview");
+                this.stage.setTitle("Client Startup - Overview");
+
+                // Set the main content
+                this.root.setCenter(getOverviewScreen());
 
                 // Set the stylesheet for the scene
-                scene.getStylesheets().add(new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Overview.css").toURI().toString());
+                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Overview.css").toURI().toString());
 
             }
             case DoToday -> {
-                stage.setTitle("Client Startup - DoToday");
+                this.stage.setTitle("Client Startup - DoToday");
+
+                // Set the main content
+                this.root.setCenter(getDoTodayScreen());
 
                 // Set the stylesheet for the scene
-                this.scene.getStylesheets().add(new File("src/main/resources/CSS/Scenes/ClientStyleSheet_DoToday.css").toURI().toString());
+                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_DoToday.css").toURI().toString());
 
             }
         }
@@ -83,76 +103,78 @@ public class Scenehandler {
      *
      * @return
      */
-    private Node getHomeNode(){
+    private VBox getMenuBar(){
 
-        HBox root = new HBox();
+        // Add the 3 buttons to the arraylist containing the different buttons
+        ArrayList<CustomButton> customButtons = new ArrayList<>();
+        customButtons.add(new CustomButton().menu().home());
+        customButtons.add(new CustomButton().menu().overview());
+        customButtons.add(new CustomButton().menu().doToday());
 
-        // Add the menu bar with 3 buttons
-        ArrayList<CustomMenuButton> customMenuButtons = new ArrayList<>();
-        customMenuButtons.add(new CustomMenuButton().CustomButton_Home());
-        customMenuButtons.add(new CustomMenuButton().CustomButton_Overview());
-        customMenuButtons.add(new CustomMenuButton().CustomButton_DoToday());
+        // Create the buttonpart of the menubar with the given arraylist of buttons
+        CustomMenuBar customMenuBar = new CustomMenuBar(customButtons);
 
-        CustomMenuBar customMenuBar = new CustomMenuBar(customMenuButtons);
-
-        root.getChildren().addAll(customMenuBar);
-
-        // Add content
-        VBox vBox = new VBox();
-
-        root.getChildren().add(vBox);
-
-
+        // Return the menubar
+        return customMenuBar;
     }
 
     /**
      *
      * @return
      */
-    private Node setOverviewNode(){
+    private Parent getHomeScreen(){
 
-        HBox root = new HBox();
-
-        // Add the menu bar with 3 buttons
-        ArrayList<CustomMenuButton> customMenuButtons = new ArrayList<>();
-        customMenuButtons.add(new CustomMenuButton().CustomButton_Home());
-        customMenuButtons.add(new CustomMenuButton().CustomButton_Overview());
-        customMenuButtons.add(new CustomMenuButton().CustomButton_DoToday());
-
-        CustomMenuBar customMenuBar = new CustomMenuBar(customMenuButtons);
-
-        root.getChildren().addAll(customMenuBar);
-
-        // Add content
-        VBox vBox = new VBox();
-
-        root.getChildren().add(vBox);
+        // Initiate the root for the screen
+        BorderPane root = new BorderPane();
 
 
-        // Create the scene with the root
-        Scene scene = new Scene(root, 1500, 750);
+        SettingsWindow settingsWindow = new SettingsWindow();
 
 
 
-        // Return the scene
-        return scene;
+        // Set center content of root
+        root.setCenter(settingsWindow);
+
+        // Move the menubar to the front, because of hover function
+        this.root.getLeft().getParent().toFront();
+
+        return root;
     }
 
     /**
      *
      * @return
      */
-    private Node getDoTodayNode() {
+    private Parent getOverviewScreen(){
+
+        // Initiate the root for the screen
+        BorderPane root = new BorderPane();
+
+
+
+        // Move the menubar to the front, because of hover function
+        this.root.getLeft().getParent().toFront();
+
+        return root;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private Parent getDoTodayScreen() {
+
+        // Initiate the root for the screen
+        BorderPane root = new BorderPane();
 
 
 
 
 
+        // Move the menubar to the front, because of hover function
+        this.root.getLeft().getParent().toFront();
 
-
-
-        // Return the scene
-        return scene;
+        return root;
     }
 
 }
