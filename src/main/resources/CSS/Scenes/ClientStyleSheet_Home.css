@@ -1,0 +1,60 @@
+
+/*
+-----------------------------------------------------------------Menu-START-------------------------------------------------
+ */
+.custom-menu-button
+{
+    -fx-background-color: #ECC9C7;
+    -fx-padding: 40 60 40 60;
+    -fx-background-radius: 0;
+}
+.custom-menu-bar
+{
+    -fx-background-color: #ECC9C7;
+}
+.custom-menu-button-home
+{
+    -fx-background-image: url("ButtonImg/homefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+
+}
+.custom-menu-button-home:hover
+{
+    -fx-background-image: url("ButtonImg/homefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-menu-button-dotoday
+{
+    -fx-background-image: url("ButtonImg/calendaricon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-menu-button-dotoday:hover
+{
+    -fx-background-image: url("ButtonImg/calendarfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-menu-button-overview
+{
+    -fx-background-image: url("ButtonImg/menuicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-menu-button-overview:hover
+{
+    -fx-background-image: url("ButtonImg/menufillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+
+.custom-menu-seperator
+{
+    -fx-max-width: 90;
+    -fx-translate-x: 15;
+}
+/*
+-----------------------------------------------------------------Menu-END--------------------------------------------------
+ */

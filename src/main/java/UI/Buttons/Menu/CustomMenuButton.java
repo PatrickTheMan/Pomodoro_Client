@@ -1,7 +1,7 @@
 package UI.Buttons.Menu;
 
+import Application.Singleton.ControllerSingleton;
 import UI.Buttons.CustomButton;
-import UI.Enums.ButtonType;
 
 public class CustomMenuButton extends CustomButton {
 
@@ -11,20 +11,58 @@ public class CustomMenuButton extends CustomButton {
         return buttonText;
     }
 
-    public CustomMenuButton(ButtonType buttonType){
-
-        // Run the super-classes constructor
-        super(buttonType);
-
+    public CustomMenuButton(){
         // Make this button use the custom-menu-button css styling
         this.getStyleClass().add("custom-menu-button");
+    }
 
-        // Give the button a behind the icon text
-        switch (buttonType){
-            case Home -> buttonText = "Home";
-            case Overview -> buttonText = "Overview";
-            case DoToday -> buttonText = "Do-Today";
-        }
+    public CustomMenuButton CustomButton_Home() {
+
+        // Set the text for the hover text
+        this.buttonText = "Home";
+
+        // Make this button use the custom-button css styling
+        this.getStyleClass().add("custom-menu-button-home");
+
+        // Give the button the controls
+        this.setOnAction(e -> {
+            ControllerSingleton.getInstance().setSceneHome();
+        });
+
+        return this;
+    }
+
+
+    public CustomMenuButton CustomButton_Overview() {
+
+        // Set the text for the hover text
+        this.buttonText = "Overview";
+
+        // Make this button use the custom-button css styling
+        this.getStyleClass().add("custom-menu-button-overview");
+
+        // Give the button the controls
+        this.setOnAction(e -> {
+            ControllerSingleton.getInstance().setSceneOverview();
+        });
+
+        return this;
+    }
+
+    public CustomMenuButton CustomButton_DoToday() {
+
+        // Set the text for the hover text
+        this.buttonText = "Do-Today";
+
+        // Make this button use the custom-button css styling
+        this.getStyleClass().add("custom-menu-button-dotoday");
+
+        // Give the button the controls
+        this.setOnAction(e -> {
+            ControllerSingleton.getInstance().setSceneDoToday();
+        });
+
+        return this;
     }
 
 }

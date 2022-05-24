@@ -1,6 +1,8 @@
 package UI.Structures.MenuBar;
 
 import UI.Buttons.Menu.CustomMenuButton;
+import UI.Structures.MenuBar.Parts.CustomMenuBarPart;
+import UI.Structures.MenuBar.Parts.CustomMenuSeperator;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 

@@ -4,17 +4,22 @@ import UI.Scenehandler;
 
 public class ScenehandlerSingleton {
 
-    private static Scenehandler scenehandler;
+    private static Scenehandler instance;
 
-    public ScenehandlerSingleton(){}
+    // Private so you can't "new" it
+    private ScenehandlerSingleton(){}
 
-    public static Scenehandler getInstance(){
+    /**
+     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * @return the instance
+     */
+    public synchronized static Scenehandler getInstance(){
         // Create the instance if it hasn't been initiated
-        if (scenehandler==null){
-            scenehandler = new Scenehandler();
+        if (instance==null){
+            instance = new Scenehandler();
         }
         // Return the instance
-        return scenehandler;
+        return instance;
     }
 
 }

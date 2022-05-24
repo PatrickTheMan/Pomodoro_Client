@@ -1,6 +1,5 @@
-package UI.Structures.MenuBar;
+package UI.Structures.MenuBar.Parts;
 
-import javafx.geometry.Orientation;
 import javafx.scene.control.Separator;
 
 public class CustomMenuSeperator extends Separator {

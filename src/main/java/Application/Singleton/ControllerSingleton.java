@@ -4,17 +4,22 @@ import Application.Controller;
 
 public class ControllerSingleton {
 
-    private static Controller controller;
+    private static Controller instance;
 
-    public ControllerSingleton(){}
+    // Private so you can't "new" it
+    private ControllerSingleton(){}
 
-    public static Controller getInstance(){
+    /**
+     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * @return the instance
+     */
+    public synchronized static Controller getInstance(){
         // Create the instance if it hasn't been initiated
-        if (controller==null){
-            controller = new Controller();
+        if (instance==null){
+            instance = new Controller();
         }
         // Return the instance
-        return controller;
+        return instance;
     }
 
 }
