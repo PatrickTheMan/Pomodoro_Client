@@ -15,7 +15,15 @@ import java.util.ArrayList;
 public class ChoiceComboBox extends HBox {
 
     private Label textLabel;
-    private ComboBox choicebox;
+    private ComboBox comboBox;
+
+    public Label getTextLabel() {
+        return textLabel;
+    }
+
+    public ComboBox getChoicebox() {
+        return comboBox;
+    }
 
     /**
      *
@@ -25,14 +33,14 @@ public class ChoiceComboBox extends HBox {
     public ChoiceComboBox(String text, ArrayList<String> choices){
 
         // Shared setup of the Hbox
-        normalSetup(false,text, choices);
+        NormalSetup(false,text, choices);
 
         // Set the preferred label size
         textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
         textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
 
         // Set the preferred size of the textfield to be max length
-        choicebox.prefWidthProperty().bind(this.widthProperty());
+        comboBox.prefWidthProperty().bind(this.widthProperty());
 
     }
 
@@ -45,15 +53,15 @@ public class ChoiceComboBox extends HBox {
     public ChoiceComboBox(boolean writeAble,String text, ArrayList<String> choices){
 
         // Shared setup of the Hbox
-        normalSetup(writeAble,text, choices);
+        NormalSetup(writeAble,text, choices);
 
         // Set the preferred label size
         textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
         textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
 
         // Set the preferred size of the textfield to be max length
-        choicebox.prefWidthProperty().bind(this.widthProperty());
-        choicebox.prefHeightProperty().bind(this.heightProperty());
+        comboBox.prefWidthProperty().bind(this.widthProperty());
+        comboBox.prefHeightProperty().bind(this.heightProperty());
 
     }
 
@@ -67,15 +75,15 @@ public class ChoiceComboBox extends HBox {
     public ChoiceComboBox(String text, ArrayList<String> choices ,double width, double height){
 
         // Shared setup of the Hbox
-        normalSetup(false,text, choices);
+        NormalSetup(false,text, choices);
 
         // Set the preferred label size
         textLabel.setMinWidth(width/3);
         textLabel.setMinHeight(height/3);
 
         // Set the preferred size of the textfield to be max length
-        choicebox.setMinWidth(width/3*2);
-        choicebox.setMinHeight(height/3*2);
+        comboBox.setMinWidth(width/3*2);
+        comboBox.setMinHeight(height/3*2);
 
     }
 
@@ -90,15 +98,15 @@ public class ChoiceComboBox extends HBox {
     public ChoiceComboBox(boolean writeAble,String text, ArrayList<String> choices ,double width, double height){
 
         // Shared setup of the Hbox
-        normalSetup(writeAble,text, choices);
+        NormalSetup(writeAble,text, choices);
 
         // Set the preferred label size
         textLabel.setMinWidth(width/3);
         textLabel.setMinHeight(height/3);
 
         // Set the preferred size of the textfield to be max length
-        choicebox.setMinWidth(width/3*2);
-        choicebox.setMinHeight(height/3*2);
+        comboBox.setMinWidth(width/3*2);
+        comboBox.setMinHeight(height/3*2);
 
     }
 
@@ -107,7 +115,7 @@ public class ChoiceComboBox extends HBox {
      * @param text
      * @param choices
      */
-    private void normalSetup(boolean writeAble,String text, ArrayList<String> choices){
+    private void NormalSetup(boolean writeAble,String text, ArrayList<String> choices){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("choice-combobox");
@@ -117,18 +125,18 @@ public class ChoiceComboBox extends HBox {
         textLabel.getStyleClass().add("choice-combobox-label");
 
         // Make the textfield, use custom css styling, set if write able and limit the shown items to 5
-        choicebox = new ComboBox();
-        choicebox.getStyleClass().add("choice-combobox-combobox");
-        choicebox.setEditable(writeAble);
-        choicebox.setVisibleRowCount(5);
+        comboBox = new ComboBox();
+        comboBox.getStyleClass().add("choice-combobox-combobox");
+        comboBox.setEditable(writeAble);
+        comboBox.setVisibleRowCount(5);
 
         // Add the choices to the combobox
         for (String s:choices) {
-            choicebox.getItems().add(s);
+            comboBox.getItems().add(s);
         }
 
         // Set the content of the class object
-        this.getChildren().addAll(textLabel,choicebox);
+        this.getChildren().addAll(textLabel,comboBox);
 
         // Set alignment
         this.setAlignment(Pos.TOP_LEFT);
@@ -138,18 +146,18 @@ public class ChoiceComboBox extends HBox {
 
             // Removes the label or adds it
             if (newVal.intValue()<textLabel.getText().length()*30){
-                this.getChildren().setAll(choicebox);
-                choicebox.setPromptText(textLabel.getText());
+                this.getChildren().setAll(comboBox);
+                comboBox.setPromptText(textLabel.getText());
             } else {
-                this.getChildren().setAll(textLabel,choicebox);
-                choicebox.setPromptText("");
+                this.getChildren().setAll(textLabel,comboBox);
+                comboBox.setPromptText("");
             }
 
             // Changes the size of the label text
-            if (newVal.intValue()/40>=18){
-                textLabel.setStyle("-fx-font-size: 18;");
+            if (newVal.intValue()/40>=16){
+                textLabel.setStyle("-fx-font-size: 16;");
             }
-            if (newVal.intValue()/40<18 && newVal.intValue()/40>12){
+            if (newVal.intValue()/40<16 && newVal.intValue()/40>11){
                 textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
             }
 

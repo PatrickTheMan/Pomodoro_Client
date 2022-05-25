@@ -15,11 +15,11 @@ public class CustomButton extends Button {
         this.getStyleClass().add("custom-button");
     }
 
-    public CustomButtonMenu menu(){
+    public CustomButtonMenu Menu(){
         return new CustomButtonMenu();
     }
 
-    public CustomButtonOther other(){
+    public CustomButtonOther Other(){
         return new CustomButtonOther();
     }
 

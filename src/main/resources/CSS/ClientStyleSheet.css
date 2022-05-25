@@ -14,8 +14,12 @@
 .custom-button
 {
     -fx-background-color: -fx-colorRed;
-    -fx-padding: 20 60 20 60;
-    -fx-background-radius: 0;
+    -fx-background-radius: 10;
+}
+.custom-menu-button
+{
+    -fx-padding: 30 60 30 60;
+    -fx-border-radius: 0;
 }
 .custom-menu-bar
 {
@@ -25,8 +29,11 @@
 .custom-menu-bar-part-pane
 {
     -fx-background-color: -fx-colorRed;
-
     -fx-background-radius: 0 5 5 0;
+
+    -fx-border-color: white;
+    -fx-border-radius: 0 5 5 0;
+
 }
 .custom-menu-bar-part-label
 {
@@ -80,25 +87,27 @@
 /*
 -----------------------------------------------------------------Bar-V-START--------------------------------------------------
  */
-.button-bar-h
+.node-bar-h
 {
     -fx-background-color: white;
     -fx-border-color: -fx-colorGrey;
-    -fx-padding: 10 30 10 30;
+    -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
-.button-bar-h-button
+.node-bar-h-node
 {
     -fx-background-color: -fx-colorRed;
+    -fx-border-color: -fx-colorGrey;
 
     -fx-background-image: url("Scenes/ButtonImg/Overview/menufillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 
+
     -fx-border-radius: 10;
     -fx-background-radius: 10;
-    -fx-padding: 20 30 20 30;
+    -fx-padding: 10 20 10 20;
 }
 
 
@@ -165,9 +174,13 @@
 .headline
 {
     -fx-background-color: white;
+    -fx-padding: 10 10 0 10;
+}
+.headline-halfround
+{
+    -fx-background-color: white;
     -fx-border-color: -fx-colorGrey;
-    -fx-background-radius: 10 10 0 0;
-    -fx-border-radius: 10 10 0 0;
+    -fx-padding: 0;
 }
 .headline-label
 {

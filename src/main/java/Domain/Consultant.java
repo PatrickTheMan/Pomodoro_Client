@@ -58,6 +58,14 @@ public class Consultant {
         this.longBreakTime = longBreakTime;
     }
 
+    public void setConsultant(Consultant consultant){
+        this.firstName = consultant.getFirstName();
+        this.lastName = consultant.getLastName();
+        this.taskTime = consultant.getTaskTime();
+        this.breakTime = consultant.getBreakTime();
+        this.longBreakTime = consultant.getLongBreakTime();
+    }
+
     public void loadTestConsultant(){
         firstName = "Jhon";
         lastName = "Nielsen";
@@ -68,10 +76,10 @@ public class Consultant {
 
     /**
      *
-     * SKAL FJERNES EFTER DB BLIVER LAVET
+     *
      * @return
      */
-    public ArrayList<Consultant> loadTestConsultants(){
+    public ArrayList<Consultant> getTestConsultants(){
 
         ArrayList<Consultant> consultants = new ArrayList<>();
 
@@ -82,5 +90,18 @@ public class Consultant {
         consultants.add(new Consultant("Bo","Schnell",25,5,30));
 
         return consultants;
+    }
+
+    public  ArrayList<String> getTestConsultantsNames(){
+
+        ArrayList<String> names = new ArrayList<>();
+
+        ArrayList<Consultant> consultants = getTestConsultants();
+
+        for (Consultant c: consultants) {
+            names.add(c.getFirstName()+" "+getLastName());
+        }
+
+        return names;
     }
 }

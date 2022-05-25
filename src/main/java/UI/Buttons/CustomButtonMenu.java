@@ -6,7 +6,7 @@ public class CustomButtonMenu extends CustomButton {
 
     protected CustomButtonMenu(){}
 
-    public CustomButton home() {
+    public CustomButton Home() {
 
         // Set the text for the hover text
         this.buttonText = "Home";
@@ -23,7 +23,7 @@ public class CustomButtonMenu extends CustomButton {
     }
 
 
-    public CustomButton overview() {
+    public CustomButton Overview() {
 
         // Set the text for the hover text
         this.buttonText = "Overview";
@@ -39,7 +39,7 @@ public class CustomButtonMenu extends CustomButton {
         return this;
     }
 
-    public CustomButton doToday() {
+    public CustomButton DoToday() {
 
         // Set the text for the hover text
         this.buttonText = "Do-Today";

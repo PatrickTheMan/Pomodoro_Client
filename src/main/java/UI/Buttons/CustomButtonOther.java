@@ -1,15 +1,22 @@
 package UI.Buttons;
 
+import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
+import Domain.Singletons.ConsultantSingleton;
 import Domain.Task;
+import UI.Structures.SceneStructureParts.CustomWindow;
+import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
+import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
+
+import java.util.ArrayList;
 
 public class CustomButtonOther extends CustomButton {
 
     protected CustomButtonOther(){}
 
-    public CustomButton add(Consultant consultant){
+    public CustomButton Add(Consultant consultant){
         // Get the setup
-        normalAddSetup();
+        NormalAddSetup();
         // Give the button the controls
         this.setOnAction(e -> {
 
@@ -17,9 +24,9 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButton add(Task task){
+    public CustomButton Add(Task task){
         // Get the setup
-        normalAddSetup();
+        NormalAddSetup();
         // Give the button the controls
         this.setOnAction(e -> {
 
@@ -27,7 +34,7 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    private void normalAddSetup(){
+    private void NormalAddSetup(){
         // Set the text for the hover text
         this.buttonText = "Add";
 
@@ -35,9 +42,9 @@ public class CustomButtonOther extends CustomButton {
         this.getStyleClass().add("custom-menu-button-add");
     }
 
-    public CustomButton remove(Consultant consultant){
+    public CustomButton Remove(Consultant consultant){
         // Get the setup
-        normalRemoveSetup();
+        NormalRemoveSetup();
         // Give the button the controls
         this.setOnAction(e -> {
 
@@ -45,9 +52,9 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButton remove(Task task){
+    public CustomButton Remove(Task task){
         // Get the setup
-        normalRemoveSetup();
+        NormalRemoveSetup();
         // Give the button the controls
         this.setOnAction(e -> {
 
@@ -55,7 +62,7 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    private void normalRemoveSetup(){
+    private void NormalRemoveSetup(){
         // Set the text for the hover text
         this.buttonText = "Remove";
 
@@ -63,17 +70,23 @@ public class CustomButtonOther extends CustomButton {
         this.getStyleClass().add("custom-menu-button-remove");
     }
 
-    public CustomButton save(){
+    public CustomButton Save(ChoiceComboBox consultantChoice, ArrayList<Consultant> consultants){
         // Get the setup
-        normalSaveSetup();
-        // Give the button the controls
+        NormalSaveSetup();
+        // Saves the consultants settings
         this.setOnAction(e -> {
-
+            if (consultantChoice.getChoicebox().getValue() != null && !consultantChoice.getChoicebox().getValue().toString().equals("")){
+                for (Consultant c: consultants) {
+                    if (consultantChoice.getChoicebox().getValue().equals(c.getFirstName()+" "+c.getLastName())){
+                        ControllerSingleton.getInstance().setConsultant(c);
+                    }
+                }
+            }
         });
         return this;
     }
 
-    private void normalSaveSetup(){
+    private void NormalSaveSetup(){
         // Set the text for the hover text
         this.buttonText = "Save";
 

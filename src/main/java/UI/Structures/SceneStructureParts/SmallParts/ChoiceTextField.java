@@ -30,7 +30,7 @@ public class ChoiceTextField extends HBox {
     public ChoiceTextField(String text){
 
         // Shared setup of the Hbox
-        normalSetup(text, true,false);
+        NormalSetup(text, true,false);
 
         //Set the prefered label size
         textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
@@ -51,7 +51,7 @@ public class ChoiceTextField extends HBox {
     public ChoiceTextField(String text, boolean sizing, boolean hideLabel){
 
         // Shared setup of the Hbox
-        normalSetup(text, sizing, hideLabel);
+        NormalSetup(text, sizing, hideLabel);
 
         if (hideLabel){
             //Set the prefered label size
@@ -76,7 +76,7 @@ public class ChoiceTextField extends HBox {
     public ChoiceTextField(String text, double width, double height, boolean sizing, boolean hideLabel){
 
         // Shared setup of the Hbox
-        normalSetup(text, sizing, hideLabel);
+        NormalSetup(text, sizing, hideLabel);
 
         // Set the prefered label size
         textLabel.setMinWidth(width/3);
@@ -92,7 +92,7 @@ public class ChoiceTextField extends HBox {
      *
      * @param text
      */
-    private void normalSetup(String text, boolean sizing, boolean hideLabel){
+    private void NormalSetup(String text, boolean sizing, boolean hideLabel){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("choice-textfield");
@@ -125,10 +125,10 @@ public class ChoiceTextField extends HBox {
             }
 
             // Changes the size of the label text
-            if (newVal.intValue()/40>=18){
-                textLabel.setStyle("-fx-font-size: 18;");
+            if (newVal.intValue()/40>=16){
+                textLabel.setStyle("-fx-font-size: 16;");
             }
-            if (newVal.intValue()/40<18 && newVal.intValue()/40>12){
+            if (newVal.intValue()/40<16 && newVal.intValue()/40>11){
                 textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
             }
 

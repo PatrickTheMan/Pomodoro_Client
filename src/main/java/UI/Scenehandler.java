@@ -1,11 +1,17 @@
 package UI;
 
+import Domain.Consultant;
+import Domain.Singletons.ConsultantSingleton;
 import UI.Buttons.CustomButton;
+import UI.Enums.MyPos;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.CustomWindow;
-import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
+import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
+import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
+import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -32,7 +38,7 @@ public class Scenehandler {
         this.mainPane = new BorderPane();
 
         // Create the scene with the root
-        this.scene = new Scene(this.root, 1500, 750);
+        this.scene = new Scene(this.root, 1600, 800);
 
         // Set the content of the main pane
         mainPane.setLeft(getMenuBar());
@@ -127,9 +133,9 @@ public class Scenehandler {
 
         // Add the 3 buttons to the arraylist containing the different buttons
         ArrayList<CustomButton> customButtons = new ArrayList<>();
-        customButtons.add(new CustomButton().menu().home());
-        customButtons.add(new CustomButton().menu().overview());
-        customButtons.add(new CustomButton().menu().doToday());
+        customButtons.add(new CustomButton().Menu().Home());
+        customButtons.add(new CustomButton().Menu().Overview());
+        customButtons.add(new CustomButton().Menu().DoToday());
 
         // Create the buttonpart of the menubar with the given arraylist of buttons
         CustomMenuBar customMenuBar = new CustomMenuBar(customButtons);
@@ -150,19 +156,20 @@ public class Scenehandler {
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-home");
 
+        CustomWindow headline = new CustomWindow().Headline("Home");
 
-
-        CustomWindow settingsWindow = new CustomWindow().settings(300,400);
-        CustomWindow settingsWindow2 = new CustomWindow().settings();
-        CustomWindow settingsWindow3 = new CustomWindow().settings();
+        CustomWindow settingsWindow = new CustomWindow().Settings(300,375);
+        CustomWindow settingsWindow2 = new CustomWindow().Settings();
+        CustomWindow settingsWindow3 = new CustomWindow().Settings();
 
 
         //
         HBox sideBySide = new HBox();
         sideBySide.getChildren().addAll(settingsWindow2,settingsWindow3);
 
+
         // Set center content of root
-        root.getChildren().addAll(settingsWindow,sideBySide);
+        root.getChildren().addAll(headline,settingsWindow,sideBySide);
 
         return root;
     }
@@ -180,7 +187,13 @@ public class Scenehandler {
         root.getStyleClass().add("screen-overview");
 
 
+        CustomWindow headline = new CustomWindow().Headline("Overview");
 
+
+
+
+
+        root.getChildren().addAll(headline);
 
         return root;
     }
@@ -197,10 +210,17 @@ public class Scenehandler {
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-dotoday");
 
+        // Add headline
+        CustomWindow headline = new CustomWindow().Headline("Do Today");
+
+        // Add the Nodebar underneath
+        //CustomWindow barH = new CustomWindow().ButtonBarH();
 
 
 
 
+
+        root.getChildren().addAll(headline);
 
         return root;
     }

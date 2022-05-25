@@ -21,6 +21,9 @@ public class CustomMenuBar extends VBox {
 
         // Add in the buttons in the menubar
         for (CustomButton c : arrayMenuButtonList) {
+            // Make this object use the custom css styling
+            c.getStyleClass().add("custom-menu-button");
+
             this.getChildren().addAll(new CustomMenuBarPart(c),new CustomMenuSeperator());
         }
 
