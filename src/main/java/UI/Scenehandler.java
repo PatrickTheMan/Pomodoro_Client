@@ -3,11 +3,11 @@ package UI;
 import UI.Buttons.CustomButton;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
-import UI.Structures.SceneStructureParts.SettingsWindow;
-import javafx.scene.Parent;
+import UI.Structures.SceneStructureParts.CustomWindow;
+import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -17,24 +17,47 @@ public class Scenehandler {
 
     private Stage stage;
     private Scene scene;
-    private BorderPane root;
+    private StackPane root;
+    private BorderPane mainPane;
 
     public Scenehandler(){
 
         // Initiate the root
-        this.root = new BorderPane();
+        this.root = new StackPane();
 
-        // Add the content to the root
-        this.root.setLeft(getMenuBar());
+        // Set the alignment
+        this.root.setAlignment(Pos.TOP_LEFT);
+
+        // Initiate the mainPane
+        this.mainPane = new BorderPane();
 
         // Create the scene with the root
-        this.scene = new Scene(root, 1500, 750);
+        this.scene = new Scene(this.root, 1500, 750);
+
+        // Set the content of the main pane
+        mainPane.setLeft(getMenuBar());
+
+        // The menubar is made as a double for overlay purposes
+        VBox menuBar = getMenuBar();
+
+        // Add the content to the root
+        this.root.getChildren().addAll(mainPane,menuBar);
 
         // Initiate the stage
         this.stage = new Stage();
 
         // Set the stage's scene
         this.stage.setScene(scene);
+
+        // Set the stagestyle
+        //this.stage.initStyle(StageStyle.TRANSPARENT);
+
+        // Set the stages title
+        this.stage.setTitle("Client Startup");
+
+        // Set the stylesheet for the scene
+        this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString());
+
     }
 
     /**
@@ -51,16 +74,13 @@ public class Scenehandler {
      */
     public void setStage(SceneType sceneType){
 
-        // Set the scene
-        stage.setScene(this.scene);
-
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
                 this.stage.setTitle("Client Startup - Home");
 
                 // Set the main content
-                this.root.setCenter(getHomeScreen());
+                this.mainPane.setCenter(getHomeScreen());
 
                 // Set the stylesheet for the scene
                 this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Home.css").toURI().toString());
@@ -70,7 +90,7 @@ public class Scenehandler {
                 this.stage.setTitle("Client Startup - Overview");
 
                 // Set the main content
-                this.root.setCenter(getOverviewScreen());
+                this.mainPane.setCenter(getOverviewScreen());
 
                 // Set the stylesheet for the scene
                 this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Overview.css").toURI().toString());
@@ -80,7 +100,7 @@ public class Scenehandler {
                 this.stage.setTitle("Client Startup - DoToday");
 
                 // Set the main content
-                this.root.setCenter(getDoTodayScreen());
+                this.mainPane.setCenter(getDoTodayScreen());
 
                 // Set the stylesheet for the scene
                 this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_DoToday.css").toURI().toString());
@@ -122,21 +142,27 @@ public class Scenehandler {
      *
      * @return
      */
-    private Parent getHomeScreen(){
+    private VBox getHomeScreen(){
 
         // Initiate the root for the screen
-        BorderPane root = new BorderPane();
+        VBox root = new VBox();
+
+        // Make this vbox use the custom css styling
+        root.getStyleClass().add("screen-home");
 
 
-        SettingsWindow settingsWindow = new SettingsWindow();
+
+        CustomWindow settingsWindow = new CustomWindow().settings(300,400);
+        CustomWindow settingsWindow2 = new CustomWindow().settings();
+        CustomWindow settingsWindow3 = new CustomWindow().settings();
 
 
+        //
+        HBox sideBySide = new HBox();
+        sideBySide.getChildren().addAll(settingsWindow2,settingsWindow3);
 
         // Set center content of root
-        root.setCenter(settingsWindow);
-
-        // Move the menubar to the front, because of hover function
-        this.root.getLeft().getParent().toFront();
+        root.getChildren().addAll(settingsWindow,sideBySide);
 
         return root;
     }
@@ -145,15 +171,16 @@ public class Scenehandler {
      *
      * @return
      */
-    private Parent getOverviewScreen(){
+    private VBox getOverviewScreen(){
 
         // Initiate the root for the screen
-        BorderPane root = new BorderPane();
+        VBox root = new VBox();
+
+        // Make this vbox use the custom css styling
+        root.getStyleClass().add("screen-overview");
 
 
 
-        // Move the menubar to the front, because of hover function
-        this.root.getLeft().getParent().toFront();
 
         return root;
     }
@@ -162,17 +189,18 @@ public class Scenehandler {
      *
      * @return
      */
-    private Parent getDoTodayScreen() {
+    private VBox getDoTodayScreen() {
 
         // Initiate the root for the screen
-        BorderPane root = new BorderPane();
+        VBox root = new VBox();
+
+        // Make this vbox use the custom css styling
+        root.getStyleClass().add("screen-dotoday");
 
 
 
 
 
-        // Move the menubar to the front, because of hover function
-        this.root.getLeft().getParent().toFront();
 
         return root;
     }

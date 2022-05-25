@@ -122,7 +122,6 @@ public class ChoiceComboBox extends HBox {
         choicebox.setEditable(writeAble);
         choicebox.setVisibleRowCount(5);
 
-
         // Add the choices to the combobox
         for (String s:choices) {
             choicebox.getItems().add(s);
@@ -133,6 +132,28 @@ public class ChoiceComboBox extends HBox {
 
         // Set alignment
         this.setAlignment(Pos.TOP_LEFT);
+
+        // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
+        this.widthProperty().addListener((obs, old, newVal) -> {
+
+            // Removes the label or adds it
+            if (newVal.intValue()<textLabel.getText().length()*30){
+                this.getChildren().setAll(choicebox);
+                choicebox.setPromptText(textLabel.getText());
+            } else {
+                this.getChildren().setAll(textLabel,choicebox);
+                choicebox.setPromptText("");
+            }
+
+            // Changes the size of the label text
+            if (newVal.intValue()/40>=18){
+                textLabel.setStyle("-fx-font-size: 18;");
+            }
+            if (newVal.intValue()/40<18 && newVal.intValue()/40>12){
+                textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
+            }
+
+        });
 
     }
 

@@ -18,6 +18,9 @@ public class ButtonBarH extends HBox {
 
         // Add in the buttons in the bar
         for (CustomButton c : buttonArrayList) {
+            // Make this button use the custom-menu css styling
+            c.getStyleClass().add("button-bar-h-button");
+            // Add the button
             this.getChildren().add(c);
         }
 
@@ -30,6 +33,9 @@ public class ButtonBarH extends HBox {
 
         // Set alignment
         this.setAlignment(Pos.BOTTOM_RIGHT);
+
+        // Make this button use the custom-menu css styling
+        customButton.getStyleClass().add("button-bar-h-button");
 
         // Add in the button in the bar
         this.getChildren().add(customButton);

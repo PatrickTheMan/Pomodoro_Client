@@ -24,8 +24,6 @@ public class CustomMenuBar extends VBox {
             this.getChildren().addAll(new CustomMenuBarPart(c),new CustomMenuSeperator());
         }
 
-
-
     }
 
 

@@ -12,7 +12,7 @@ public class CustomButton extends Button {
 
     public CustomButton(){
         // Make this button use the custom-menu-button css styling
-        this.getStyleClass().add("custom-menu-button");
+        this.getStyleClass().add("custom-button");
     }
 
     public CustomButtonMenu menu(){

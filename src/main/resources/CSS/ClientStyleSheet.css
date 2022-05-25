@@ -1,20 +1,32 @@
 
+
+*
+{
+    -fx-colorRed: #ECC9C7;
+    -fx-colorRedFade: #fae0de;
+    -fx-colorGrey: #b3b3b3;
+}
+
+
 /*
 -----------------------------------------------------------------Bar-V-START-------------------------------------------------
  */
-.custom-menu-button
+.custom-button
 {
-    -fx-background-color: mainColor;
+    -fx-background-color: -fx-colorRed;
     -fx-padding: 20 60 20 60;
     -fx-background-radius: 0;
 }
 .custom-menu-bar
 {
-    -fx-background-color: #ECC9C7;
+    -fx-background-color: -fx-colorRed;
+    -fx-max-width: 50;
 }
 .custom-menu-bar-part-pane
 {
-    -fx-background-color: #ECC9C7;
+    -fx-background-color: -fx-colorRed;
+
+    -fx-background-radius: 0 5 5 0;
 }
 .custom-menu-bar-part-label
 {
@@ -25,7 +37,6 @@
     -fx-background-image: url("Scenes/ButtonImg/Home/homeicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
-
 }
 .custom-menu-button-home:hover
 {
@@ -71,8 +82,23 @@
  */
 .button-bar-h
 {
-    -fx-background-color: #ECC9C7;
-    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-border-color: -fx-colorGrey;
+    -fx-padding: 10 30 10 30;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.button-bar-h-button
+{
+    -fx-background-color: -fx-colorRed;
+
+    -fx-background-image: url("Scenes/ButtonImg/Overview/menufillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 20 30 20 30;
 }
 
 
@@ -84,57 +110,101 @@
  */
 .choice-textfield
 {
-    -fx-background-color: #E1E1E1;
-    -fx-padding: 15 30 15 30;
-    -fx-background-radius: 3;
+    -fx-background-color: white;
+    -fx-border-color: -fx-colorGrey;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 .choice-textfield-error
 {
-    -fx-padding: 15 30 15 30;
+    -fx-padding: 10 10 10 10;
     -fx-background-color: red;
 }
 .choice-textfield-label
 {
-    -fx-font-size: 20;
+
 }
 .choice-textfield-textfield
 {
     -fx-background-color: white;
     -fx-border-color: grey;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 .choice-combobox
 {
-    -fx-background-color: #E1E1E1;
-    -fx-padding: 15 30 15 30;
-    -fx-background-radius: 3;
+    -fx-background-color: white;
+    -fx-border-color: -fx-colorGrey;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 .choice-combobox-error
 {
-    -fx-padding: 15 30 15 30;
+    -fx-padding: 10 10 10 10;
     -fx-background-color: red;
 }
 .choice-combobox-label
 {
-    -fx-font-size: 20;
+
 }
 .choice-combobox-combobox
 {
     -fx-background-color: white;
     -fx-border-color: grey;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 /*
 -----------------------------------------------------------------ChoiceLines-END---------------------------------------------
  */
 /*
------------------------------------------------------------------SceneParts-START--------------------------------------------
+-----------------------------------------------------------------Headline-START-----------------------------------------
  */
-
-.window-settings
+.headline
 {
-    -fx-spacing: 5;
-    -fx-padding: 20 30 20 30;
+    -fx-background-color: white;
+    -fx-border-color: -fx-colorGrey;
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-radius: 10 10 0 0;
+}
+.headline-label
+{
+    -fx-font-weight: bold;
+}
+/*
+-----------------------------------------------------------------Headline-END-----------------------------------------
+ */
+/*
+-----------------------------------------------------------------Windows-START--------------------------------------------
+ */
+.custom-window
+{
+    -fx-background-color: white;
+    -fx-padding: 10 10 10 10;
+}
+.custom-window-settings
+{
+    -fx-background-color: -fx-colorRedFade;
+    -fx-border-color: -fx-colorGrey;
+    -fx-background-radius: 0 0 10 10;
+    -fx-border-radius: 0 0 10 10;
+    -fx-spacing: 10;
 }
 
 /*
------------------------------------------------------------------SceneParts-END-----------------------------------------------
+-----------------------------------------------------------------Windows-END-----------------------------------------------
+ */
+
+/*
+-----------------------------------------------------------------Screens-START--------------------------------------------
+ */
+.screen-home
+{
+
+}
+
+/*
+-----------------------------------------------------------------Screens-END--------------------------------------------
  */

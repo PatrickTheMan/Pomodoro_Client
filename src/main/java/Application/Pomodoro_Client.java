@@ -1,6 +1,5 @@
 package Application;
 
-import UI.Enums.SceneType;
 import UI.Singletons.ScenehandlerSingleton;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,7 +9,7 @@ public class Pomodoro_Client extends Application {
     public void start(Stage stage) {
 
         // Set the scene the scenehandler should work with
-        ScenehandlerSingleton.getInstance().setStage(SceneType.Home);
+        ScenehandlerSingleton.getInstance();
 
         // Get and set the stage
         stage=ScenehandlerSingleton.getInstance().getStage();

@@ -1,17 +1,16 @@
-package UI.Structures.SceneStructureParts;
+package UI.Structures.SceneStructureParts.Windows;
 
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import UI.Buttons.CustomButton;
-import UI.Buttons.CustomButtonOther;
 import UI.Structures.SceneStructureParts.SmallParts.ButtonBarH;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
-import javafx.scene.layout.VBox;
+import UI.Structures.SceneStructureParts.CustomWindow;
 
 import java.util.ArrayList;
 
-public class SettingsWindow extends VBox {
+public class SettingsWindow extends CustomWindow {
 
     private ArrayList<Consultant> consultants = new ArrayList<>();
 
@@ -25,40 +24,11 @@ public class SettingsWindow extends VBox {
 
     /**
      *
-     * @param height
-     */
-    public SettingsWindow(int height){
-        // Normal setup
-        normalSetup();
-
-        // Set preferred size
-        this.setPrefHeight(height);
-        this.setMinHeight(height);
-        this.setMaxHeight(height);
-    }
-
-    /**
-     *
-     * @param width
-     * @param height
-     */
-    public SettingsWindow(int width, int height){
-        // Normal setup
-        normalSetup();
-
-        // Set preferred size
-        this.setPrefSize(width,height);
-        this.setMinSize(width,height);
-        this.setMaxSize(width,height);
-    }
-
-    /**
-     *
      */
     private void normalSetup(){
 
         // Make this object use the custom-menu css styling
-        this.getStyleClass().add("window-settings");
+        this.getStyleClass().add("custom-window-settings");
 
         // Get The different consultants
         ConsultantSingleton.getInstance().loadTestConsultants();
