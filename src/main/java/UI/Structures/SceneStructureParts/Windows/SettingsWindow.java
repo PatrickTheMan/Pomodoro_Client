@@ -1,6 +1,5 @@
 package UI.Structures.SceneStructureParts.Windows;
 
-import Application.Controller;
 import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
@@ -64,7 +63,7 @@ public class SettingsWindow extends CustomWindow {
         consultantChoice.getChoicebox().setOnAction(actionEvent -> {
             if (consultantChoice.getChoicebox().getValue() != null && !consultantChoice.getChoicebox().getValue().toString().equals("")){
                 for (Consultant c: consultants) {
-                    if (consultantChoice.getChoicebox().getValue().equals(c.getFirstName()+" "+c.getLastName())){
+                    if (consultantChoice.getChoicebox().getValue().equals(c.getFullName())){
                         ControllerSingleton.getInstance().updateConsultantValues(c,this);
                     }
                 }
@@ -87,7 +86,7 @@ public class SettingsWindow extends CustomWindow {
 
         // Set the initial values and consultant if chosen
         if (ConsultantSingleton.getInstance().getFirstName() != null){
-            consultantChoice.getChoicebox().setValue(ConsultantSingleton.getInstance().getFirstName()+" "+ConsultantSingleton.getInstance().getLastName());
+            consultantChoice.getChoicebox().setValue(ConsultantSingleton.getInstance().getFullName());
         }
         taskTimeField.getTextField().setText(""+ConsultantSingleton.getInstance().getTaskTime());
         breakTimeField.getTextField().setText(""+ConsultantSingleton.getInstance().getBreakTime());

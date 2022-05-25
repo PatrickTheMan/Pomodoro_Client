@@ -34,7 +34,18 @@ public class Controller {
      * @param consultant
      */
     public void setConsultant(Consultant consultant){
+
+        // DO IT NOW
+
+        // Change the stage title
+        ScenehandlerSingleton.getInstance().getStage().setTitle(
+                ScenehandlerSingleton.getInstance().getStage().getTitle().substring(0,16)+" "
+                +consultant.getFullName()+" - "
+                +ScenehandlerSingleton.getInstance().getStage().getTitle().substring(ConsultantSingleton.getInstance().getFullName().length()+20));
+
+        // Set the new consultant
         ConsultantSingleton.getInstance().setConsultant(consultant);
+
     }
 
     /**

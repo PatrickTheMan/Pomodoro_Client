@@ -1,17 +1,14 @@
 package UI;
 
+import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import UI.Buttons.CustomButton;
-import UI.Enums.MyPos;
+
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.CustomWindow;
-import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
-import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
-import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -25,6 +22,20 @@ public class Scenehandler {
     private Scene scene;
     private StackPane root;
     private BorderPane mainPane;
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public StackPane getRoot() {
+        return root;
+    }
+
+    public BorderPane getMainPane() {
+        return mainPane;
+    }
+
+
 
     public Scenehandler(){
 
@@ -83,7 +94,11 @@ public class Scenehandler {
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
-                this.stage.setTitle("Client Startup - Home");
+                if (!ConsultantSingleton.getInstance().getFirstName().equals("")){
+                    this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - Home");
+                } else {
+                    this.stage.setTitle("Client Startup - Home");
+                }
 
                 // Set the main content
                 this.mainPane.setCenter(getHomeScreen());
@@ -93,7 +108,11 @@ public class Scenehandler {
 
             }
             case Overview ->{
-                this.stage.setTitle("Client Startup - Overview");
+                if (!ConsultantSingleton.getInstance().getFirstName().equals("")){
+                    this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - Overview");
+                } else {
+                    this.stage.setTitle("Client Startup - Overview");
+                }
 
                 // Set the main content
                 this.mainPane.setCenter(getOverviewScreen());
@@ -103,7 +122,11 @@ public class Scenehandler {
 
             }
             case DoToday -> {
-                this.stage.setTitle("Client Startup - DoToday");
+                if (!ConsultantSingleton.getInstance().getFirstName().equals("")){
+                    this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - DoToday");
+                } else {
+                    this.stage.setTitle("Client Startup - DoToday");
+                }
 
                 // Set the main content
                 this.mainPane.setCenter(getDoTodayScreen());

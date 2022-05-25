@@ -34,6 +34,10 @@ public class Consultant {
         this.lastName = lastName;
     }
 
+    public String getFullName(){
+        return getFirstName()+" "+getLastName();
+    }
+
     public double getTaskTime() {
         return taskTime;
     }
