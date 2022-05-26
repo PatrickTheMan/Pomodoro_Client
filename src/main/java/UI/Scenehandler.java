@@ -1,7 +1,5 @@
 package UI;
 
-import Application.Singleton.ControllerSingleton;
-import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import UI.Buttons.CustomButton;
 
@@ -10,6 +8,7 @@ import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.CustomWindow;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -94,7 +93,7 @@ public class Scenehandler {
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
-                if (!ConsultantSingleton.getInstance().getFirstName().equals("")){
+                if (ConsultantSingleton.getInstance().exists()){
                     this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - Home");
                 } else {
                     this.stage.setTitle("Client Startup - Home");
@@ -108,7 +107,7 @@ public class Scenehandler {
 
             }
             case Overview ->{
-                if (!ConsultantSingleton.getInstance().getFirstName().equals("")){
+                if (ConsultantSingleton.getInstance().exists()){
                     this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - Overview");
                 } else {
                     this.stage.setTitle("Client Startup - Overview");
@@ -122,7 +121,7 @@ public class Scenehandler {
 
             }
             case DoToday -> {
-                if (!ConsultantSingleton.getInstance().getFirstName().equals("")){
+                if (ConsultantSingleton.getInstance().exists()){
                     this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - DoToday");
                 } else {
                     this.stage.setTitle("Client Startup - DoToday");
@@ -176,8 +175,17 @@ public class Scenehandler {
         // Initiate the root for the screen
         VBox root = new VBox();
 
+        // Give the screen a scroll function
+        ScrollPane view = new ScrollPane();
+        view.setFitToWidth(true);
+
+        // Initiate the content container
+        VBox container = new VBox();
+
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-home");
+
+
 
         CustomWindow headline = new CustomWindow().Headline("Home");
 
@@ -186,13 +194,20 @@ public class Scenehandler {
         CustomWindow settingsWindow3 = new CustomWindow().Settings();
 
 
+
         //
         HBox sideBySide = new HBox();
         sideBySide.getChildren().addAll(settingsWindow2,settingsWindow3);
 
 
-        // Set center content of root
-        root.getChildren().addAll(headline,settingsWindow,sideBySide);
+        // Set contentcontainers content
+        container.getChildren().addAll(settingsWindow,sideBySide);
+
+        // Set the content of the view
+        view.setContent(container);
+
+        // Set the content of the root
+        root.getChildren().addAll(headline,view);
 
         return root;
     }

@@ -1,5 +1,6 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
+import Application.Singleton.ControllerSingleton;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -34,11 +35,9 @@ public class ChoiceTextField extends HBox {
 
         //Set the prefered label size
         textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
-        textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
 
         // Set the prefered size of the textfield to be max length
         textField.prefWidthProperty().bind(this.widthProperty());
-        textField.prefHeightProperty().bind(this.heightProperty());
 
     }
 
@@ -56,12 +55,10 @@ public class ChoiceTextField extends HBox {
         if (hideLabel){
             //Set the prefered label size
             textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
-            textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
         }
 
         // Set the prefered size of the textfield to be max length
         textField.prefWidthProperty().bind(this.widthProperty());
-        textField.prefHeightProperty().bind(this.heightProperty());
 
     }
 
@@ -80,11 +77,9 @@ public class ChoiceTextField extends HBox {
 
         // Set the prefered label size
         textLabel.setMinWidth(width/3);
-        textLabel.setMinHeight(height/3);
 
         // Set the prefered size of the textfield to be max length
         textField.setMinWidth(width/3*2);
-        textField.setMinHeight(height/3*2);
 
     }
 
@@ -101,10 +96,17 @@ public class ChoiceTextField extends HBox {
         textLabel = new Label(text);
         textLabel.getStyleClass().add("choice-textfield-label");
 
+        // Remove focus option
+        textLabel.setFocusTraversable(false);
+
         // Make the textfield, use custom css styling and position of the text in the field
         textField = new TextField();
         textField.getStyleClass().add("choice-textfield-textfield");
         textField.setAlignment(Pos.TOP_LEFT);
+        // Set the selection function
+        textField.focusedProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setSelected(this,newVal);
+        });
 
         // Set the content of the class object
         this.getChildren().addAll(textLabel,textField);

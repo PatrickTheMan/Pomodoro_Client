@@ -42,6 +42,10 @@ public class Consultant {
         return taskTime;
     }
 
+    public int getTaskTimeMin(){return (int)taskTime;}
+
+    public int getTaskTimeSec(){return (int)((taskTime-(int)taskTime)*10);}
+
     public void setTaskTime(double taskTime) {
         this.taskTime = taskTime;
     }
@@ -49,6 +53,10 @@ public class Consultant {
     public double getBreakTime() {
         return breakTime;
     }
+
+    public int getBreakTimeMin(){return (int)breakTime;}
+
+    public int getBreakTimeSec(){return (int)((breakTime-(int)breakTime)*10);}
 
     public void setBreakTime(double breakTime) {
         this.breakTime = breakTime;
@@ -58,8 +66,20 @@ public class Consultant {
         return longBreakTime;
     }
 
+    public int getLongBreakTimeMin(){return (int)longBreakTime;}
+
+    public int getLongBreakTimeSec(){return (int)((longBreakTime-(int)longBreakTime)*10);}
+
     public void setLongBreakTime(double longBreakTime) {
         this.longBreakTime = longBreakTime;
+    }
+
+    public boolean exists(){
+        if (getFirstName().equals("")){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void setConsultant(Consultant consultant){

@@ -2,42 +2,47 @@
 
 *
 {
-    -fx-colorRed: #ECC9C7;
-    -fx-colorRedFade: #fae0de;
+
+    -fx-colorBlueFade: #EEF5FD;
+
+    -fx-colorRed: #fae0de;
+
+    -fx-colorRedFade: #fce7e6;
+
+    -fx-colorRedSelected: #f94c57;
+
     -fx-colorGrey: #b3b3b3;
+
+    -fx-colorWhite: #FFFFFF ;
+
+
+
+
+    /* The coloration used in the program */
+    -fx-color1: -fx-colorBlueFade;
+    -fx-color2: -fx-colorWhite;
+    -fx-color3: -fx-colorGrey;
+    -fx-color4: -fx-colorWhite;
+
+    -fx-colorb3: -fx-color3;
+    -fx-colorb4: -fx-color4;
 }
-
-
 /*
------------------------------------------------------------------Bar-V-START-------------------------------------------------
+-----------------------------------------------------------------Buttons-START-------------------------------------------------
  */
 .custom-button
 {
-    -fx-background-color: -fx-colorRed;
+    -fx-background-color: -fx-color1;
     -fx-background-radius: 10;
+}
+.custom-button-focused
+{
+    -fx-background-color: -fx-color3;
 }
 .custom-menu-button
 {
     -fx-padding: 30 60 30 60;
     -fx-border-radius: 0;
-}
-.custom-menu-bar
-{
-    -fx-background-color: -fx-colorRed;
-    -fx-max-width: 50;
-}
-.custom-menu-bar-part-pane
-{
-    -fx-background-color: -fx-colorRed;
-    -fx-background-radius: 0 5 5 0;
-
-    -fx-border-color: white;
-    -fx-border-radius: 0 5 5 0;
-
-}
-.custom-menu-bar-part-label
-{
-    -fx-font-size: 20;
 }
 .custom-menu-button-home
 {
@@ -76,6 +81,48 @@
     -fx-background-position: 50%;
 }
 
+.custom-other-button
+{
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 10;
+}
+.custom-other-button-focused
+{
+    -fx-background-color: -fx-color3;
+}
+.custom-other-button-save
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcircleicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-save:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+/*
+-----------------------------------------------------------------Bar-V-START-------------------------------------------------
+ */
+.custom-menu-bar
+{
+    -fx-background-color: -fx-color1;
+    -fx-max-width: 50;
+}
+.custom-menu-bar-part-pane
+{
+    -fx-background-color: -fx-color1;
+    -fx-background-radius: 0 5 5 0;
+
+    -fx-border-color: -fx-colorb4;
+    -fx-border-radius: 0 5 5 0;
+
+}
+.custom-menu-bar-part-label
+{
+    -fx-font-size: 20;
+}
 .custom-menu-seperator
 {
     -fx-max-width: 90;
@@ -89,25 +136,11 @@
  */
 .node-bar-h
 {
-    -fx-background-color: white;
-    -fx-border-color: -fx-colorGrey;
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-}
-.node-bar-h-node
-{
-    -fx-background-color: -fx-colorRed;
-    -fx-border-color: -fx-colorGrey;
-
-    -fx-background-image: url("Scenes/ButtonImg/Overview/menufillicon.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 50%;
-
-
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-padding: 10 20 10 20;
 }
 
 
@@ -119,11 +152,16 @@
  */
 .choice-textfield
 {
-    -fx-background-color: white;
-    -fx-border-color: -fx-colorGrey;
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+}
+.choice-textfield-focused
+{
+    -fx-background-color: -fx-color3;
+    -fx-border-color: -fx-colorb3;
 }
 .choice-textfield-error
 {
@@ -136,18 +174,23 @@
 }
 .choice-textfield-textfield
 {
-    -fx-background-color: white;
-    -fx-border-color: grey;
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 .choice-combobox
 {
-    -fx-background-color: white;
-    -fx-border-color: -fx-colorGrey;
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+}
+.choice-combobox-focused
+{
+    -fx-background-color: -fx-color3;
+    -fx-border-color: -fx-colorb3;
 }
 .choice-combobox-error
 {
@@ -160,8 +203,15 @@
 }
 .choice-combobox-combobox
 {
-    -fx-background-color: white;
-    -fx-border-color: grey;
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.choice-combobox-combobox
+{
+    -fx-background-color: -fx-color2;
+    -fx-border-color: -fx-colorb3;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
@@ -173,13 +223,13 @@
  */
 .headline
 {
-    -fx-background-color: white;
+    -fx-background-color: -fx-color4;
     -fx-padding: 10 10 0 10;
 }
 .headline-halfround
 {
-    -fx-background-color: white;
-    -fx-border-color: -fx-colorGrey;
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
     -fx-padding: 0;
 }
 .headline-label
@@ -194,13 +244,13 @@
  */
 .custom-window
 {
-    -fx-background-color: white;
+    -fx-background-color: -fx-color4;
     -fx-padding: 10 10 10 10;
 }
 .custom-window-settings
 {
-    -fx-background-color: -fx-colorRedFade;
-    -fx-border-color: -fx-colorGrey;
+    -fx-background-color: -fx-color2;
+    -fx-border-color: -fx-colorb3;
     -fx-background-radius: 0 0 10 10;
     -fx-border-radius: 0 0 10 10;
     -fx-spacing: 10;
@@ -215,7 +265,15 @@
  */
 .screen-home
 {
-
+    -fx-background-color: -fx-color4;
+}
+.screen-overview
+{
+    -fx-background-color: -fx-color4;
+}
+.screen-dotoday
+{
+    -fx-background-color: -fx-color4;
 }
 
 /*

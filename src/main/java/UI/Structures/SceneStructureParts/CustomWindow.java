@@ -57,28 +57,26 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow Settings(int height){
+    public CustomWindow Settings(int maxWidth, int maxHeight){
 
         // Set content
         this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND),new SettingsWindow());
 
-        // Set preferred size
-        this.setPrefHeight(height);
-        this.setMinHeight(height);
-        this.setMaxHeight(height);
+        // Settings
+        this.setMaxWidth(maxWidth);
+        this.setMaxHeight(maxHeight);
 
         return this;
     }
 
-    public CustomWindow Settings(int width, int height){
+    public CustomWindow Settings(int minWidth, int maxWidth, int minHeight, int maxHeight){
 
         // Set content
-        this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND),new SettingsWindow());
+        this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND), new SettingsWindow());
 
-        // Set preferred size
-        this.setPrefSize(width,height);
-        this.setMinSize(width,height);
-        this.setMaxSize(width,height);
+        // Settings
+        this.setMinSize(minWidth,minHeight);
+        this.setMaxSize(maxWidth,maxHeight);
 
         return this;
     }

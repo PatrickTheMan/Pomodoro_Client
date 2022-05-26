@@ -35,11 +35,15 @@ public class CustomButtonOther extends CustomButton {
     }
 
     private void NormalAddSetup(){
+
+        // Get the normal setup
+        NormalSetup();
+
         // Set the text for the hover text
         this.buttonText = "Add";
 
         // Make this button use the custom-button css styling
-        this.getStyleClass().add("custom-menu-button-add");
+        this.getStyleClass().add("custom-other-button-add");
     }
 
     public CustomButton Remove(Consultant consultant){
@@ -63,11 +67,15 @@ public class CustomButtonOther extends CustomButton {
     }
 
     private void NormalRemoveSetup(){
+
+        // Get the normal setup
+        NormalSetup();
+
         // Set the text for the hover text
         this.buttonText = "Remove";
 
         // Make this button use the custom-button css styling
-        this.getStyleClass().add("custom-menu-button-remove");
+        this.getStyleClass().add("custom-other-button-remove");
     }
 
     public CustomButton Save(ChoiceComboBox consultantChoice, ArrayList<Consultant> consultants){
@@ -87,11 +95,31 @@ public class CustomButtonOther extends CustomButton {
     }
 
     private void NormalSaveSetup(){
+
+        // Get the normal setup
+        NormalSetup();
+
         // Set the text for the hover text
         this.buttonText = "Save";
 
         // Make this button use the custom-button css styling
-        this.getStyleClass().add("custom-menu-button-save");
+        this.getStyleClass().add("custom-other-button-save");
+    }
+
+
+
+
+
+
+
+    private void NormalSetup(){
+        // Make this button use the custom-button css styling
+        this.getStyleClass().add("custom-other-button");
+        // Set the selection function
+        this.focusedProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setSelected(this,newVal);
+            System.out.println("Done");
+        });
     }
 
 }

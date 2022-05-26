@@ -24,8 +24,14 @@ public class CustomMenuBarPart extends StackPane{
         label.setText(customMenuButton.getButtonText());
         label.getStyleClass().add("custom-menu-bar-part-label");
 
+        // Remove focus option
+        label.setFocusTraversable(false);
+
         // Add the label to the pane
         pane.getChildren().add(label);
+
+        // Remove focus option
+        customMenuButton.setFocusTraversable(false);
 
         // Add the pane behind the menu button
         this.getChildren().addAll(pane,customMenuButton);

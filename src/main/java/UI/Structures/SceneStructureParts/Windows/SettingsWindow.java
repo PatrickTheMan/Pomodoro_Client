@@ -40,6 +40,7 @@ public class SettingsWindow extends CustomWindow {
         NormalSetup();
     }
 
+
     /**
      *
      */
@@ -85,12 +86,10 @@ public class SettingsWindow extends CustomWindow {
         this.getChildren().addAll(consultantChoice,taskTimeField,breakTimeField,longbreakTimeField,buttonBarH);
 
         // Set the initial values and consultant if chosen
-        if (ConsultantSingleton.getInstance().getFirstName() != null){
+        if (ConsultantSingleton.getInstance().exists()){
             consultantChoice.getChoicebox().setValue(ConsultantSingleton.getInstance().getFullName());
         }
-        taskTimeField.getTextField().setText(""+ConsultantSingleton.getInstance().getTaskTime());
-        breakTimeField.getTextField().setText(""+ConsultantSingleton.getInstance().getBreakTime());
-        longbreakTimeField.getTextField().setText(""+ConsultantSingleton.getInstance().getLongBreakTime());
+        ControllerSingleton.getInstance().updateConsultantValues(ConsultantSingleton.getInstance(),this);
 
     }
 

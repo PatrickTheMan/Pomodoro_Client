@@ -16,7 +16,7 @@ public class DB {
     }
 
     /**
-     * establishes the connection to the database of the Animal Shelter
+     * establishes the connection to the database of the pomodoro programs
      */
     public void connect() {
         try {

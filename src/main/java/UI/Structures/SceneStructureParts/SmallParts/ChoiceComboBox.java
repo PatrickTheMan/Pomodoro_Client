@@ -1,5 +1,6 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
+import Application.Singleton.ControllerSingleton;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -61,7 +62,6 @@ public class ChoiceComboBox extends HBox {
 
         // Set the preferred size of the textfield to be max length
         comboBox.prefWidthProperty().bind(this.widthProperty());
-        comboBox.prefHeightProperty().bind(this.heightProperty());
 
     }
 
@@ -83,7 +83,6 @@ public class ChoiceComboBox extends HBox {
 
         // Set the preferred size of the textfield to be max length
         comboBox.setMinWidth(width/3*2);
-        comboBox.setMinHeight(height/3*2);
 
     }
 
@@ -106,7 +105,6 @@ public class ChoiceComboBox extends HBox {
 
         // Set the preferred size of the textfield to be max length
         comboBox.setMinWidth(width/3*2);
-        comboBox.setMinHeight(height/3*2);
 
     }
 
@@ -124,11 +122,18 @@ public class ChoiceComboBox extends HBox {
         textLabel = new Label(text);
         textLabel.getStyleClass().add("choice-combobox-label");
 
+        // Remove focus option
+        textLabel.setFocusTraversable(false);
+
         // Make the textfield, use custom css styling, set if write able and limit the shown items to 5
         comboBox = new ComboBox();
         comboBox.getStyleClass().add("choice-combobox-combobox");
         comboBox.setEditable(writeAble);
         comboBox.setVisibleRowCount(5);
+        // Set the selection function
+        comboBox.focusedProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setSelected(this,newVal);
+        });
 
         // Add the choices to the combobox
         for (String s:choices) {

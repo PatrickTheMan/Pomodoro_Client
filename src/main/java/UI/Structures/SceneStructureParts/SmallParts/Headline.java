@@ -138,6 +138,9 @@ public class Headline extends HBox {
         Label label = new Label();
         label.setText(text);
 
+        // Remove focus option
+        label.setFocusTraversable(false);
+
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("headline-label");
 
