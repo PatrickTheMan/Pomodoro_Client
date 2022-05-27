@@ -10,6 +10,8 @@ public class Consultant {
     private double breakTime;
     private double longBreakTime;
 
+    private ArrayList<Task> taskList = new ArrayList<>();
+
     public Consultant(String firstName, String lastName, double taskTime, double breakTime, double longBreakTime){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,6 +74,18 @@ public class Consultant {
 
     public void setLongBreakTime(double longBreakTime) {
         this.longBreakTime = longBreakTime;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public void clearTaskList(){
+        this.taskList.clear();
     }
 
     public boolean exists(){

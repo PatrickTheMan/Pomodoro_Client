@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class SettingsWindow extends CustomWindow {
 
-    private ArrayList<Consultant> consultants = new ArrayList<>();
-
     private ChoiceComboBox consultantChoice;
     private ChoiceTextField taskTimeField;
     private ChoiceTextField breakTimeField;
@@ -49,13 +47,16 @@ public class SettingsWindow extends CustomWindow {
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("custom-window-settings");
 
+        // Create an arraylist with consultants
+        ArrayList<Consultant> consultants = new ArrayList<>();
+
         // Get The different consultants
         consultants.addAll(ConsultantSingleton.getInstance().getTestConsultants());
         // DB FUNCTION HERE
 
         // Convert to names only
         ArrayList<String> consultantNames = new ArrayList<>();
-        for (Consultant c: this.consultants) {
+        for (Consultant c: consultants) {
             consultantNames.add(c.getFirstName()+" "+c.getLastName());
         }
 

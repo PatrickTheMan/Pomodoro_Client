@@ -4,6 +4,7 @@ import UI.Enums.MyPos;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
+import UI.Structures.SceneStructureParts.Windows.PomodoroTimerWindow;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -73,6 +74,38 @@ public class CustomWindow extends VBox {
 
         // Set content
         this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND), new SettingsWindow());
+
+        // Settings
+        this.setMinSize(minWidth,minHeight);
+        this.setMaxSize(maxWidth,maxHeight);
+
+        return this;
+    }
+
+    public CustomWindow Pomodoro(){
+
+        // Set content
+        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
+
+        return this;
+    }
+
+    public CustomWindow Pomodoro(int maxWidth, int maxHeight){
+
+        // Set content
+        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
+
+        // Settings
+        this.setMaxWidth(maxWidth);
+        this.setMaxHeight(maxHeight);
+
+        return this;
+    }
+
+    public CustomWindow Pomodoro(int minWidth, int maxWidth, int minHeight, int maxHeight){
+
+        // Set content
+        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND), new PomodoroTimerWindow());
 
         // Settings
         this.setMinSize(minWidth,minHeight);

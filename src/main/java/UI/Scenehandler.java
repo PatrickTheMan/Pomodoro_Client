@@ -6,6 +6,9 @@ import UI.Buttons.CustomButton;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.CustomWindow;
+import UI.Structures.SceneStructureParts.SmallParts.LabelWithSizing;
+import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
+import UI.Structures.SceneStructureParts.SmallParts.TextFieldWithSizing;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -189,7 +192,8 @@ public class Scenehandler {
 
         CustomWindow headline = new CustomWindow().Headline("Home");
 
-        CustomWindow settingsWindow = new CustomWindow().Settings(300,375);
+        CustomWindow settingsWindow = new CustomWindow().Pomodoro();
+
         CustomWindow settingsWindow2 = new CustomWindow().Settings();
         CustomWindow settingsWindow3 = new CustomWindow().Settings();
 
@@ -221,17 +225,32 @@ public class Scenehandler {
         // Initiate the root for the screen
         VBox root = new VBox();
 
+        // Give the screen a scroll function
+        ScrollPane view = new ScrollPane();
+        view.setFitToWidth(true);
+
+        // Initiate the content container
+        VBox container = new VBox();
+
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-overview");
 
 
+
         CustomWindow headline = new CustomWindow().Headline("Overview");
 
+        CustomWindow settingsWindow = new CustomWindow().Pomodoro();
 
 
 
+        // Set contentcontainers content
+        container.getChildren().addAll(settingsWindow);
 
-        root.getChildren().addAll(headline);
+        // Set the content of the view
+        view.setContent(container);
+
+        // Set the content of the root
+        root.getChildren().addAll(headline,view);
 
         return root;
     }
@@ -245,20 +264,33 @@ public class Scenehandler {
         // Initiate the root for the screen
         VBox root = new VBox();
 
+        // Give the screen a scroll function
+        ScrollPane view = new ScrollPane();
+        view.setFitToWidth(true);
+        view.setMinHeight(this.stage.getHeight());
+
+        // Initiate the content container
+        VBox container = new VBox();
+
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-dotoday");
 
-        // Add headline
+
+
         CustomWindow headline = new CustomWindow().Headline("Do Today");
 
-        // Add the Nodebar underneath
-        //CustomWindow barH = new CustomWindow().ButtonBarH();
+        CustomWindow settingsWindow = new CustomWindow().Pomodoro();
 
 
 
+        // Set contentcontainers content
+        container.getChildren().addAll(settingsWindow);
 
+        // Set the content of the view
+        view.setContent(container);
 
-        root.getChildren().addAll(headline);
+        // Set the content of the root
+        root.getChildren().addAll(headline,view);
 
         return root;
     }

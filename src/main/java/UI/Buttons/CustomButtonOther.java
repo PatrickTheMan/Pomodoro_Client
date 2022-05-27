@@ -118,7 +118,6 @@ public class CustomButtonOther extends CustomButton {
         // Set the selection function
         this.focusedProperty().addListener((obs, old, newVal) -> {
             ControllerSingleton.getInstance().setSelected(this,newVal);
-            System.out.println("Done");
         });
     }
 

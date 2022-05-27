@@ -9,8 +9,6 @@
 
     -fx-colorRedFade: #fce7e6;
 
-    -fx-colorRedSelected: #f94c57;
-
     -fx-colorGrey: #b3b3b3;
 
     -fx-colorWhite: #FFFFFF ;
@@ -26,6 +24,15 @@
 
     -fx-colorb3: -fx-color3;
     -fx-colorb4: -fx-color4;
+}
+
+
+.scroll-pane
+{
+    -fx-background-color: -fx-color2;
+    -fx-border-color: -fx-colorb3;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
 }
 /*
 -----------------------------------------------------------------Buttons-START-------------------------------------------------
@@ -92,11 +99,35 @@
 }
 .custom-other-button-save
 {
-    -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcircleicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Others/Edit/editcircleicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-other-button-save:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Edit/editcirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-save:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Edit/editcirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-add
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcircleicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-add:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-add:focused
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcirclefillicon.png");
     -fx-background-repeat: no-repeat;
@@ -219,7 +250,7 @@
 -----------------------------------------------------------------ChoiceLines-END---------------------------------------------
  */
 /*
------------------------------------------------------------------Headline-START-----------------------------------------
+-----------------------------------------------------------------Headline&Sizing-START-----------------------------------------
  */
 .headline
 {
@@ -236,18 +267,36 @@
 {
     -fx-font-weight: bold;
 }
+
+
+.textfield-sizing
+{
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
 /*
------------------------------------------------------------------Headline-END-----------------------------------------
+-----------------------------------------------------------------Headline&Sizing-END-----------------------------------------
  */
 /*
 -----------------------------------------------------------------Windows-START--------------------------------------------
  */
 .custom-window
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -fx-color2;
     -fx-padding: 10 10 10 10;
 }
 .custom-window-settings
+{
+    -fx-background-color: -fx-color2;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 0 0 10 10;
+    -fx-border-radius: 0 0 10 10;
+    -fx-spacing: 10;
+}
+.custom-window-pomodoro
 {
     -fx-background-color: -fx-color2;
     -fx-border-color: -fx-colorb3;
