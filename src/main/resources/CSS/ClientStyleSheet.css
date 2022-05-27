@@ -11,6 +11,8 @@
 
     -fx-colorGrey: #b3b3b3;
 
+    -fx-colorGreyLight: #ebebeb;
+
     -fx-colorWhite: #FFFFFF ;
 
 
@@ -21,11 +23,11 @@
     -fx-color2: -fx-colorWhite;
     -fx-color3: -fx-colorGrey;
     -fx-color4: -fx-colorWhite;
+    -fx-color5: -fx-colorGreyLight;
 
     -fx-colorb3: -fx-color3;
     -fx-colorb4: -fx-color4;
 }
-
 
 .scroll-pane
 {
@@ -41,6 +43,10 @@
 {
     -fx-background-color: -fx-color1;
     -fx-background-radius: 10;
+}
+.custom-button-hovered
+{
+    -fx-background-color: -fx-color5;
 }
 .custom-button-focused
 {
@@ -92,6 +98,10 @@
 {
     -fx-padding: 10 20 10 20;
     -fx-border-radius: 10;
+}
+.custom-other-button-hovered
+{
+    -fx-background-color: -fx-color5;
 }
 .custom-other-button-focused
 {
@@ -189,6 +199,11 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+.choice-textfield-hovered
+{
+    -fx-background-color: -fx-color5;
+    -fx-border-color: -fx-colorb3;
+}
 .choice-textfield-focused
 {
     -fx-background-color: -fx-color3;
@@ -217,6 +232,11 @@
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+}
+.choice-combobox-hovered
+{
+    -fx-background-color: -fx-color5;
+    -fx-border-color: -fx-colorb3;
 }
 .choice-combobox-focused
 {

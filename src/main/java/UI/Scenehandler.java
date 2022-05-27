@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class Scenehandler {
 
+    //FIX IKKE HVID BAGGRUND
+
     private Stage stage;
     private Scene scene;
     private StackPane root;
@@ -67,9 +69,6 @@ public class Scenehandler {
 
         // Set the stage's scene
         this.stage.setScene(scene);
-
-        // Set the stagestyle
-        //this.stage.initStyle(StageStyle.TRANSPARENT);
 
         // Set the stages title
         this.stage.setTitle("Client Startup");
@@ -138,6 +137,9 @@ public class Scenehandler {
 
             }
         }
+
+        // Set focus to none of the nodes
+        this.root.requestFocus();
     }
 
     /**
@@ -181,6 +183,7 @@ public class Scenehandler {
         // Give the screen a scroll function
         ScrollPane view = new ScrollPane();
         view.setFitToWidth(true);
+        view.setMinHeight(this.stage.getHeight());
 
         // Initiate the content container
         VBox container = new VBox();
@@ -228,6 +231,7 @@ public class Scenehandler {
         // Give the screen a scroll function
         ScrollPane view = new ScrollPane();
         view.setFitToWidth(true);
+        view.setMinHeight(this.stage.getHeight());
 
         // Initiate the content container
         VBox container = new VBox();

@@ -103,9 +103,12 @@ public class ChoiceTextField extends HBox {
         textField = new TextField();
         textField.getStyleClass().add("choice-textfield-textfield");
         textField.setAlignment(Pos.TOP_LEFT);
-        // Set the selection function
+        // Set the selection & hover function
         textField.focusedProperty().addListener((obs, old, newVal) -> {
             ControllerSingleton.getInstance().setSelected(this,newVal);
+        });
+        textField.hoverProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setHovered(this,newVal);
         });
 
         // Set the content of the class object

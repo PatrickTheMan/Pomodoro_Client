@@ -125,4 +125,56 @@ public class Controller {
         }
     }
 
+    /**
+     *
+     * @param choiceComboBox
+     */
+    public void setHovered(ChoiceComboBox choiceComboBox, boolean hovered){
+        // Make this object use the custom css styling
+        if (hovered){
+            choiceComboBox.getStyleClass().add("choice-combobox-hovered");
+        } else {
+            choiceComboBox.getStyleClass().remove("choice-combobox-hovered");
+        }
+    }
+
+    /**
+     *
+     * @param choiceTextField
+     */
+    public void setHovered(ChoiceTextField choiceTextField, boolean hovered){
+        // Make this object use the custom css styling
+        if (hovered){
+            choiceTextField.getStyleClass().add("choice-textfield-hovered");
+        } else {
+            choiceTextField.getStyleClass().remove("choice-textfield-hovered");
+        }
+    }
+
+    /**
+     *
+     * @param customButton
+     */
+    public void setHovered(CustomButton customButton, boolean hovered){
+        // Make this object use the custom css styling
+        if (hovered){
+            customButton.getStyleClass().add("custom-button-hovered");
+        } else {
+            customButton.getStyleClass().remove("custom-button-hovered");
+        }
+    }
+
+    /**
+     *
+     * @param customButtonOther
+     */
+    public void setHovered(CustomButtonOther customButtonOther, boolean hovered){
+        // Make this object use the custom css styling
+        if (hovered){
+            customButtonOther.getStyleClass().add("custom-other-button-hovered");
+        } else {
+            customButtonOther.getStyleClass().remove("custom-other-button-hovered");
+        }
+    }
+
 }

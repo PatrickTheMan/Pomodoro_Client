@@ -130,9 +130,12 @@ public class ChoiceComboBox extends HBox {
         comboBox.getStyleClass().add("choice-combobox-combobox");
         comboBox.setEditable(writeAble);
         comboBox.setVisibleRowCount(5);
-        // Set the selection function
+        // Set the selection & hover function
         comboBox.focusedProperty().addListener((obs, old, newVal) -> {
             ControllerSingleton.getInstance().setSelected(this,newVal);
+        });
+        comboBox.hoverProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setHovered(this,newVal);
         });
 
         // Add the choices to the combobox
