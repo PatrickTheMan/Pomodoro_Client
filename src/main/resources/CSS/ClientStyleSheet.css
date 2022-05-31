@@ -33,6 +33,9 @@
 {
     -fx-background-color: -fx-color2;
     -fx-border-color: -fx-colorb3;
+
+    /*-fx-border-radius: 5 0 0 0;*/
+
     -fx-hbar-policy: never;
     -fx-vbar-policy: never;
 }
@@ -253,6 +256,24 @@
 .custom-controls-button-popout:focused
 {
     -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popoutfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-popout-marked
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popoutmarkedicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-popout-marked:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popoutfillmarkedicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-popout-marked:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popoutfillmarkedicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }

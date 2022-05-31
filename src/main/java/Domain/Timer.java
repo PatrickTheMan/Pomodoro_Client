@@ -1,8 +1,11 @@
 package Domain;
 
+import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButtonControls;
+import UI.Scenehandler;
+import UI.Singletons.ScenehandlerSingleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.*;
@@ -93,7 +96,10 @@ public class Timer {
         this.timeTypeProperty.setValue(1);
         this.timeline.stop();
 
-        setTime(""+min,""+sec);
+        this.setTime(""+min,""+sec);
+
+        // Set stage title, so you can se the time
+        ControllerSingleton.getInstance().setTimerTitle();
     }
 
     public void pauseTimer(){
@@ -132,9 +138,10 @@ public class Timer {
             this.sec = ""+ConsultantSingleton.getInstance().getTaskTimeSec();
         }
 
-        setTime(""+min,""+sec);
+        this.setTime(""+min,""+sec);
 
-        System.out.println(cycle);
+        // Set stage title, so you can se the time
+        ControllerSingleton.getInstance().setTimerTitle();
     }
 
     public synchronized void timerTick(){
@@ -170,7 +177,9 @@ public class Timer {
             this.sec = ""+(Integer.parseInt(this.sec)-1);
         }
         this.timeProperty.set(getMin()+" : "+getSec());
-        System.out.println(cycle);
+
+        // Set stage title, so you can se the time
+        ControllerSingleton.getInstance().setTimerTitle();
     }
 
 }

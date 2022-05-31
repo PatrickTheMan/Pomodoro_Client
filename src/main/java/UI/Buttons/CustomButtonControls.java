@@ -112,10 +112,13 @@ public class CustomButtonControls extends CustomButton {
 
         // Give the button the controls
         this.setOnAction(e -> {
-            if (ScenehandlerSingleton.getInstance().getMiniStage()==null || !ScenehandlerSingleton.getInstance().getMiniStage().isShowing() ){
-                ControllerSingleton.getInstance().startMiniStage();
+            ControllerSingleton.getInstance().openCloseMiniStage();
+
+            // Make this button use the custom-button marked css styling
+            if (this.getStyleClass().contains("custom-controls-button-popout-marked")){
+                this.getStyleClass().remove("custom-controls-button-popout-marked");
             } else {
-                ControllerSingleton.getInstance().closeMiniStage();
+                this.getStyleClass().add("custom-controls-button-popout-marked");
             }
         });
 

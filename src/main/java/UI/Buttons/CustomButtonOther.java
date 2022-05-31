@@ -1,6 +1,5 @@
 package UI.Buttons;
 
-import Application.Controller;
 import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Task;
@@ -84,7 +83,7 @@ public class CustomButtonOther extends CustomButton {
             if (consultantChoice.getChoicebox().getValue() != null && !consultantChoice.getChoicebox().getValue().toString().equals("")){
                 for (Consultant c: consultants) {
                     if (consultantChoice.getChoicebox().getValue().equals(c.getFirstName()+" "+c.getLastName())){
-                        ControllerSingleton.getInstance().setConsultant(c);
+                        ControllerSingleton.getInstance().setConsultantTitle(c);
                     }
                 }
             }

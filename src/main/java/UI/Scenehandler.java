@@ -31,6 +31,8 @@ import java.util.ArrayList;
 
 public class Scenehandler {
 
+    private String sceneTitle;
+
     private Stage stage;
     private Scene scene;
     private StackPane root;
@@ -67,6 +69,10 @@ public class Scenehandler {
 
     public NodeBarH getMiniNodeBarH() {
         return miniNodeBarH;
+    }
+
+    public String getSceneTitle() {
+        return sceneTitle;
     }
 
     public Scenehandler(){
@@ -125,10 +131,11 @@ public class Scenehandler {
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
+                this.sceneTitle="Home";
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - Home");
+                    this.stage.setTitle(ConsultantSingleton.getInstance().getFullName()+sceneTitle);
                 } else {
-                    this.stage.setTitle("Client Startup - Home");
+                    this.stage.setTitle("No user - "+sceneTitle);
                 }
 
                 // Set the main content
@@ -139,10 +146,11 @@ public class Scenehandler {
 
             }
             case Overview ->{
+                this.sceneTitle="Overview";
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - Overview");
+                    this.stage.setTitle(ConsultantSingleton.getInstance().getFullName()+sceneTitle);
                 } else {
-                    this.stage.setTitle("Client Startup - Overview");
+                    this.stage.setTitle("No user - "+sceneTitle);
                 }
 
                 // Set the main content
@@ -153,10 +161,11 @@ public class Scenehandler {
 
             }
             case DoToday -> {
+                this.sceneTitle="DoToday";
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.stage.setTitle("Client Startup - "+ConsultantSingleton.getInstance().getFullName()+" - DoToday");
+                    this.stage.setTitle(ConsultantSingleton.getInstance().getFullName()+sceneTitle);
                 } else {
-                    this.stage.setTitle("Client Startup - DoToday");
+                    this.stage.setTitle("No user - "+sceneTitle);
                 }
 
                 // Set the main content

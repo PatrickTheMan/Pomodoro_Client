@@ -3,7 +3,6 @@ package Application;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
-import Domain.Timer;
 import UI.Buttons.CustomButton;
 import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;
@@ -41,43 +40,47 @@ public class Controller {
     /**
      *
      */
-    public void startMiniStage(){
-        ScenehandlerSingleton.getInstance().startMiniStage();
-    }
-
-    /**
-     *
-     */
-    public void closeMiniStage(){
-        ScenehandlerSingleton.getInstance().closeMiniStage();
+    public void openCloseMiniStage(){
+        System.out.println("D");
+        if (ScenehandlerSingleton.getInstance().getMiniStage()==null || !ScenehandlerSingleton.getInstance().getMiniStage().isShowing() ){
+            ScenehandlerSingleton.getInstance().startMiniStage();
+        } else {
+            ScenehandlerSingleton.getInstance().closeMiniStage();
+        }
     }
 
     //endregion
 
     //region [Consultant]
 
+    private boolean consultantSetAlready=false;
+
     /**
      *
      * @param consultant
      */
-    public void setConsultant(Consultant consultant){
+    public void setConsultantTitle(Consultant consultant){
 
-        // Change the stage title
+        // Change title so consultant is added
         ScenehandlerSingleton.getInstance().getStage().setTitle(
-                ScenehandlerSingleton.getInstance().getStage().getTitle().substring(0,17)+
-                        consultant.getFullName()+
-                        ScenehandlerSingleton.getInstance().getStage().getTitle().substring(
-                                (ConsultantSingleton.getInstance().exists()?
-                                        ConsultantSingleton.getInstance().getFullName().length()+17 :
-                                        14
-                                        )
-                        )
+                (this.timerSetAlready ? TimerSingleton.getInstance().timeProperty().getValue() : "No user")+
+                    consultant.getFullName()+
+                        ScenehandlerSingleton.getInstance().getSceneTitle()
         );
 
 
 
         // Set the new consultant
         ConsultantSingleton.getInstance().setConsultant(consultant);
+
+        // Update boolean
+        this.consultantSetAlready = true;
+
+        // Update the timer
+        TimerSingleton.getInstance().resetTimer();
+
+        // Update title timer
+        this.setTimerTitle();
     }
 
     /**
@@ -98,6 +101,22 @@ public class Controller {
     //endregion
 
     //region [Timer]
+
+    private boolean timerSetAlready=false;
+
+    public void setTimerTitle(){
+
+        // Change title so timer is added
+        ScenehandlerSingleton.getInstance().getStage().setTitle(
+                TimerSingleton.getInstance().timeProperty().getValue()+" - "+
+                        (this.consultantSetAlready ? ConsultantSingleton.getInstance().getFullName()+" - " : "")+
+                        ScenehandlerSingleton.getInstance().getSceneTitle()
+        );
+
+        // Update the boolean
+        this.timerSetAlready = true;
+
+    }
 
     public void setTimeOnTimer(){
         TimerSingleton.getInstance().setTime(
@@ -124,18 +143,7 @@ public class Controller {
 
     //endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
+    //region [Buttons]
 
     /**
      *
@@ -253,5 +261,7 @@ public class Controller {
             customButtonControls.getStyleClass().remove("custom-controls-button-hovered");
         }
     }
+
+    //endregion
 
 }
