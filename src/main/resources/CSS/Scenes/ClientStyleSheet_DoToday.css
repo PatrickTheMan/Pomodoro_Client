@@ -4,13 +4,13 @@
  */
 .custom-menu-button-dotoday
 {
-    -fx-background-image: url("ButtonImg/DoToday/calendarselectedicon.png");
+    -fx-background-image: url("ButtonImg/Menu/DoToday/calendarselectedicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-dotoday:hover
 {
-    -fx-background-image: url("ButtonImg/DoToday/calendarselectedfillicon.png");
+    -fx-background-image: url("ButtonImg/Menu/DoToday/calendarselectedfillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }

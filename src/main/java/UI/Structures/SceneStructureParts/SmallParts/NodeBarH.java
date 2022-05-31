@@ -15,7 +15,7 @@ public class NodeBarH extends HBox {
         this.getStyleClass().add("node-bar-h");
 
         // Set alignment
-        this.setAlignment(Pos.BOTTOM_RIGHT);
+        this.setAlignment(Pos.CENTER_RIGHT);
 
         // Add in the buttons in the bar
         for (Node n : nodes) {
@@ -33,7 +33,7 @@ public class NodeBarH extends HBox {
         this.getStyleClass().add("node-bar-h");
 
         // Set alignment
-        this.setAlignment(Pos.BOTTOM_RIGHT);
+        this.setAlignment(Pos.CENTER_RIGHT);
 
         // Make this button use the custom-menu css styling
         node.getStyleClass().add("node-bar-h-node");
@@ -49,10 +49,10 @@ public class NodeBarH extends HBox {
         this.getStyleClass().add("node-bar-h");
 
         // Set alignment
-        if (pos.equals(MyPos.LEFT)){
-            this.setAlignment(Pos.BOTTOM_LEFT);
-        } else {
-            this.setAlignment(Pos.BOTTOM_RIGHT);
+        switch (pos){
+            case RIGHT -> this.setAlignment(Pos.CENTER_RIGHT);
+            case CENTER -> this.setAlignment(Pos.CENTER);
+            case LEFT -> this.setAlignment(Pos.CENTER_LEFT);
         }
 
         // Add in the buttons in the bar
@@ -71,10 +71,10 @@ public class NodeBarH extends HBox {
         this.getStyleClass().add("node-bar-h");
 
         // Set alignment
-        if (pos.equals(MyPos.LEFT)){
-            this.setAlignment(Pos.BOTTOM_LEFT);
-        } else {
-            this.setAlignment(Pos.BOTTOM_RIGHT);
+        switch (pos){
+            case RIGHT -> this.setAlignment(Pos.CENTER_RIGHT);
+            case CENTER -> this.setAlignment(Pos.CENTER);
+            case LEFT -> this.setAlignment(Pos.CENTER_LEFT);
         }
 
         // Make this button use the custom-menu css styling

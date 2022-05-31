@@ -1,12 +1,10 @@
 package UI.Buttons;
 
+import Application.Controller;
 import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
-import Domain.Singletons.ConsultantSingleton;
 import Domain.Task;
-import UI.Structures.SceneStructureParts.CustomWindow;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
-import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 
 import java.util.ArrayList;
 
@@ -90,6 +88,8 @@ public class CustomButtonOther extends CustomButton {
                     }
                 }
             }
+            // Reset timer
+            ControllerSingleton.getInstance().setTimeOnTimer();
         });
         return this;
     }

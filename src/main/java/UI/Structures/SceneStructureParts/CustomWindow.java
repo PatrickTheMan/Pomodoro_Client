@@ -1,5 +1,7 @@
 package UI.Structures.SceneStructureParts;
 
+import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
 import UI.Enums.MyPos;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
@@ -26,10 +28,10 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow Headline(String text, ArrayList<Node> nodes){
+    public CustomWindow Headline(String text, MyPos pos){
 
         // Set content
-        this.getChildren().add(new Headline(text, nodes, MyPos.LEFT, MyShape.ROUND));
+        this.getChildren().add(new Headline(text, pos, MyShape.ROUND));
 
         return this;
     }
@@ -86,6 +88,13 @@ public class CustomWindow extends VBox {
 
         // Set content
         this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
+
+        // Set the timer
+        Headline timerline = new Headline("", MyPos.CENTER, MyShape.ROUND);
+        timerline.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
+
+        // Make this object use the custom-menu css styling
+        this.getStyleClass().add("custom-window-pomodoro-timer");
 
         return this;
     }

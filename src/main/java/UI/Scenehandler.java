@@ -1,31 +1,45 @@
 package UI;
 
 import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
 
+import UI.Buttons.CustomButtonControls;
+import UI.Enums.MyPos;
+import UI.Enums.MyShape;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.CustomWindow;
+import UI.Structures.SceneStructureParts.SmallParts.Headline;
 import UI.Structures.SceneStructureParts.SmallParts.LabelWithSizing;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import UI.Structures.SceneStructureParts.SmallParts.TextFieldWithSizing;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class Scenehandler {
 
-    //FIX IKKE HVID BAGGRUND
-
     private Stage stage;
     private Scene scene;
     private StackPane root;
     private BorderPane mainPane;
+
+    private Stage miniStage;
+    private Scene miniScene;
+    private NodeBarH miniNodeBarH;
+
 
     public Scene getScene() {
         return scene;
@@ -39,7 +53,21 @@ public class Scenehandler {
         return mainPane;
     }
 
+    public Stage getStage(){
+        return this.stage;
+    }
 
+    public Stage getMiniStage() {
+        return miniStage;
+    }
+
+    public Scene getMiniScene() {
+        return miniScene;
+    }
+
+    public NodeBarH getMiniNodeBarH() {
+        return miniNodeBarH;
+    }
 
     public Scenehandler(){
 
@@ -76,14 +104,16 @@ public class Scenehandler {
         // Set the stylesheet for the scene
         this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString());
 
-    }
+        // Set the stages limits in terms of sizing
+        this.stage.setMinWidth(750);
+        this.stage.setMinHeight(400);
 
-    /**
-     *
-     * @return
-     */
-    public Stage getStage(){
-        return this.stage;
+        // Close miniStage if the main window is closed
+        this.stage.setOnCloseRequest(e -> {
+            if (this.miniStage!=null){
+                this.miniStage.close();
+            }
+        });
     }
 
     /**
@@ -142,14 +172,105 @@ public class Scenehandler {
         this.root.requestFocus();
     }
 
-    /**
-     *
-     * @param sceneType
-     * @return
-     */
-    public Stage setAndGetStage(SceneType sceneType){
-        setStage(sceneType);
-        return getStage();
+    public void startMiniStage(){
+
+        // The list with nodes
+        ArrayList<Node> nodes = new ArrayList<>();
+
+        // The list with nodes
+        ArrayList<Node> nodesControls = new ArrayList<>();
+
+        // Set the headline & bind the timerLabel to the timer
+        Headline timerLabel = new Headline("", MyPos.CENTER, MyShape.ROUND);
+        timerLabel.setStyle("-fx-padding: 0");
+        timerLabel.getLabel().setStyle("-fx-font-size: 20; -fx-padding: 0;");
+        timerLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
+
+        // Make the miniStage moveable on the time
+        timerLabel.setOnMousePressed(e1 -> {
+            timerLabel.setOnMouseDragged( e2 -> {
+                this.miniStage.setX(e2.getScreenX() - e1.getSceneX());
+                this.miniStage.setY(e2.getScreenY() - e1.getSceneY());
+            });
+        });
+
+        // Add the buttons
+        CustomButton buttonStop = new CustomButton().Controls().Stop();
+        CustomButton buttonPausePlay = new CustomButton().Controls().PlayAndPause();
+        CustomButton buttonSkip = new CustomButton().Controls().Skip();
+
+        // Add seperator
+        Separator separator = new Separator();
+        separator.setOrientation(Orientation.VERTICAL);
+
+        // Style buttons to make them smaller
+        buttonStop.setStyle("-fx-background-size: 15;");
+        buttonPausePlay.setStyle("-fx-background-size: 25;");
+        buttonSkip.setStyle("-fx-background-size: 20;");
+
+        // Add the different buttons to the nodecontrol array
+        nodesControls.add(buttonPausePlay);
+        nodesControls.add(separator);
+        nodesControls.add(buttonStop);
+        nodesControls.add(buttonSkip);
+
+        // Initiate a container for the buttons
+        NodeBarH buttonContainer = new NodeBarH(nodesControls,MyPos.RIGHT);
+        // Style the container
+        buttonContainer.setStyle("-fx-spacing: 5; -fx-padding: 0; -fx-border-color: -fx-color2");
+
+        // Add the different timer
+        nodes.add(timerLabel);
+        nodes.add(buttonContainer);
+
+        // Initiate the root
+        this.miniNodeBarH = new NodeBarH(nodes,MyPos.RIGHT);
+
+        // Style the miniNodeBarH
+        this.miniNodeBarH.setStyle("-fx-spacing: 15; -fx-padding: 0;");
+
+        // Make the miniStage moveable on the background
+        this.miniNodeBarH.setOnMousePressed(e1 -> {
+            this.miniNodeBarH.setOnMouseDragged( e2 -> {
+                this.miniStage.setX(e2.getScreenX() - e1.getSceneX());
+                this.miniStage.setY(e2.getScreenY() - e1.getSceneY());
+            });
+        });
+
+        // Create the scene with the root
+        this.miniScene = new Scene(this.miniNodeBarH, 250, 50);
+
+        // Remove the background
+        this.miniScene.setFill(Color.TRANSPARENT);
+
+        // Initiate the stage
+        this.miniStage = new Stage();
+
+        // Set the stage's scene
+        this.miniStage.setScene(miniScene);
+
+        // Make this scene use the custom css styling
+        this.miniScene.getStylesheets().add("miniscene");
+        this.miniStage.initStyle(StageStyle.TRANSPARENT);
+
+
+        // Set the stylesheet for the scene
+        this.miniScene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString());
+
+        // Always on top
+        this.miniStage.setAlwaysOnTop(true);
+
+        // Show miniStage
+        this.miniStage.show();
+
+        // Set the start location of the miniStage
+        this.miniStage.setX(Screen.getPrimary().getVisualBounds().getWidth()-this.miniStage.getWidth()-10);
+        this.miniStage.setY(Screen.getPrimary().getVisualBounds().getHeight()-this.miniStage.getHeight()-10);
+    }
+
+    public void closeMiniStage(){
+        // Close miniStage
+        this.miniStage.close();
     }
 
     /**
@@ -183,7 +304,6 @@ public class Scenehandler {
         // Give the screen a scroll function
         ScrollPane view = new ScrollPane();
         view.setFitToWidth(true);
-        view.setMinHeight(this.stage.getHeight());
 
         // Initiate the content container
         VBox container = new VBox();
@@ -195,26 +315,30 @@ public class Scenehandler {
 
         CustomWindow headline = new CustomWindow().Headline("Home");
 
-        CustomWindow settingsWindow = new CustomWindow().Pomodoro();
+        CustomWindow pomodoroWindow = new CustomWindow().Pomodoro();
 
-        CustomWindow settingsWindow2 = new CustomWindow().Settings();
-        CustomWindow settingsWindow3 = new CustomWindow().Settings();
+        CustomWindow settingsWindow2 = new CustomWindow().Settings(300,600,400,400);
+        CustomWindow settingsWindow3 = new CustomWindow().Settings(300,600,400,400);
 
 
 
         //
         HBox sideBySide = new HBox();
+        sideBySide.setAlignment(Pos.CENTER);
         sideBySide.getChildren().addAll(settingsWindow2,settingsWindow3);
 
 
         // Set contentcontainers content
-        container.getChildren().addAll(settingsWindow,sideBySide);
+        container.getChildren().addAll(pomodoroWindow,sideBySide);
 
         // Set the content of the view
         view.setContent(container);
 
         // Set the content of the root
         root.getChildren().addAll(headline,view);
+
+        // Bind the size of the view
+        view.prefHeightProperty().bind(root.heightProperty().subtract(headline.getHeight()));
 
         return root;
     }
@@ -231,7 +355,6 @@ public class Scenehandler {
         // Give the screen a scroll function
         ScrollPane view = new ScrollPane();
         view.setFitToWidth(true);
-        view.setMinHeight(this.stage.getHeight());
 
         // Initiate the content container
         VBox container = new VBox();
@@ -256,6 +379,9 @@ public class Scenehandler {
         // Set the content of the root
         root.getChildren().addAll(headline,view);
 
+        // Bind the size of the view
+        view.prefHeightProperty().bind(root.heightProperty().subtract(headline.getHeight()));
+
         return root;
     }
 
@@ -271,7 +397,6 @@ public class Scenehandler {
         // Give the screen a scroll function
         ScrollPane view = new ScrollPane();
         view.setFitToWidth(true);
-        view.setMinHeight(this.stage.getHeight());
 
         // Initiate the content container
         VBox container = new VBox();
@@ -295,6 +420,9 @@ public class Scenehandler {
 
         // Set the content of the root
         root.getChildren().addAll(headline,view);
+
+        // Bind the size of the view
+        view.prefHeightProperty().bind(root.heightProperty().subtract(headline.getHeight()-(root.getChildren().size()*20)));
 
         return root;
     }

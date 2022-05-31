@@ -3,6 +3,7 @@ package UI.Structures.SceneStructureParts.Windows;
 import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
@@ -91,6 +92,13 @@ public class SettingsWindow extends CustomWindow {
             consultantChoice.getChoicebox().setValue(ConsultantSingleton.getInstance().getFullName());
         }
         ControllerSingleton.getInstance().updateConsultantValues(ConsultantSingleton.getInstance(),this);
+
+        // Lock the fields when the timer runs
+        consultantChoice.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
+        taskTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
+        breakTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
+        longbreakTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
+        customButton.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
 
     }
 

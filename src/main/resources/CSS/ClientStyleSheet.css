@@ -36,6 +36,10 @@
     -fx-hbar-policy: never;
     -fx-vbar-policy: never;
 }
+.scroll-pane > .viewport
+{
+    -fx-background-color: -fx-color2;
+}
 /*
 -----------------------------------------------------------------Buttons-START-------------------------------------------------
  */
@@ -59,53 +63,54 @@
 }
 .custom-menu-button-home
 {
-    -fx-background-image: url("Scenes/ButtonImg/Home/homeicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Menu/Home/homeicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-home:hover
 {
-    -fx-background-image: url("Scenes/ButtonImg/Home/homefillicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Menu/Home/homefillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-dotoday
 {
-    -fx-background-image: url("Scenes/ButtonImg/DoToday/calendaricon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Menu/DoToday/calendaricon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-dotoday:hover
 {
-    -fx-background-image: url("Scenes/ButtonImg/DoToday/calendarfillicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Menu/DoToday/calendarfillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-overview
 {
-    -fx-background-image: url("Scenes/ButtonImg/Overview/menuicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Menu/Overview/menuicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-overview:hover
 {
-    -fx-background-image: url("Scenes/ButtonImg/Overview/menufillicon.png");
+    -fx-background-image: url("Scenes/ButtonImg/Menu/Overview/menufillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 
 .custom-other-button
 {
+    -fx-background-color: -fx-color4;
     -fx-padding: 10 20 10 20;
     -fx-border-radius: 10;
 }
 .custom-other-button-hovered
 {
-    -fx-background-color: -fx-color5;
+    /*-fx-background-color: -fx-color5;*/
 }
 .custom-other-button-focused
 {
-    -fx-background-color: -fx-color3;
+    /*-fx-background-color: -fx-color3;*/
 }
 .custom-other-button-save
 {
@@ -140,6 +145,114 @@
 .custom-other-button-add:focused
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+
+
+
+.custom-controls-button
+{
+    -fx-background-color: -fx-color4;
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 10;
+}
+.custom-controls-button-hovered
+{
+    /*-fx-background-color: -fx-color5;*/
+}
+.custom-controls-button-focused
+{
+    /*-fx-background-color: -fx-color3;*/
+}
+.custom-controls-button-pause
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Pause/pauseicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-pause:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Pause/pausefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-pause:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Pause/pausefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-play
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Play/playicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+    -fx-background-size: contain;
+}
+.custom-controls-button-play:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Play/playfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-play:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Play/playfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-stop
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Stop/stopicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-stop:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Stop/stopfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-stop:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Stop/stopfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-skip
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Skip/skipicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-skip:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Skip/skipfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-skip:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Skip/skipfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-popout
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popouticon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-popout:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popoutfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-popout:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Popout/popoutfillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
@@ -182,6 +295,7 @@
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+    -fx-spacing: 10;
 }
 
 
@@ -288,6 +402,11 @@
     -fx-font-weight: bold;
 }
 
+.headline-timer
+{
+    -fx-border-color: -fx-colorb3;
+}
+
 
 .textfield-sizing
 {
@@ -303,6 +422,10 @@
 /*
 -----------------------------------------------------------------Windows-START--------------------------------------------
  */
+.miniscene
+{
+    -fx-background-color: transparent;
+}
 .custom-window
 {
     -fx-background-color: -fx-color2;
@@ -310,7 +433,7 @@
 }
 .custom-window-settings
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -fx-color1;
     -fx-border-color: -fx-colorb3;
     -fx-background-radius: 0 0 10 10;
     -fx-border-radius: 0 0 10 10;
@@ -318,12 +441,13 @@
 }
 .custom-window-pomodoro
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -fx-color1;
     -fx-border-color: -fx-colorb3;
     -fx-background-radius: 0 0 10 10;
     -fx-border-radius: 0 0 10 10;
     -fx-spacing: 10;
 }
+
 
 /*
 -----------------------------------------------------------------Windows-END-----------------------------------------------
@@ -334,15 +458,15 @@
  */
 .screen-home
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -fx-color2;
 }
 .screen-overview
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -fx-color2;
 }
 .screen-dotoday
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -fx-color2;
 }
 
 /*

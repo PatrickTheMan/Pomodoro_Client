@@ -4,14 +4,14 @@
  */
 .custom-menu-button-home
 {
-    -fx-background-image: url("ButtonImg/Home/homeselectedicon.png");
+    -fx-background-image: url("ButtonImg/Menu/Home/homeselectedicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 
 }
 .custom-menu-button-home:hover
 {
-    -fx-background-image: url("ButtonImg/Home/homeselectedfillicon.png");
+    -fx-background-image: url("ButtonImg/Menu/Home/homeselectedfillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }

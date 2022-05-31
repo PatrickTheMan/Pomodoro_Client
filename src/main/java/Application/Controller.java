@@ -2,16 +2,20 @@ package Application;
 
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
+import Domain.Timer;
 import UI.Buttons.CustomButton;
+import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;
 import UI.Enums.SceneType;
 import UI.Singletons.ScenehandlerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
-import javafx.scene.layout.HBox;
 
 public class Controller {
+
+    //region [Scene]
 
     /**
      *
@@ -33,6 +37,24 @@ public class Controller {
     public void setSceneDoToday(){
         ScenehandlerSingleton.getInstance().setStage(SceneType.DoToday);
     }
+
+    /**
+     *
+     */
+    public void startMiniStage(){
+        ScenehandlerSingleton.getInstance().startMiniStage();
+    }
+
+    /**
+     *
+     */
+    public void closeMiniStage(){
+        ScenehandlerSingleton.getInstance().closeMiniStage();
+    }
+
+    //endregion
+
+    //region [Consultant]
 
     /**
      *
@@ -72,6 +94,48 @@ public class Controller {
         settingsWindow.setLongbreakTimeFieldText(""+consultant.getLongBreakTimeMin()+":"+
                 (consultant.getLongBreakTimeSec()>9? consultant.getLongBreakTimeSec() : "0"+consultant.getLongBreakTimeSec()));
     }
+
+    //endregion
+
+    //region [Timer]
+
+    public void setTimeOnTimer(){
+        TimerSingleton.getInstance().setTime(
+                ""+ConsultantSingleton.getInstance().getTaskTimeMin(),
+                ""+ConsultantSingleton.getInstance().getTaskTimeSec()
+        );
+    }
+
+    public void playOrPause(CustomButtonControls customButtonControls){
+        if (customButtonControls.getStyleClass().contains("custom-controls-button-play")){
+            TimerSingleton.getInstance().startTimer();
+        } else {
+            TimerSingleton.getInstance().pauseTimer();
+        }
+    }
+
+    public void stop(){
+        TimerSingleton.getInstance().resetTimer();
+    }
+
+    public void skip(){
+        TimerSingleton.getInstance().skipTimer();
+    }
+
+    //endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      *
@@ -174,6 +238,19 @@ public class Controller {
             customButtonOther.getStyleClass().add("custom-other-button-hovered");
         } else {
             customButtonOther.getStyleClass().remove("custom-other-button-hovered");
+        }
+    }
+
+    /**
+     *
+     * @param customButtonControls
+     */
+    public void setHovered(CustomButtonControls customButtonControls, boolean hovered){
+        // Make this object use the custom css styling
+        if (hovered){
+            customButtonControls.getStyleClass().add("custom-controls-button-hovered");
+        } else {
+            customButtonControls.getStyleClass().remove("custom-controls-button-hovered");
         }
     }
 

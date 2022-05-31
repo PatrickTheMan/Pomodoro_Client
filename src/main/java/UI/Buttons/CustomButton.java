@@ -27,6 +27,8 @@ public class CustomButton extends Button {
         return new CustomButtonMenu();
     }
 
+    public CustomButtonControls Controls(){return new CustomButtonControls();}
+
     public CustomButtonOther Other(){
         return new CustomButtonOther();
     }

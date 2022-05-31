@@ -1,21 +1,17 @@
 package UI.Structures.SceneStructureParts.Windows;
 
-import Application.Singleton.ControllerSingleton;
-import Domain.Consultant;
-import Domain.Singletons.ConsultantSingleton;
-import Domain.Task;
+import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
+import UI.Enums.MyPos;
+import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.CustomWindow;
-import UI.Structures.SceneStructureParts.SmallParts.LabelWithSizing;
+import UI.Structures.SceneStructureParts.SmallParts.Headline;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import javafx.scene.Node;
 
 import java.util.ArrayList;
 
 public class PomodoroTimerWindow extends CustomWindow {
-
-    private LabelWithSizing timerLabel;
-    private LabelWithSizing statusLabel;
 
     /**
      *
@@ -31,37 +27,30 @@ public class PomodoroTimerWindow extends CustomWindow {
      */
     private void NormalSetup(){
 
-        // Make this object use the custom-menu css styling
+        // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-pomodoro");
 
-        // Create an arraylist with consultants
-        ArrayList<Consultant> consultants = new ArrayList<>();
+        // Set the headline & bind the timerLabel to the timer
+        Headline timerLabel = new Headline("", MyPos.CENTER, MyShape.ROUND,25,75);
+        timerLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
 
-        // Get The different consultants
-        consultants.addAll(ConsultantSingleton.getInstance().getTestConsultants());
-        // DB FUNCTION HERE
-
-
+        // Make this object use the custom css styling
+        timerLabel.getStyleClass().add("headline-timer");
 
         // Add the buttons
-        CustomButton buttonStop = new CustomButton().Other().Add(new Task());
-        CustomButton buttonPausePlay = new CustomButton().Other().Add(new Task());
-        CustomButton buttonSkip = new CustomButton().Other().Add(new Task());
+        CustomButton buttonStop = new CustomButton().Controls().Stop();
+        CustomButton buttonPausePlay = new CustomButton().Controls().PlayAndPause();
+        CustomButton buttonSkip = new CustomButton().Controls().Skip();
 
         // Add the button to a bar
         ArrayList<Node> nodes = new ArrayList<>();
         nodes.add(buttonStop);
         nodes.add(buttonPausePlay);
         nodes.add(buttonSkip);
-        NodeBarH buttonBarH = new NodeBarH(nodes);
+        NodeBarH buttonBarH = new NodeBarH(nodes, MyPos.CENTER);
 
         // Add the content to the class object
-        this.getChildren().addAll(buttonBarH);
-
-        // Set the initial values and consultant if chosen
-        if (ConsultantSingleton.getInstance().exists()) {
-            // Values
-        }
+        this.getChildren().addAll(timerLabel,buttonBarH);
 
     }
 

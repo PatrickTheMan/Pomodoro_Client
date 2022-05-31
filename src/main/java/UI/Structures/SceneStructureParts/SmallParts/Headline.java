@@ -1,6 +1,7 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
 import UI.Enums.MyPos;
+import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -11,14 +12,20 @@ import java.util.ArrayList;
 
 public class Headline extends HBox {
 
+    private Label label;
+
+    public Label getLabel() {
+        return label;
+    }
+
     public Headline(String text){
         // Get normalt setup
-        NormalSetup(text, false);
+        NormalSetup(text, MyScaling.SMALL);
     }
 
     public Headline(String text, ArrayList<Node> nodes){
         // Get normalt setup
-        NormalSetup(text, false);
+        NormalSetup(text, MyScaling.SMALL);
 
         // Initiate a button container
         HBox buttonContainter = new HBox();
@@ -38,10 +45,10 @@ public class Headline extends HBox {
         // Get the normal setup with the right scaling
         if (shape.equals(MyShape.HALFROUND)){
             // Get normalt setup
-            NormalSetup(text,false);
+            NormalSetup(text,MyScaling.SMALL);
         } else {
             // Get normalt setup
-            NormalSetup(text,true);
+            NormalSetup(text,MyScaling.BIG);
         }
 
         // Set the settings
@@ -61,15 +68,15 @@ public class Headline extends HBox {
         }
     }
 
-    public Headline(String text, ArrayList<Node> nodes, MyPos pos, MyShape shape){
+    public Headline(String text, MyPos pos, MyShape shape, int smallestFontSize, int biggestFontSize){
 
         // Get the normal setup with the right scaling
-        if (shape.equals(MyShape.HALFROUND.HALFROUND)){
+        if (shape.equals(MyShape.HALFROUND)){
             // Get normalt setup
-            NormalSetup(text,false);
+            NormalSetup(text,MyScaling.SMALL);
         } else {
             // Get normalt setup
-            NormalSetup(text,true);
+            NormalSetup(text,MyScaling.CUSTOM);
         }
 
         // Set the settings
@@ -88,73 +95,76 @@ public class Headline extends HBox {
             case NOTROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
         }
 
-        // Initiate a button container
-        HBox buttonContainter = new HBox();
-
-        // Make this object use the custom-menu css styling
-        this.getStyleClass().add("headline-buttonContainer");
-
-        // Add the other nodes
-        buttonContainter.getChildren().addAll(nodes);
-
-        // Add the container
-        this.getChildren().add(buttonContainter);
+        // Set Scaling
+        scalingCustom(smallestFontSize,biggestFontSize);
     }
 
-    private void scalingSmall(Label label){
+
+
+    private void scalingSmall(){
         // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
         this.widthProperty().addListener((obs, old, newVal) -> {
             // Changes the size of the label text
-            if (newVal.intValue()/15>=25){
-                label.setStyle("-fx-font-size: 25;");
+            if (newVal.intValue()/15>=25 && !this.label.getStyle().contains("-fx-font-size: 25;")){
+                this.label.setStyle("-fx-font-size: 25;");
             }
             if (newVal.intValue()/15<25 && newVal.intValue()/15>15){
-                label.setStyle("-fx-font-size: "+newVal.intValue()/15+";");
+                this.label.setStyle("-fx-font-size: "+newVal.intValue()/15+";");
             }
         });
     }
 
-    private void scalingBig(Label label){
+    private void scalingBig(){
         // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
         this.widthProperty().addListener((obs, old, newVal) -> {
             // Changes the size of the label text
-            if (newVal.intValue()/15>=35){
-                label.setStyle("-fx-font-size: 35;");
+            if (newVal.intValue()/15>=35 && !this.label.getStyle().contains("-fx-font-size: 35;")){
+                this.label.setStyle("-fx-font-size: 35;");
             }
             if (newVal.intValue()/15<35 && newVal.intValue()/15>25){
-                label.setStyle("-fx-font-size: "+newVal.intValue()/15+";");
+                this.label.setStyle("-fx-font-size: "+newVal.intValue()/15+";");
             }
         });
     }
 
-    private void NormalSetup(String text, boolean big){
+    private void scalingCustom(int smallestFont, int biggestFont){
+        // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
+        this.widthProperty().addListener((obs, old, newVal) -> {
+
+            // Changes the size of the label text
+            if (newVal.intValue()/10>=biggestFont && !this.label.getStyle().contains("-fx-font-size: "+biggestFont+";")){
+                this.label.setStyle("-fx-font-size: "+biggestFont+";");
+            }
+            if (newVal.intValue()/10<biggestFont && newVal.intValue()/10>smallestFont){
+                this.label.setStyle("-fx-font-size: "+newVal.intValue()/10+";");
+            }
+        });
+    }
+
+    private void NormalSetup(String text, MyScaling scaling){
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("headline");
 
-        // Set alignment
-        this.setAlignment(Pos.BOTTOM_RIGHT);
-
         // Add the label
-        Label label = new Label();
-        label.setText(text);
+        this.label= new Label();
+        this.label.setText(text);
 
         // Remove focus option
-        label.setFocusTraversable(false);
+        this.label.setFocusTraversable(false);
 
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("headline-label");
 
         // Add content
-        this.getChildren().add(label);
+        this.getChildren().add(this.label);
 
         // Set alignment
         this.setAlignment(Pos.CENTER);
 
         // Set the scaling of the label text
-        if (big){
-            scalingBig(label);
-        } else {
-            scalingSmall(label);
+        switch (scaling){
+            case BIG -> scalingBig();
+            case SMALL -> scalingSmall();
         }
     }
 

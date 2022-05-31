@@ -4,13 +4,13 @@
  */
 .custom-menu-button-overview
 {
-    -fx-background-image: url("ButtonImg/Overview/menufillicon.png");
+    -fx-background-image: url("ButtonImg/Menu/Overview/menufillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
 .custom-menu-button-overview:hover
 {
-    -fx-background-image: url("ButtonImg/Overview/menuselectedicon.png");
+    -fx-background-image: url("ButtonImg/Menu/Overview/menuselectedicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
