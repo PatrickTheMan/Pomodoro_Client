@@ -93,9 +93,6 @@ public class CustomWindow extends VBox {
         Headline timerline = new Headline("", MyPos.CENTER, MyShape.ROUND);
         timerline.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
 
-        // Make this object use the custom-menu css styling
-        this.getStyleClass().add("custom-window-pomodoro-timer");
-
         return this;
     }
 
@@ -112,6 +109,43 @@ public class CustomWindow extends VBox {
     }
 
     public CustomWindow Pomodoro(int minWidth, int maxWidth, int minHeight, int maxHeight){
+
+        // Set content
+        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND), new PomodoroTimerWindow());
+
+        // Settings
+        this.setMinSize(minWidth,minHeight);
+        this.setMaxSize(maxWidth,maxHeight);
+
+        return this;
+    }
+
+    public CustomWindow List(String text){
+
+        // Set content
+        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
+
+
+
+        // Make this object use the custom css styling
+        this.getStyleClass().add("custom-window-list");
+
+        return this;
+    }
+
+    public CustomWindow List(int maxWidth, int maxHeight){
+
+        // Set content
+        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
+
+        // Settings
+        this.setMaxWidth(maxWidth);
+        this.setMaxHeight(maxHeight);
+
+        return this;
+    }
+
+    public CustomWindow List(int minWidth, int maxWidth, int minHeight, int maxHeight){
 
         // Set content
         this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND), new PomodoroTimerWindow());

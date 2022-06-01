@@ -41,7 +41,6 @@ public class Controller {
      *
      */
     public void openCloseMiniStage(){
-        System.out.println("D");
         if (ScenehandlerSingleton.getInstance().getMiniStage()==null || !ScenehandlerSingleton.getInstance().getMiniStage().isShowing() ){
             ScenehandlerSingleton.getInstance().startMiniStage();
         } else {
@@ -145,6 +144,12 @@ public class Controller {
 
     //region [Buttons]
 
+
+
+    //endregion
+
+    //region [Buttons Selected/Hover]
+
     /**
      *
      * @param choiceComboBox
@@ -177,10 +182,18 @@ public class Controller {
      */
     public void setSelected(CustomButton customButton, boolean focused){
         // Make this object use the custom css styling
-        if (focused){
-            customButton.getStyleClass().add("custom-button-focused");
+        if (customButton.getStyleClass().contains("custom-button-text")){
+            if (focused){
+                customButton.getStyleClass().add("custom-button-text-focused");
+            } else {
+                customButton.getStyleClass().remove("custom-button-text-focused");
+            }
         } else {
-            customButton.getStyleClass().remove("custom-button-focused");
+            if (focused){
+                customButton.getStyleClass().add("custom-button-focused");
+            } else {
+                customButton.getStyleClass().remove("custom-button-focused");
+            }
         }
     }
 
@@ -229,10 +242,18 @@ public class Controller {
      */
     public void setHovered(CustomButton customButton, boolean hovered){
         // Make this object use the custom css styling
-        if (hovered){
-            customButton.getStyleClass().add("custom-button-hovered");
+        if (customButton.getStyleClass().contains("custom-button-text")){
+            if (hovered){
+                customButton.getStyleClass().add("custom-button-text-hovered");
+            } else {
+                customButton.getStyleClass().remove("custom-button-text-hovered");
+            }
         } else {
-            customButton.getStyleClass().remove("custom-button-hovered");
+            if (hovered){
+                customButton.getStyleClass().add("custom-button-hovered");
+            } else {
+                customButton.getStyleClass().remove("custom-button-hovered");
+            }
         }
     }
 

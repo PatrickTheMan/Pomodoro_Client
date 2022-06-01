@@ -45,7 +45,7 @@ public class SettingsWindow extends CustomWindow {
      */
     private void NormalSetup(){
 
-        // Make this object use the custom-menu css styling
+        // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-settings");
 
         // Create an arraylist with consultants

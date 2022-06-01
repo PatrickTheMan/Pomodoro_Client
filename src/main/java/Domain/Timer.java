@@ -2,10 +2,6 @@ package Domain;
 
 import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
-import Domain.Singletons.TimerSingleton;
-import UI.Buttons.CustomButtonControls;
-import UI.Scenehandler;
-import UI.Singletons.ScenehandlerSingleton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.*;
@@ -19,16 +15,14 @@ public class Timer {
     private String min = "0";
     private int cycle = 1;
 
-    /*
-    1 = Task, 2 = Break, 3 = Long Break
-     */
-    private IntegerProperty timeTypeProperty = new SimpleIntegerProperty(1);
 
+    private StringProperty timeTypeProperty = new SimpleStringProperty("Task");
     private BooleanProperty timeRunningProperty = new SimpleBooleanProperty(false);
     private StringProperty timeProperty = new SimpleStringProperty("");
 
 
 
+    public StringProperty timeTypeProperty() {return this.timeTypeProperty;}
     public BooleanProperty timeRunningProperty() {return this.timeRunningProperty;}
     public StringProperty timeProperty() {return this.timeProperty;}
 
@@ -93,7 +87,7 @@ public class Timer {
         this.sec = ""+ConsultantSingleton.getInstance().getTaskTimeSec();
         this.cycle=1;
         this.timeRunningProperty.setValue(false);
-        this.timeTypeProperty.setValue(1);
+        this.timeTypeProperty.setValue("Task");
         this.timeline.stop();
 
         this.setTime(""+min,""+sec);
@@ -117,13 +111,13 @@ public class Timer {
     }
 
     public void skipTimer(){
-        if (timeTypeProperty.getValue()==1){
+        if (timeTypeProperty.getValue()=="Task"){
             if (this.cycle==4){
-                this.timeTypeProperty.setValue(3);
+                this.timeTypeProperty.setValue("Long Break");
                 this.min = ""+ConsultantSingleton.getInstance().getLongBreakTimeMin();
                 this.sec = ""+ConsultantSingleton.getInstance().getLongBreakTimeSec();
             } else {
-                this.timeTypeProperty.setValue(2);
+                this.timeTypeProperty.setValue("Break");
                 this.min = ""+ConsultantSingleton.getInstance().getBreakTimeMin();
                 this.sec = ""+ConsultantSingleton.getInstance().getBreakTimeSec();
             }
@@ -133,7 +127,7 @@ public class Timer {
             } else {
                 this.cycle++;
             }
-            this.timeTypeProperty.setValue(1);
+            this.timeTypeProperty.setValue("Task");
             this.min = ""+ConsultantSingleton.getInstance().getTaskTimeMin();
             this.sec = ""+ConsultantSingleton.getInstance().getTaskTimeSec();
         }
@@ -148,23 +142,23 @@ public class Timer {
         if (this.sec.equals("0")){
             if (this.min.equals("0")){
                 // Set the next timer to the right state (Task, Break or Long Break)
-                if (this.timeTypeProperty.getValue()==3 || timeTypeProperty.getValue()==2){
+                if (this.timeTypeProperty.getValue()=="Long Break" || timeTypeProperty.getValue()=="Break"){
 
                     // Next cycle
                     cycle++;
 
-                    this.timeTypeProperty.setValue(1);
+                    this.timeTypeProperty.setValue("Task");
                     this.setTime(""+ ConsultantSingleton.getInstance().getTaskTimeMin(),
                             ""+ConsultantSingleton.getInstance().getTaskTimeSec());
                 } else if (cycle==4){
                     // Set long break
-                    this.timeTypeProperty.setValue(3);
+                    this.timeTypeProperty.setValue("Long Break");
                     this.setTime(""+ ConsultantSingleton.getInstance().getLongBreakTimeMin(),
                             ""+ConsultantSingleton.getInstance().getLongBreakTimeSec());
                     this.cycle=1;
                 } else {
                     // Set break
-                    this.timeTypeProperty.setValue(2);
+                    this.timeTypeProperty.setValue("Break");
                     this.setTime(""+ ConsultantSingleton.getInstance().getBreakTimeMin(),
                             ""+ConsultantSingleton.getInstance().getBreakTimeSec());
                 }

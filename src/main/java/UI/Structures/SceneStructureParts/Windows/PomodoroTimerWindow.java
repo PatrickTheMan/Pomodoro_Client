@@ -11,6 +11,7 @@ import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
@@ -37,12 +38,23 @@ public class PomodoroTimerWindow extends CustomWindow {
         StackPane timerSection = new StackPane();
         timerSection.setAlignment(Pos.TOP_RIGHT);
 
+        // Add a timer and status container
+        VBox timerStatusContainer = new VBox();
+
         // Set the headline & bind the timerLabel to the timer
-        Headline timerLabel = new Headline("", MyPos.CENTER, MyShape.ROUND,25,75);
+        Headline timerLabel = new Headline("", MyPos.CENTER, MyShape.ROUND,25,75,10);
         timerLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
 
+        // Set the headline & bind the timerLabel to the timer
+        Headline statusLabel = new Headline("", MyPos.CENTER, MyShape.ROUND,15,40,18);
+        statusLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeTypeProperty());
+
+
         // Make this object use the custom css styling
-        timerLabel.getStyleClass().add("headline-timer");
+        timerStatusContainer.getStyleClass().add("headline-timerandstatus");
+
+        // Add content to the timer and status container
+        timerStatusContainer.getChildren().addAll(timerLabel,statusLabel);
 
         // Add popout button
         CustomButton buttonPopout = new CustomButton().Controls().Popout();
@@ -50,7 +62,7 @@ public class PomodoroTimerWindow extends CustomWindow {
         buttonPopout.setStyle("-fx-border-color: transparent; -fx-background-color: transparent");
 
         // Add content to the timerSection
-        timerSection.getChildren().addAll(timerLabel,buttonPopout);
+        timerSection.getChildren().addAll(timerStatusContainer,buttonPopout);
 
 
         // Add the buttons

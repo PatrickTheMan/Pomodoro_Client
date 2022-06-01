@@ -1,25 +1,24 @@
 package UI;
 
+import Application.Controller;
+import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
 
-import UI.Buttons.CustomButtonControls;
 import UI.Enums.MyPos;
 import UI.Enums.MyShape;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.CustomWindow;
-import UI.Structures.SceneStructureParts.SmallParts.Headline;
-import UI.Structures.SceneStructureParts.SmallParts.LabelWithSizing;
-import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
-import UI.Structures.SceneStructureParts.SmallParts.TextFieldWithSizing;
+import UI.Structures.SceneStructureParts.SmallParts.*;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -41,6 +40,8 @@ public class Scenehandler {
     private Stage miniStage;
     private Scene miniScene;
     private NodeBarH miniNodeBarH;
+
+    private ArrayList<Node> nodeArrayList = new ArrayList<>();
 
 
     public Scene getScene() {
@@ -71,9 +72,10 @@ public class Scenehandler {
         return miniNodeBarH;
     }
 
-    public String getSceneTitle() {
-        return sceneTitle;
-    }
+    public String getSceneTitle() {return sceneTitle;}
+
+    public ArrayList<Node> getNodeArrayList() {return nodeArrayList;}
+
 
     public Scenehandler(){
 
@@ -133,9 +135,9 @@ public class Scenehandler {
             case Home -> {
                 this.sceneTitle="Home";
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.stage.setTitle(ConsultantSingleton.getInstance().getFullName()+sceneTitle);
+                    ControllerSingleton.getInstance().setTimerTitle();
                 } else {
-                    this.stage.setTitle("No user - "+sceneTitle);
+                    this.stage.setTitle(sceneTitle);
                 }
 
                 // Set the main content
@@ -148,9 +150,9 @@ public class Scenehandler {
             case Overview ->{
                 this.sceneTitle="Overview";
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.stage.setTitle(ConsultantSingleton.getInstance().getFullName()+sceneTitle);
+                    ControllerSingleton.getInstance().setTimerTitle();
                 } else {
-                    this.stage.setTitle("No user - "+sceneTitle);
+                    this.stage.setTitle(sceneTitle);
                 }
 
                 // Set the main content
@@ -163,9 +165,9 @@ public class Scenehandler {
             case DoToday -> {
                 this.sceneTitle="DoToday";
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.stage.setTitle(ConsultantSingleton.getInstance().getFullName()+sceneTitle);
+                    ControllerSingleton.getInstance().setTimerTitle();
                 } else {
-                    this.stage.setTitle("No user - "+sceneTitle);
+                    this.stage.setTitle(sceneTitle);
                 }
 
                 // Set the main content
@@ -195,9 +197,23 @@ public class Scenehandler {
         timerLabel.getLabel().setStyle("-fx-font-size: 20; -fx-padding: 0;");
         timerLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
 
-        // Make the miniStage moveable on the time
+        // Set the headline & bind the timerLabel to the timer
+        Headline statusLabel = new Headline("", MyPos.CENTER, MyShape.ROUND);
+        statusLabel.setStyle("-fx-padding: 0");
+        statusLabel.getLabel().setStyle("-fx-font-size: 10; -fx-padding: 0;");
+        statusLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeTypeProperty());
+
+        // Make the miniStage moveable on the time label
         timerLabel.setOnMousePressed(e1 -> {
             timerLabel.setOnMouseDragged( e2 -> {
+                this.miniStage.setX(e2.getScreenX() - e1.getSceneX());
+                this.miniStage.setY(e2.getScreenY() - e1.getSceneY());
+            });
+        });
+
+        // Make the miniStage moveable on the status label
+        statusLabel.setOnMousePressed(e1 -> {
+            statusLabel.setOnMouseDragged( e2 -> {
                 this.miniStage.setX(e2.getScreenX() - e1.getSceneX());
                 this.miniStage.setY(e2.getScreenY() - e1.getSceneY());
             });
@@ -229,6 +245,7 @@ public class Scenehandler {
         buttonContainer.setStyle("-fx-spacing: 5; -fx-padding: 0; -fx-border-color: -fx-color2");
 
         // Add the different timer
+        nodes.add(statusLabel);
         nodes.add(timerLabel);
         nodes.add(buttonContainer);
 
@@ -247,7 +264,7 @@ public class Scenehandler {
         });
 
         // Create the scene with the root
-        this.miniScene = new Scene(this.miniNodeBarH, 250, 50);
+        this.miniScene = new Scene(this.miniNodeBarH, 300, 50);
 
         // Remove the background
         this.miniScene.setFill(Color.TRANSPARENT);
@@ -320,22 +337,22 @@ public class Scenehandler {
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-home");
 
-
-
+        // Create the headline
         CustomWindow headline = new CustomWindow().Headline("Home");
 
+        // Create the pomodoroTimerWindow
         CustomWindow pomodoroWindow = new CustomWindow().Pomodoro();
 
+        // Create the setting window
         CustomWindow settingsWindow2 = new CustomWindow().Settings(300,600,400,400);
         CustomWindow settingsWindow3 = new CustomWindow().Settings(300,600,400,400);
 
 
 
-        //
+        // Add the container, so 2 windows can be next to each other
         HBox sideBySide = new HBox();
         sideBySide.setAlignment(Pos.CENTER);
         sideBySide.getChildren().addAll(settingsWindow2,settingsWindow3);
-
 
         // Set contentcontainers content
         container.getChildren().addAll(pomodoroWindow,sideBySide);
@@ -400,6 +417,11 @@ public class Scenehandler {
      */
     private VBox getDoTodayScreen() {
 
+        // Clear node arraylist if it has been used
+        if (this.nodeArrayList.size()>0){
+            this.nodeArrayList.clear();
+        }
+
         // Initiate the root for the screen
         VBox root = new VBox();
 
@@ -415,14 +437,46 @@ public class Scenehandler {
 
 
 
+
+
         CustomWindow headline = new CustomWindow().Headline("Do Today");
 
-        CustomWindow settingsWindow = new CustomWindow().Pomodoro();
+
+
+
+        TextField test1 = new TextField("T1");
+        TextField test2 = new TextField("T2");
+        TextField test3 = new TextField("T3");
+        TextField test4 = new TextField("T4");
+        TextField test5 = new TextField("T5");
+        TextField test6 = new TextField("T6");
+        TextField test7 = new TextField("T7");
+        TextField test8 = new TextField("T8");
+        TextField test9 = new TextField("T9");
+        TextField test10 = new TextField("T10");
+
+        this.nodeArrayList.add(test1);
+        this.nodeArrayList.add(test2);
+        this.nodeArrayList.add(test3);
+        this.nodeArrayList.add(test4);
+        this.nodeArrayList.add(test5);
+        this.nodeArrayList.add(test6);
+        this.nodeArrayList.add(test7);
+        this.nodeArrayList.add(test8);
+        this.nodeArrayList.add(test9);
+        this.nodeArrayList.add(test10);
+
+
+        NodePages listOfItems = new NodePages(this.nodeArrayList,10,200);
+
+        CustomWindow listWindow = new CustomWindow();
+        listWindow.getChildren().add(listOfItems);
+
 
 
 
         // Set contentcontainers content
-        container.getChildren().addAll(settingsWindow);
+        container.getChildren().addAll(listWindow);
 
         // Set the content of the view
         view.setContent(container);

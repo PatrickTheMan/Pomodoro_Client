@@ -68,7 +68,7 @@ public class Headline extends HBox {
         }
     }
 
-    public Headline(String text, MyPos pos, MyShape shape, int smallestFontSize, int biggestFontSize){
+    public Headline(String text, MyPos pos, MyShape shape, int smallestFontSize, int biggestFontSize, int offset){
 
         // Get the normal setup with the right scaling
         if (shape.equals(MyShape.HALFROUND)){
@@ -96,7 +96,7 @@ public class Headline extends HBox {
         }
 
         // Set Scaling
-        scalingCustom(smallestFontSize,biggestFontSize);
+        scalingCustom(smallestFontSize,biggestFontSize,offset);
     }
 
 
@@ -127,16 +127,16 @@ public class Headline extends HBox {
         });
     }
 
-    private void scalingCustom(int smallestFont, int biggestFont){
+    private void scalingCustom(int smallestFont, int biggestFont, int offset){
         // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
         this.widthProperty().addListener((obs, old, newVal) -> {
 
             // Changes the size of the label text
-            if (newVal.intValue()/10>=biggestFont && !this.label.getStyle().contains("-fx-font-size: "+biggestFont+";")){
+            if (newVal.intValue()/offset>=biggestFont && !this.label.getStyle().contains("-fx-font-size: "+biggestFont+";")){
                 this.label.setStyle("-fx-font-size: "+biggestFont+";");
             }
-            if (newVal.intValue()/10<biggestFont && newVal.intValue()/10>smallestFont){
-                this.label.setStyle("-fx-font-size: "+newVal.intValue()/10+";");
+            if (newVal.intValue()/offset<biggestFont && newVal.intValue()/offset>smallestFont){
+                this.label.setStyle("-fx-font-size: "+newVal.intValue()/offset+";");
             }
         });
     }

@@ -23,6 +23,22 @@ public class CustomButton extends Button {
         });
     }
 
+    public CustomButton(String text){
+        // Make this button use the custom-menu-button css styling
+        this.getStyleClass().add("custom-button-text");
+
+        // Set the text
+        this.setText(text);
+
+        // Set the selection & hovered function
+        this.focusedProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setSelected(this,newVal);
+        });
+        this.hoverProperty().addListener((obs, old, newVal) -> {
+            ControllerSingleton.getInstance().setHovered(this,newVal);
+        });
+    }
+
     public CustomButtonMenu Menu(){
         return new CustomButtonMenu();
     }

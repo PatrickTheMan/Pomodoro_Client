@@ -1,5 +1,10 @@
 package Domain;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.util.ArrayList;
 
 public class Consultant {
@@ -12,12 +17,23 @@ public class Consultant {
 
     private ArrayList<Task> taskList = new ArrayList<>();
 
+    private StringProperty firstNameProperty = new SimpleStringProperty("");
+    private BooleanProperty existsProperty = new SimpleBooleanProperty(false);
+
+
+
+    public StringProperty firstNameProperty() {return firstNameProperty;}
+    public BooleanProperty existsProperty() {return existsProperty;}
+
     public Consultant(String firstName, String lastName, double taskTime, double breakTime, double longBreakTime){
         this.firstName = firstName;
         this.lastName = lastName;
         this.taskTime = taskTime;
         this.breakTime = breakTime;
         this.longBreakTime = longBreakTime;
+
+        this.firstNameProperty.set(firstName);
+        this.existsProperty.setValue(true);
     };
 
     public String getFirstName() {
@@ -102,6 +118,8 @@ public class Consultant {
         this.taskTime = consultant.getTaskTime();
         this.breakTime = consultant.getBreakTime();
         this.longBreakTime = consultant.getLongBreakTime();
+
+        this.firstNameProperty.set(consultant.getFullName());
     }
 
     public void loadTestConsultant(){
