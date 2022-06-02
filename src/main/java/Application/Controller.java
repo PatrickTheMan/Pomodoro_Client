@@ -3,6 +3,7 @@ package Application;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
+import Domain.Timer;
 import UI.Buttons.CustomButton;
 import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;
@@ -10,7 +11,10 @@ import UI.Enums.SceneType;
 import UI.Singletons.ScenehandlerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
+import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
+
+import java.sql.Time;
 
 public class Controller {
 
@@ -63,7 +67,7 @@ public class Controller {
         // Change title so consultant is added
         ScenehandlerSingleton.getInstance().getStage().setTitle(
                 (this.timerSetAlready ? TimerSingleton.getInstance().timeProperty().getValue() : "No user")+
-                    consultant.getFullName()+
+                    consultant.getName()+
                         ScenehandlerSingleton.getInstance().getSceneTitle()
         );
 
@@ -89,12 +93,9 @@ public class Controller {
      */
     public void updateConsultantValues(Consultant consultant, SettingsWindow settingsWindow){
         // Update fields
-        settingsWindow.setTaskTimeFieldText(""+consultant.getTaskTimeMin()+":"+
-                (consultant.getTaskTimeSec()>9? consultant.getTaskTimeSec() : "0"+consultant.getTaskTimeSec()));
-        settingsWindow.setBreakTimeFieldText(""+consultant.getBreakTimeMin()+":"+
-                (consultant.getBreakTimeSec()>9? consultant.getBreakTimeSec() : "0"+consultant.getBreakTimeSec()));
-        settingsWindow.setLongbreakTimeFieldText(""+consultant.getLongBreakTimeMin()+":"+
-                (consultant.getLongBreakTimeSec()>9? consultant.getLongBreakTimeSec() : "0"+consultant.getLongBreakTimeSec()));
+        settingsWindow.setTaskTimeFieldText(consultant.getTaskTime().toString());
+        settingsWindow.setBreakTimeFieldText(consultant.getBreakTime().toString());
+        settingsWindow.setLongbreakTimeFieldText(consultant.getLongBreakTime().toString());
     }
 
     //endregion
@@ -108,7 +109,7 @@ public class Controller {
         // Change title so timer is added
         ScenehandlerSingleton.getInstance().getStage().setTitle(
                 TimerSingleton.getInstance().timeProperty().getValue()+" - "+
-                        (this.consultantSetAlready ? ConsultantSingleton.getInstance().getFullName()+" - " : "")+
+                        (this.consultantSetAlready ? ConsultantSingleton.getInstance().getName()+" - " : "")+
                         ScenehandlerSingleton.getInstance().getSceneTitle()
         );
 
@@ -117,11 +118,24 @@ public class Controller {
 
     }
 
-    public void setTimeOnTimer(){
-        TimerSingleton.getInstance().setTime(
-                ""+ConsultantSingleton.getInstance().getTaskTimeMin(),
-                ""+ConsultantSingleton.getInstance().getTaskTimeSec()
-        );
+    public void setTimeOnTimer(Time time){
+        TimerSingleton.getInstance().setTime(time);
+    }
+
+    public void setTimes(Time taskTime, Time breakTime, Time longBreakTime){
+        if (ConsultantSingleton.getInstance().exists()){
+            System.out.println("C - Standard changed");
+
+            //TODO - Change settings via DB
+
+            //TODO - get new consultant information
+
+        } else {
+            System.out.println("Standard changed");
+            TimerSingleton.getInstance().setStandardTaskTime(taskTime);
+            TimerSingleton.getInstance().setStandardBreakTime(breakTime);
+            TimerSingleton.getInstance().setStandardLongBreakTime(longBreakTime);
+        }
     }
 
     public void playOrPause(CustomButtonControls customButtonControls){
@@ -140,11 +154,24 @@ public class Controller {
         TimerSingleton.getInstance().skipTimer();
     }
 
+    /**
+     *
+     */
+    public void soundOnOff(){
+        if (TimerSingleton.getInstance().isSound()){
+            TimerSingleton.getInstance().setSound(false);
+        } else {
+            TimerSingleton.getInstance().setSound(true);
+        }
+    }
+
     //endregion
 
     //region [Buttons]
 
-
+    public void updateNodePage(NodePages nodePages, CustomButton customButton, int nodesPrPage){
+        nodePages.updatePage(Integer.parseInt(customButton.getText()),nodesPrPage);
+    }
 
     //endregion
 

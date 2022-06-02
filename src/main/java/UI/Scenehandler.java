@@ -7,6 +7,7 @@ import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
 
 import UI.Enums.MyPos;
+import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
@@ -18,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -113,8 +113,8 @@ public class Scenehandler {
         this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString());
 
         // Set the stages limits in terms of sizing
-        this.stage.setMinWidth(750);
-        this.stage.setMinHeight(400);
+        this.stage.setMinWidth(850);
+        this.stage.setMinHeight(450);
 
         // Close miniStage if the main window is closed
         this.stage.setOnCloseRequest(e -> {
@@ -133,12 +133,10 @@ public class Scenehandler {
         // Set the stages scene to the right one
         switch (sceneType){
             case Home -> {
+
+                // Set title of the stage
                 this.sceneTitle="Home";
-                if (ConsultantSingleton.getInstance().exists()){
-                    ControllerSingleton.getInstance().setTimerTitle();
-                } else {
-                    this.stage.setTitle(sceneTitle);
-                }
+                ControllerSingleton.getInstance().setTimerTitle();
 
                 // Set the main content
                 this.mainPane.setCenter(getHomeScreen());
@@ -148,12 +146,10 @@ public class Scenehandler {
 
             }
             case Overview ->{
+
+                // Set title of the stage
                 this.sceneTitle="Overview";
-                if (ConsultantSingleton.getInstance().exists()){
-                    ControllerSingleton.getInstance().setTimerTitle();
-                } else {
-                    this.stage.setTitle(sceneTitle);
-                }
+                ControllerSingleton.getInstance().setTimerTitle();
 
                 // Set the main content
                 this.mainPane.setCenter(getOverviewScreen());
@@ -163,12 +159,10 @@ public class Scenehandler {
 
             }
             case DoToday -> {
+
+                // Set title of the stage
                 this.sceneTitle="DoToday";
-                if (ConsultantSingleton.getInstance().exists()){
-                    ControllerSingleton.getInstance().setTimerTitle();
-                } else {
-                    this.stage.setTitle(sceneTitle);
-                }
+                ControllerSingleton.getInstance().setTimerTitle();
 
                 // Set the main content
                 this.mainPane.setCenter(getDoTodayScreen());
@@ -192,13 +186,19 @@ public class Scenehandler {
         ArrayList<Node> nodesControls = new ArrayList<>();
 
         // Set the headline & bind the timerLabel to the timer
-        Headline timerLabel = new Headline("", MyPos.CENTER, MyShape.ROUND);
+        Headline timerLabel = new Headline("");
+        timerLabel.setPos(MyPos.CENTER);
+        timerLabel.setShape(MyShape.ROUND);
+        timerLabel.setScaling(MyScaling.BIG);
         timerLabel.setStyle("-fx-padding: 0");
         timerLabel.getLabel().setStyle("-fx-font-size: 20; -fx-padding: 0;");
         timerLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
 
         // Set the headline & bind the timerLabel to the timer
-        Headline statusLabel = new Headline("", MyPos.CENTER, MyShape.ROUND);
+        Headline statusLabel = new Headline("");
+        statusLabel.setPos(MyPos.CENTER);
+        statusLabel.setShape(MyShape.ROUND);
+        statusLabel.setScaling(MyScaling.BIG);
         statusLabel.setStyle("-fx-padding: 0");
         statusLabel.getLabel().setStyle("-fx-font-size: 10; -fx-padding: 0;");
         statusLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeTypeProperty());
@@ -264,7 +264,7 @@ public class Scenehandler {
         });
 
         // Create the scene with the root
-        this.miniScene = new Scene(this.miniNodeBarH, 300, 50);
+        this.miniScene = new Scene(this.miniNodeBarH, 320, 50);
 
         // Remove the background
         this.miniScene.setFill(Color.TRANSPARENT);
@@ -344,15 +344,61 @@ public class Scenehandler {
         CustomWindow pomodoroWindow = new CustomWindow().Pomodoro();
 
         // Create the setting window
-        CustomWindow settingsWindow2 = new CustomWindow().Settings(300,600,400,400);
-        CustomWindow settingsWindow3 = new CustomWindow().Settings(300,600,400,400);
+        CustomWindow settingsWindow = new CustomWindow().Settings();
+        settingsWindow.setMinMaxSize(200,200,600,400);
+        settingsWindow.prefWidthProperty().bind(mainPane.widthProperty().divide(4));
+
+
+
+
+
+
+        // Clear node arraylist if it has been used
+        if (this.nodeArrayList.size()>0){
+            this.nodeArrayList.clear();
+        }
+
+        //TESTING
+        Taskline test1 = new Taskline();
+        Taskline test2 = new Taskline();
+        Taskline test3 = new Taskline();
+        Taskline test4 = new Taskline();
+        Taskline test5 = new Taskline();
+        Taskline test6 = new Taskline();
+        Taskline test7 = new Taskline();
+        Taskline test8 = new Taskline();
+        Taskline test9 = new Taskline();
+        Taskline test10 = new Taskline();
+
+
+
+        this.nodeArrayList.add(test1);
+        this.nodeArrayList.add(test2);
+        this.nodeArrayList.add(test3);
+        this.nodeArrayList.add(test4);
+        this.nodeArrayList.add(test5);
+        this.nodeArrayList.add(test6);
+        this.nodeArrayList.add(test7);
+        this.nodeArrayList.add(test8);
+        this.nodeArrayList.add(test9);
+        this.nodeArrayList.add(test10);
+
+
+        // Create the list window with the nodeArrayList as it's content
+        CustomWindow listWindow = new CustomWindow().NodePage("User Tasks",nodeArrayList,1,230,15);
+        listWindow.setMinMaxSize(100,200,1200,400);
+        listWindow.prefWidthProperty().bind(mainPane.widthProperty().divide(4).multiply(3));
+
+
+
+
 
 
 
         // Add the container, so 2 windows can be next to each other
         HBox sideBySide = new HBox();
         sideBySide.setAlignment(Pos.CENTER);
-        sideBySide.getChildren().addAll(settingsWindow2,settingsWindow3);
+        sideBySide.getChildren().addAll(settingsWindow,listWindow);
 
         // Set contentcontainers content
         container.getChildren().addAll(pomodoroWindow,sideBySide);
@@ -388,11 +434,12 @@ public class Scenehandler {
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-overview");
 
-
-
+        // Create the headline
         CustomWindow headline = new CustomWindow().Headline("Overview");
 
         CustomWindow settingsWindow = new CustomWindow().Pomodoro();
+
+
 
 
 
@@ -435,25 +482,26 @@ public class Scenehandler {
         // Make this vbox use the custom css styling
         root.getStyleClass().add("screen-dotoday");
 
-
-
-
-
+        // Create the headline
         CustomWindow headline = new CustomWindow().Headline("Do Today");
 
 
 
 
-        TextField test1 = new TextField("T1");
-        TextField test2 = new TextField("T2");
-        TextField test3 = new TextField("T3");
-        TextField test4 = new TextField("T4");
-        TextField test5 = new TextField("T5");
-        TextField test6 = new TextField("T6");
-        TextField test7 = new TextField("T7");
-        TextField test8 = new TextField("T8");
-        TextField test9 = new TextField("T9");
-        TextField test10 = new TextField("T10");
+
+
+        Taskline test1 = new Taskline();
+        Taskline test2 = new Taskline();
+        Taskline test3 = new Taskline();
+        Taskline test4 = new Taskline();
+        Taskline test5 = new Taskline();
+        Taskline test6 = new Taskline();
+        Taskline test7 = new Taskline();
+        Taskline test8 = new Taskline();
+        Taskline test9 = new Taskline();
+        Taskline test10 = new Taskline();
+
+
 
         this.nodeArrayList.add(test1);
         this.nodeArrayList.add(test2);
@@ -467,10 +515,8 @@ public class Scenehandler {
         this.nodeArrayList.add(test10);
 
 
-        NodePages listOfItems = new NodePages(this.nodeArrayList,10,200);
-
-        CustomWindow listWindow = new CustomWindow();
-        listWindow.getChildren().add(listOfItems);
+        // Create the list window with the nodeArrayList as it's content
+        CustomWindow listWindow = new CustomWindow().NodePage("User Tasks",nodeArrayList,1,400,15);
 
 
 

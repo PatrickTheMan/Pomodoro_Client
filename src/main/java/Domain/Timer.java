@@ -7,14 +7,20 @@ import javafx.animation.Timeline;
 import javafx.beans.property.*;
 import javafx.util.Duration;
 
+import java.sql.Time;
+
 public class Timer {
 
     private Timeline timeline;
 
-    private String sec = "0";
-    private String min = "0";
+    private Time standardTaskTime = Time.valueOf("00:25:00");
+    private Time standardBreakTime = Time.valueOf("00:05:00");
+    private Time standardLongBreakTime = Time.valueOf("00:30:00");
+
+    private Time time=Time.valueOf("00:00:00");
     private int cycle = 1;
 
+    private boolean sound = true; //TODO
 
     private StringProperty timeTypeProperty = new SimpleStringProperty("Task");
     private BooleanProperty timeRunningProperty = new SimpleBooleanProperty(false);
@@ -27,38 +33,43 @@ public class Timer {
     public StringProperty timeProperty() {return this.timeProperty;}
 
 
-    private String getSec() {
-
-        String secText;
-
-        if (Integer.parseInt(this.sec) < 10){
-            secText = "0"+this.sec;
-        } else {
-            secText = this.sec;
-        }
-
-        return secText;
+    public Time getStandardTaskTime() {
+        return standardTaskTime;
     }
 
-    private String getMin() {
+    public void setStandardTaskTime(Time standardTaskTime) {
+        this.standardTaskTime = standardTaskTime;
+    }
 
-        String minText;
+    public Time getStandardBreakTime() {
+        return standardBreakTime;
+    }
 
-        if (Integer.parseInt(this.min) < 10){
-            minText = "0"+this.min;
-        } else {
-            minText = this.min;
-        }
+    public void setStandardBreakTime(Time standardBreakTime) {
+        this.standardBreakTime = standardBreakTime;
+    }
 
-        return minText;
+    public Time getStandardLongBreakTime() {
+        return standardLongBreakTime;
+    }
+
+    public void setStandardLongBreakTime(Time standardLongBreakTime) {
+        this.standardLongBreakTime = standardLongBreakTime;
+    }
+
+    public boolean isSound() {
+        return sound;
+    }
+
+    public void setSound(boolean sound) {
+        this.sound = sound;
     }
 
     public Timer(){
 
         // Set the time to the consultants time
         this.setTime(
-                ""+ConsultantSingleton.getInstance().getTaskTimeMin(),
-                ""+ConsultantSingleton.getInstance().getTaskTimeSec()
+                ConsultantSingleton.getInstance().getTaskTime()
         );
 
         // Initiate and start timeline
@@ -75,22 +86,19 @@ public class Timer {
         );
     }
 
-    public void setTime(String min, String sec){
-        this.min = min;
-        this.sec = sec;
-        // Set the time
-        this.timeProperty.set(getMin()+" : "+getSec());
+    public void setTime(Time time){
+
+        this.time = time;
+        this.timeProperty.set(this.time.toString());
+
     }
 
     public void resetTimer(){
-        this.min = ""+ConsultantSingleton.getInstance().getTaskTimeMin();
-        this.sec = ""+ConsultantSingleton.getInstance().getTaskTimeSec();
+        this.setTime(ConsultantSingleton.getInstance().getTaskTime());
         this.cycle=1;
         this.timeRunningProperty.setValue(false);
         this.timeTypeProperty.setValue("Task");
         this.timeline.stop();
-
-        this.setTime(""+min,""+sec);
 
         // Set stage title, so you can se the time
         ControllerSingleton.getInstance().setTimerTitle();
@@ -114,12 +122,14 @@ public class Timer {
         if (timeTypeProperty.getValue()=="Task"){
             if (this.cycle==4){
                 this.timeTypeProperty.setValue("Long Break");
-                this.min = ""+ConsultantSingleton.getInstance().getLongBreakTimeMin();
-                this.sec = ""+ConsultantSingleton.getInstance().getLongBreakTimeSec();
+                this.time = (ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getLongBreakTime() :
+                        this.standardLongBreakTime);
             } else {
                 this.timeTypeProperty.setValue("Break");
-                this.min = ""+ConsultantSingleton.getInstance().getBreakTimeMin();
-                this.sec = ""+ConsultantSingleton.getInstance().getBreakTimeSec();
+                this.time = (ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getBreakTime() :
+                        this.standardBreakTime);
             }
         } else {
             if (this.cycle==4){
@@ -128,52 +138,64 @@ public class Timer {
                 this.cycle++;
             }
             this.timeTypeProperty.setValue("Task");
-            this.min = ""+ConsultantSingleton.getInstance().getTaskTimeMin();
-            this.sec = ""+ConsultantSingleton.getInstance().getTaskTimeSec();
+            this.time = (ConsultantSingleton.getInstance().exists() ?
+                    ConsultantSingleton.getInstance().getTaskTime() :
+                    this.standardTaskTime);
         }
 
-        this.setTime(""+min,""+sec);
+        // Change the property
+        this.timeProperty.set(this.time.toString());
 
         // Set stage title, so you can se the time
         ControllerSingleton.getInstance().setTimerTitle();
     }
 
     public synchronized void timerTick(){
-        if (this.sec.equals("0")){
-            if (this.min.equals("0")){
-                // Set the next timer to the right state (Task, Break or Long Break)
-                if (this.timeTypeProperty.getValue()=="Long Break" || timeTypeProperty.getValue()=="Break"){
 
-                    // Next cycle
-                    cycle++;
+        if (this.time.getHours()==0 && this.time.getMinutes()==0 && this.time.getSeconds()==0){
+            // Set the next timer to the right state (Task, Break or Long Break)
+            if (this.timeTypeProperty.getValue()=="Long Break" || timeTypeProperty.getValue()=="Break"){
 
-                    this.timeTypeProperty.setValue("Task");
-                    this.setTime(""+ ConsultantSingleton.getInstance().getTaskTimeMin(),
-                            ""+ConsultantSingleton.getInstance().getTaskTimeSec());
-                } else if (cycle==4){
-                    // Set long break
-                    this.timeTypeProperty.setValue("Long Break");
-                    this.setTime(""+ ConsultantSingleton.getInstance().getLongBreakTimeMin(),
-                            ""+ConsultantSingleton.getInstance().getLongBreakTimeSec());
-                    this.cycle=1;
-                } else {
-                    // Set break
-                    this.timeTypeProperty.setValue("Break");
-                    this.setTime(""+ ConsultantSingleton.getInstance().getBreakTimeMin(),
-                            ""+ConsultantSingleton.getInstance().getBreakTimeSec());
-                }
+                // Next cycle
+                cycle++;
 
+                this.timeTypeProperty.setValue("Task");
+                this.setTime((ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getTaskTime() :
+                        this.standardTaskTime));
+            } else if (cycle==4){
+                // Set long break
+                this.timeTypeProperty.setValue("Long Break");
+                this.setTime((ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getLongBreakTime() :
+                        this.standardLongBreakTime));
+                this.cycle=1;
             } else {
-                this.sec = "59";
-                this.min = ""+(Integer.parseInt(this.min)-1);
+                // Set break
+                this.timeTypeProperty.setValue("Break");
+                this.setTime((ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getBreakTime() :
+                        this.standardBreakTime));
             }
         } else {
-            this.sec = ""+(Integer.parseInt(this.sec)-1);
+            if (this.time.getSeconds() == 0){
+                if (this.time.getMinutes() == 0){
+                    this.time = Time.valueOf((this.time.getHours()-1)+":59:59");
+                } else {
+                    this.time = Time.valueOf("00:"+(this.time.getMinutes()-1)+":59");
+                }
+            } else {
+                this.time.setSeconds(this.time.getSeconds()-1);
+            }
         }
-        this.timeProperty.set(getMin()+" : "+getSec());
+
+        // Change the property
+        this.timeProperty.set(this.time.toString());
 
         // Set stage title, so you can se the time
         ControllerSingleton.getInstance().setTimerTitle();
     }
+
+
 
 }

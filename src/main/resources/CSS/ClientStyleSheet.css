@@ -61,20 +61,20 @@
 }
 .custom-button-text
 {
-    -fx-background-color: -fx-color1;
+    -fx-background-color: -fx-color2;
     -fx-background-radius: 10;
+    -fx-border-color: -fx-color2;
+    -fx-border-radius: 10;
     -fx-font-size: 15;
     -fx-padding: 5 10 5 10;
 }
 .custom-button-text-hovered
 {
-    -fx-background-color: -fx-color5;
-
+    -fx-border-color: -fx-colorb3;
 }
 .custom-button-text-focused
 {
-    -fx-background-color: -fx-color3;
-
+    -fx-border-color: -fx-colorb3;
 }
 
 
@@ -173,6 +173,24 @@
 .custom-other-button-add:focused
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Plus/addcirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-remove
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Minus/minuscircleicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-remove:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Minus/minuscirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-remove:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Minus/minuscirclefillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
@@ -302,6 +320,42 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
+.custom-controls-button-sound
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Sound/soundonicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-sound:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Sound/soundonfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-sound:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Sound/soundonfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-sound-marked
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Sound/soundofficon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-sound-marked:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Sound/soundofffillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-controls-button-sound-marked:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/TimerControls/Sound/soundofffillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
 /*
 -----------------------------------------------------------------Node-Containers-START-------------------------------------------------
  */
@@ -340,15 +394,25 @@
     -fx-border-radius: 10;
     -fx-spacing: 10;
 }
-
-
+.node-pages
+{
+    -fx-spacing: 10;
+}
 .node-pages-container
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -fx-color2;
     -fx-border-color: -fx-colorb3;
-    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 0;
+}
+
+.taskline
+{
+    -fx-background-color: -fx-color1;
+    -fx-border-color: -fx-colorb3;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+    -fx-padding: 10;
 }
 
 
@@ -460,6 +524,16 @@
     -fx-border-color: -fx-colorb3;
     -fx-border-radius: 10;
 }
+.headline-timerandstatus
+{
+    -fx-border-color: -fx-colorb3;
+    -fx-border-radius: 10;
+}
+.headline-buttoncontainer
+{
+    -fx-border-color: transparent;
+    -fx-spacing: 10;
+}
 
 
 .textfield-sizing
@@ -494,6 +568,14 @@
     -fx-spacing: 10;
 }
 .custom-window-pomodoro
+{
+    -fx-background-color: -fx-color1;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 0 0 10 10;
+    -fx-border-radius: 0 0 10 10;
+    -fx-spacing: 10;
+}
+.custom-window-nodepages
 {
     -fx-background-color: -fx-color1;
     -fx-border-color: -fx-colorb3;

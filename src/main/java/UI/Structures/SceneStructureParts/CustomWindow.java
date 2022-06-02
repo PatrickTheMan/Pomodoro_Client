@@ -3,9 +3,11 @@ package UI.Structures.SceneStructureParts;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import UI.Enums.MyPos;
+import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
+import UI.Structures.SceneStructureParts.Windows.NodePageWindow;
 import UI.Structures.SceneStructureParts.Windows.PomodoroTimerWindow;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 import javafx.scene.Node;
@@ -22,16 +24,28 @@ public class CustomWindow extends VBox {
 
     public CustomWindow Headline(String text){
 
+        // Create the headline and set settings
+        Headline headline = new Headline(text);
+        headline.setPos(MyPos.LEFT);
+        headline.setShape(MyShape.ROUND);
+        headline.setScaling(MyScaling.BIG);
+
         // Set content
-        this.getChildren().add(new Headline(text, MyPos.LEFT, MyShape.ROUND));
+        this.getChildren().add(headline);
 
         return this;
     }
 
     public CustomWindow Headline(String text, MyPos pos){
 
+        // Create the headline and set settings
+        Headline headline = new Headline(text);
+        headline.setPos(pos);
+        headline.setShape(MyShape.ROUND);
+        headline.setScaling(MyScaling.BIG);
+
         // Set content
-        this.getChildren().add(new Headline(text, pos, MyShape.ROUND));
+        this.getChildren().add(headline);
 
         return this;
     }
@@ -54,78 +68,42 @@ public class CustomWindow extends VBox {
 
     public CustomWindow Settings(){
 
-        // Set content
-        this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND),new SettingsWindow());
-
-        return this;
-    }
-
-    public CustomWindow Settings(int maxWidth, int maxHeight){
+        // Create the headline and set settings
+        Headline headline = new Headline("Settings");
+        headline.setPos(MyPos.CENTER);
+        headline.setShape(MyShape.HALFROUND);
+        headline.setScaling(MyScaling.SMALL);
 
         // Set content
-        this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND),new SettingsWindow());
-
-        // Settings
-        this.setMaxWidth(maxWidth);
-        this.setMaxHeight(maxHeight);
-
-        return this;
-    }
-
-    public CustomWindow Settings(int minWidth, int maxWidth, int minHeight, int maxHeight){
-
-        // Set content
-        this.getChildren().addAll(new Headline("Settings", MyPos.CENTER, MyShape.HALFROUND), new SettingsWindow());
-
-        // Settings
-        this.setMinSize(minWidth,minHeight);
-        this.setMaxSize(maxWidth,maxHeight);
+        this.getChildren().addAll(headline,new SettingsWindow());
 
         return this;
     }
 
     public CustomWindow Pomodoro(){
 
-        // Set content
-        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
+        // Create the headline and set settings
+        Headline headline = new Headline("Pomodoro");
+        headline.setPos(MyPos.CENTER);
+        headline.setShape(MyShape.HALFROUND);
+        headline.setScaling(MyScaling.SMALL);
 
-        // Set the timer
-        Headline timerline = new Headline("", MyPos.CENTER, MyShape.ROUND);
-        timerline.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
+        // Set content
+        this.getChildren().addAll(headline,new PomodoroTimerWindow());
 
         return this;
     }
 
-    public CustomWindow Pomodoro(int maxWidth, int maxHeight){
+    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int height, int offset){
+
+        // Create the headline and set settings
+        Headline headline = new Headline(text);
+        headline.setPos(MyPos.CENTER);
+        headline.setShape(MyShape.HALFROUND);
+        headline.setScaling(15,25,offset);
 
         // Set content
-        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
-
-        // Settings
-        this.setMaxWidth(maxWidth);
-        this.setMaxHeight(maxHeight);
-
-        return this;
-    }
-
-    public CustomWindow Pomodoro(int minWidth, int maxWidth, int minHeight, int maxHeight){
-
-        // Set content
-        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND), new PomodoroTimerWindow());
-
-        // Settings
-        this.setMinSize(minWidth,minHeight);
-        this.setMaxSize(maxWidth,maxHeight);
-
-        return this;
-    }
-
-    public CustomWindow List(String text){
-
-        // Set content
-        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
-
-
+        this.getChildren().addAll(headline,new NodePageWindow(arrayList,nodesPrPage,height));
 
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-list");
@@ -133,28 +111,13 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow List(int maxWidth, int maxHeight){
 
-        // Set content
-        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND),new PomodoroTimerWindow());
 
-        // Settings
-        this.setMaxWidth(maxWidth);
-        this.setMaxHeight(maxHeight);
 
-        return this;
-    }
-
-    public CustomWindow List(int minWidth, int maxWidth, int minHeight, int maxHeight){
-
-        // Set content
-        this.getChildren().addAll(new Headline("Pomodoro", MyPos.CENTER, MyShape.HALFROUND), new PomodoroTimerWindow());
-
+    public void setMinMaxSize(int minWidth, int minHeight, int maxWidth, int maxHeight){
         // Settings
         this.setMinSize(minWidth,minHeight);
         this.setMaxSize(maxWidth,maxHeight);
-
-        return this;
     }
 
 }

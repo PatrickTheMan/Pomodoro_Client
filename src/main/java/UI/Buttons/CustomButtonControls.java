@@ -2,7 +2,6 @@ package UI.Buttons;
 
 import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.TimerSingleton;
-import UI.Singletons.ScenehandlerSingleton;
 
 import java.util.ArrayList;
 
@@ -35,6 +34,11 @@ public class CustomButtonControls extends CustomButton {
 
         // Give the button the controls and styling change
         this.setOnAction(e -> {
+
+            // Remove focus
+            this.setFocused(false);
+
+            // Play - Pause
             ControllerSingleton.getInstance().playOrPause(this);
 
             for (CustomButtonControls c:allPlayAndPauseButtons) {
@@ -66,6 +70,11 @@ public class CustomButtonControls extends CustomButton {
 
         // Give the button the controls
         this.setOnAction(e -> {
+
+            // Remove focus
+            this.setFocused(false);
+
+            // Stop
             ControllerSingleton.getInstance().stop();
 
             // Reset the play buttons to play
@@ -93,6 +102,9 @@ public class CustomButtonControls extends CustomButton {
 
         // Give the button the controls
         this.setOnAction(e -> {
+            // Remove focus
+            this.setFocused(false);
+            // Skip
             ControllerSingleton.getInstance().skip();
         });
 
@@ -112,6 +124,11 @@ public class CustomButtonControls extends CustomButton {
 
         // Give the button the controls
         this.setOnAction(e -> {
+
+            // Remove focus
+            this.setFocused(false);
+
+            // Popout
             ControllerSingleton.getInstance().openCloseMiniStage();
 
             // Make this button use the custom-button marked css styling
@@ -119,6 +136,35 @@ public class CustomButtonControls extends CustomButton {
                 this.getStyleClass().remove("custom-controls-button-popout-marked");
             } else {
                 this.getStyleClass().add("custom-controls-button-popout-marked");
+            }
+        });
+
+        return this;
+    }
+
+    public CustomButton Sound() {
+
+        // Get the normal setup
+        NormalSetup();
+
+        // Set the text for the hover text
+        this.buttonText = "Sound";
+
+        // Make this button use the custom-button css styling
+        this.getStyleClass().add("custom-controls-button-sound");
+
+        // Give the button the controls
+        this.setOnAction(e -> {
+            ControllerSingleton.getInstance().soundOnOff();
+
+            // Remove focus
+            this.setFocused(false);
+
+            // Make this button use the custom-button marked css styling
+            if (this.getStyleClass().contains("custom-controls-button-sound-marked")){
+                this.getStyleClass().remove("custom-controls-button-sound-marked");
+            } else {
+                this.getStyleClass().add("custom-controls-button-sound-marked");
             }
         });
 

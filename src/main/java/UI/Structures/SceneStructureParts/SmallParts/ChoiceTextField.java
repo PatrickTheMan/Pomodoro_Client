@@ -1,6 +1,9 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
 import Application.Singleton.ControllerSingleton;
+import UI.Enums.MyPos;
+import UI.Enums.MyShape;
+import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,65 +33,6 @@ public class ChoiceTextField extends HBox {
      */
     public ChoiceTextField(String text){
 
-        // Shared setup of the Hbox
-        NormalSetup(text, true,false);
-
-        //Set the prefered label size
-        textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
-
-        // Set the prefered size of the textfield to be max length
-        textField.prefWidthProperty().bind(this.widthProperty());
-
-    }
-
-    /**
-     *
-     * @param text
-     * @param sizing
-     * @param hideLabel
-     */
-    public ChoiceTextField(String text, boolean sizing, boolean hideLabel){
-
-        // Shared setup of the Hbox
-        NormalSetup(text, sizing, hideLabel);
-
-        if (hideLabel){
-            //Set the prefered label size
-            textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
-        }
-
-        // Set the prefered size of the textfield to be max length
-        textField.prefWidthProperty().bind(this.widthProperty());
-
-    }
-
-    /**
-     *
-     * @param text
-     * @param width
-     * @param height
-     * @param sizing
-     * @param hideLabel
-     */
-    public ChoiceTextField(String text, double width, double height, boolean sizing, boolean hideLabel){
-
-        // Shared setup of the Hbox
-        NormalSetup(text, sizing, hideLabel);
-
-        // Set the prefered label size
-        textLabel.setMinWidth(width/3);
-
-        // Set the prefered size of the textfield to be max length
-        textField.setMinWidth(width/3*2);
-
-    }
-
-    /**
-     *
-     * @param text
-     */
-    private void NormalSetup(String text, boolean sizing, boolean hideLabel){
-
         // Make this object use the custom css styling
         this.getStyleClass().add("choice-textfield");
 
@@ -117,28 +61,83 @@ public class ChoiceTextField extends HBox {
         // Set alignment
         this.setAlignment(Pos.TOP_LEFT);
 
-        // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
-        this.widthProperty().addListener((obs, old, newVal) -> {
+    }
 
-            // Removes the label or adds it
-            if (newVal.intValue()<textLabel.getText().length()*30){
-                this.getChildren().setAll(textField);
-                textField.setPromptText(textLabel.getText());
-            } else {
-                this.getChildren().setAll(textLabel,textField);
-                textField.setPromptText("");
-            }
+    public void setShape(MyShape shape){
+        switch (shape){
+            case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
+            case HALFROUND -> {this.setStyle("-fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0;");}
+            case NOTROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
+        }
+    }
 
-            // Changes the size of the label text
-            if (newVal.intValue()/40>=16){
-                textLabel.setStyle("-fx-font-size: 16;");
-            }
-            if (newVal.intValue()/40<16 && newVal.intValue()/40>11){
-                textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
-            }
+    public void setPos(MyPos pos){
+        switch (pos){
+            case LEFT ->
+                    // Set alignment
+                    this.setAlignment(Pos.CENTER_LEFT);
+            case CENTER ->
+                    // Set alignment
+                    this.setAlignment(Pos.CENTER);
+            case RIGHT ->
+                    // Set alignment
+                    this.setAlignment(Pos.CENTER_RIGHT);
+        }
+    }
 
-        });
+    public void removeBorder(){
+        // Make this object have nonvisible borders
+        this.setStyle("-fx-border-color: -fx-color2");
+    }
 
+    public void setScaling(int width, int height){
+        // Set the preferred label size
+        textLabel.setMinWidth(width/3);
+        textLabel.setMinHeight(height/3);
+
+        // Set the preferred size of the textfield to be max length
+        textField.setMinWidth(width/3*2);
+    }
+
+    public void setScaling(boolean labelRemoval){
+
+        if (labelRemoval){
+            // Set the preferred label size
+            textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
+            textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
+
+            // Set the preferred size of the textfield to be max length
+            textField.prefWidthProperty().bind(this.widthProperty());
+
+            // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
+            this.widthProperty().addListener((obs, old, newVal) -> {
+
+                // Removes the label or adds it
+                if (newVal.intValue()<textLabel.getText().length()*30){
+                    this.getChildren().setAll(textField);
+                    textField.setPromptText(textLabel.getText());
+                } else {
+                    this.getChildren().setAll(textLabel,textField);
+                    textField.setPromptText("");
+                }
+
+                // Changes the size of the label text
+                if (newVal.intValue()/40>=16){
+                    textLabel.setStyle("-fx-font-size: 16;");
+                }
+                if (newVal.intValue()/40<16 && newVal.intValue()/40>11){
+                    textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
+                }
+
+            });
+        } else {
+            // Set the preferred label size
+            textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
+            textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
+
+            // Set the preferred size of the textfield to be max length
+            textField.prefWidthProperty().bind(this.widthProperty());
+        }
     }
 
 }

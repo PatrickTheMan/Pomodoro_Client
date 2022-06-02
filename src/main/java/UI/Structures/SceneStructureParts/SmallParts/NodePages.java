@@ -1,5 +1,6 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
+import Application.Singleton.ControllerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
 import javafx.geometry.Pos;
@@ -11,14 +12,14 @@ import java.util.ArrayList;
 
 public class NodePages extends VBox {
 
-    private ArrayList<Node> nodes = new ArrayList<>();
     private ArrayList<Node> buttons= new ArrayList<>();
+    private ArrayList<Node> nodes = new ArrayList<>();
 
     private VBox itemContainer;
 
-    public NodePages(ArrayList<Node> nodes ,int nodesPrPage, int minHeight){
+    public NodePages(ArrayList<Node> nodes ,int nodesPrPage, int height){
 
-        // Make this object use the custom css styling
+        // Make this use the custom css styling
         this.getStyleClass().add("node-pages");
 
         // Create the content container
@@ -38,10 +39,9 @@ public class NodePages extends VBox {
             this.nodes.add(n);
         }
 
-        // Create the item container and add elements
+        // Create the item container
         this.itemContainer = new VBox();
-        // Make this container use the custom css styling
-        this.itemContainer.getStyleClass().add("node-pages-container");
+        this.itemContainer.setStyle("-fx-spacing: 10; -fx-padding: 10;");
 
         // Add the buttons
         float f = 0;
@@ -56,7 +56,12 @@ public class NodePages extends VBox {
             customButton.getStyleClass().add("node-pages-button-node");
             // Add functionality to the button
             customButton.setOnAction(e -> {
-                updatePage(Integer.parseInt(customButton.getText()),nodesPrPage);
+
+                // Update the page
+                ControllerSingleton.getInstance().updateNodePage(this,customButton,nodesPrPage);
+
+                // Remove focus
+                customButton.setCustomFocused(false);
 
                 // Make all other buttons not marked
                 for (Node n: buttons) {
@@ -73,12 +78,17 @@ public class NodePages extends VBox {
                 }
             });
 
+            // Update list to page 1
+            if (customButton.getText().equals("1")){
+                customButton.fire();
+            }
+
 
             // Add to arraylist
             buttons.add(customButton);
         } while (f < this.nodes.size()/(float)nodesPrPage);
 
-        // Create the button line
+        // Create the button line and add a little padding
         NodeBarH pageSelector = new NodeBarH(buttons, MyPos.CENTER);
 
         // Fit to width of the parent
@@ -88,17 +98,15 @@ public class NodePages extends VBox {
         contentContainer.setContent(itemContainer);
 
         // Set the minimum height of the contentContainer
-        contentContainer.setMinHeight(minHeight);
+        contentContainer.setMinHeight(height);
+        contentContainer.setMaxHeight(height);
 
         // Add the nodes to the content container
         this.getChildren().addAll(contentContainer,pageSelector);
 
-        // Update list to page 1
-        this.updatePage(1,nodesPrPage);
-
     }
 
-    private void updatePage(int pageNum, float nodesPrPage){
+    public void updatePage(int pageNum, float nodesPrPage){
 
         // Clear the current itemContainer
         this.itemContainer.getChildren().clear();

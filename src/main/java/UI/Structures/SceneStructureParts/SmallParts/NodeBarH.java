@@ -1,6 +1,7 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
 import UI.Enums.MyPos;
+import UI.Enums.MyShape;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -83,6 +84,21 @@ public class NodeBarH extends HBox {
         // Add in the button in the bar
         this.getChildren().add(node);
 
+    }
+
+
+
+    public void setShape(MyShape shape){
+        switch (shape){
+            case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
+            case HALFROUND -> {this.setStyle("-fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0;");}
+            case NOTROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
+        }
+    }
+
+    public void removeBorder(){
+        // Make this object have nonvisible borders
+        this.setStyle("-fx-border-color: -fx-color2");
     }
 
 }

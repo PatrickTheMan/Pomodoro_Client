@@ -40,13 +40,20 @@ public class PomodoroTimerWindow extends CustomWindow {
 
         // Add a timer and status container
         VBox timerStatusContainer = new VBox();
+        timerStatusContainer.getStyleClass().add("headline-timerstatus");
 
         // Set the headline & bind the timerLabel to the timer
-        Headline timerLabel = new Headline("", MyPos.CENTER, MyShape.ROUND,25,75,10);
+        Headline timerLabel = new Headline("");
+        timerLabel.setPos(MyPos.CENTER);
+        timerLabel.setShape(MyShape.ROUND);
+        timerLabel.setScaling(25,75,10);
         timerLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeProperty());
 
         // Set the headline & bind the timerLabel to the timer
-        Headline statusLabel = new Headline("", MyPos.CENTER, MyShape.ROUND,15,40,18);
+        Headline statusLabel = new Headline("");
+        statusLabel.setPos(MyPos.CENTER);
+        statusLabel.setShape(MyShape.ROUND);
+        statusLabel.setScaling(15,40,18);
         statusLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeTypeProperty());
 
 
@@ -56,13 +63,29 @@ public class PomodoroTimerWindow extends CustomWindow {
         // Add content to the timer and status container
         timerStatusContainer.getChildren().addAll(timerLabel,statusLabel);
 
+
+        // Add a button container
+        VBox buttonContainer = new VBox();
+        buttonContainer.getStyleClass().add("headline-buttoncontainer");
+        buttonContainer.setAlignment(Pos.TOP_RIGHT);
+
         // Add popout button
         CustomButton buttonPopout = new CustomButton().Controls().Popout();
         // Styling of button
         buttonPopout.setStyle("-fx-border-color: transparent; -fx-background-color: transparent");
 
+        // Add sound button
+        CustomButton buttonSound = new CustomButton().Controls().Sound();
+        // Styling of button
+        buttonPopout.setStyle("-fx-border-color: transparent; -fx-background-color: transparent");
+
+        // Add the buttons to the container
+        buttonContainer.getChildren().addAll(buttonPopout,buttonSound);
+
+
+
         // Add content to the timerSection
-        timerSection.getChildren().addAll(timerStatusContainer,buttonPopout);
+        timerSection.getChildren().addAll(timerStatusContainer,buttonContainer);
 
 
         // Add the buttons

@@ -1,6 +1,9 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
 import Application.Singleton.ControllerSingleton;
+import UI.Enums.MyPos;
+import UI.Enums.MyScaling;
+import UI.Enums.MyShape;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -29,91 +32,8 @@ public class ChoiceComboBox extends HBox {
     /**
      *
      * @param text
-     * @param choices
-     */
-    public ChoiceComboBox(String text, ArrayList<String> choices){
-
-        // Shared setup of the Hbox
-        NormalSetup(false,text, choices);
-
-        // Set the preferred label size
-        textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
-        textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
-
-        // Set the preferred size of the textfield to be max length
-        comboBox.prefWidthProperty().bind(this.widthProperty());
-
-    }
-
-    /**
-     *
-     * @param writeAble
-     * @param text
-     * @param choices
-     */
-    public ChoiceComboBox(boolean writeAble,String text, ArrayList<String> choices){
-
-        // Shared setup of the Hbox
-        NormalSetup(writeAble,text, choices);
-
-        // Set the preferred label size
-        textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
-        textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
-
-        // Set the preferred size of the textfield to be max length
-        comboBox.prefWidthProperty().bind(this.widthProperty());
-
-    }
-
-    /**
-     *
-     * @param text
-     * @param choices
-     * @param width
-     * @param height
-     */
-    public ChoiceComboBox(String text, ArrayList<String> choices ,double width, double height){
-
-        // Shared setup of the Hbox
-        NormalSetup(false,text, choices);
-
-        // Set the preferred label size
-        textLabel.setMinWidth(width/3);
-        textLabel.setMinHeight(height/3);
-
-        // Set the preferred size of the textfield to be max length
-        comboBox.setMinWidth(width/3*2);
-
-    }
-
-    /**
-     *
-     * @param writeAble
-     * @param text
-     * @param choices
-     * @param width
-     * @param height
-     */
-    public ChoiceComboBox(boolean writeAble,String text, ArrayList<String> choices ,double width, double height){
-
-        // Shared setup of the Hbox
-        NormalSetup(writeAble,text, choices);
-
-        // Set the preferred label size
-        textLabel.setMinWidth(width/3);
-        textLabel.setMinHeight(height/3);
-
-        // Set the preferred size of the textfield to be max length
-        comboBox.setMinWidth(width/3*2);
-
-    }
-
-    /**
-     *
-     * @param text
-     * @param choices
-     */
-    private void NormalSetup(boolean writeAble,String text, ArrayList<String> choices){
+     * */
+    public ChoiceComboBox(String text){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("choice-combobox");
@@ -128,7 +48,7 @@ public class ChoiceComboBox extends HBox {
         // Make the textfield, use custom css styling, set if write able and limit the shown items to 5
         comboBox = new ComboBox();
         comboBox.getStyleClass().add("choice-combobox-combobox");
-        comboBox.setEditable(writeAble);
+
         comboBox.setVisibleRowCount(5);
         // Set the selection & hover function
         comboBox.focusedProperty().addListener((obs, old, newVal) -> {
@@ -138,39 +58,100 @@ public class ChoiceComboBox extends HBox {
             ControllerSingleton.getInstance().setHovered(this,newVal);
         });
 
-        // Add the choices to the combobox
-        for (String s:choices) {
-            comboBox.getItems().add(s);
-        }
-
         // Set the content of the class object
         this.getChildren().addAll(textLabel,comboBox);
 
         // Set alignment
         this.setAlignment(Pos.TOP_LEFT);
 
-        // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
-        this.widthProperty().addListener((obs, old, newVal) -> {
+    }
 
-            // Removes the label or adds it
-            if (newVal.intValue()<textLabel.getText().length()*30){
-                this.getChildren().setAll(comboBox);
-                comboBox.setPromptText(textLabel.getText());
-            } else {
-                this.getChildren().setAll(textLabel,comboBox);
-                comboBox.setPromptText("");
-            }
+    public void setShape(MyShape shape){
+        switch (shape){
+            case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
+            case HALFROUND -> {this.setStyle("-fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0;");}
+            case NOTROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
+        }
+    }
 
-            // Changes the size of the label text
-            if (newVal.intValue()/40>=16){
-                textLabel.setStyle("-fx-font-size: 16;");
-            }
-            if (newVal.intValue()/40<16 && newVal.intValue()/40>11){
-                textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
-            }
+    public void setContent(ArrayList<String> choices){
+        // Add the choices to the combobox
+        for (String s:choices) {
+            comboBox.getItems().add(s);
+        }
+    }
 
-        });
+    public void setPos(MyPos pos){
+        switch (pos){
+            case LEFT ->
+                    // Set alignment
+                    this.setAlignment(Pos.CENTER_LEFT);
+            case CENTER ->
+                    // Set alignment
+                    this.setAlignment(Pos.CENTER);
+            case RIGHT ->
+                    // Set alignment
+                    this.setAlignment(Pos.CENTER_RIGHT);
+        }
+    }
 
+    public void setWriteable(boolean writeable){
+        comboBox.setEditable(writeable);
+    }
+
+    public void removeBorder(){
+        // Make this object have nonvisible borders
+        this.setStyle("-fx-border-color: -fx-color2");
+    }
+
+    public void setScaling(int width, int height){
+        // Set the preferred label size
+        textLabel.setMinWidth(width/3);
+        textLabel.setMinHeight(height/3);
+
+        // Set the preferred size of the textfield to be max length
+        comboBox.setMinWidth(width/3*2);
+    }
+
+    public void setScaling(boolean labelRemoval){
+
+        if (labelRemoval){
+            // Set the preferred label size
+            textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
+            textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
+
+            // Set the preferred size of the textfield to be max length
+            comboBox.prefWidthProperty().bind(this.widthProperty());
+
+            // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
+            this.widthProperty().addListener((obs, old, newVal) -> {
+
+                // Removes the label or adds it
+                if (newVal.intValue()<textLabel.getText().length()*30){
+                    this.getChildren().setAll(comboBox);
+                    comboBox.setPromptText(textLabel.getText());
+                } else {
+                    this.getChildren().setAll(textLabel,comboBox);
+                    comboBox.setPromptText("");
+                }
+
+                // Changes the size of the label text
+                if (newVal.intValue()/40>=16){
+                    textLabel.setStyle("-fx-font-size: 16;");
+                }
+                if (newVal.intValue()/40<16 && newVal.intValue()/40>11){
+                    textLabel.setStyle("-fx-font-size: "+newVal.intValue()/40+";");
+                }
+
+            });
+        } else {
+            // Set the preferred label size
+            textLabel.prefWidthProperty().bind(this.widthProperty().divide(2));
+            textLabel.prefHeightProperty().bind(this.prefHeightProperty().divide(2));
+
+            // Set the preferred size of the textfield to be max length
+            comboBox.prefWidthProperty().bind(this.widthProperty());
+        }
     }
 
 }

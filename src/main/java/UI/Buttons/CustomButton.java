@@ -49,4 +49,15 @@ public class CustomButton extends Button {
         return new CustomButtonOther();
     }
 
+    public void setCustomFocused(boolean focused) {
+        this.setFocused(focused);
+    }
+
+    public void setSizing(){
+        //TODO
+    }
+
+    public void setSizing(int minWidth, int maxWidth, int minHeight, int maxHeight){
+        //TODO
+    }
 }

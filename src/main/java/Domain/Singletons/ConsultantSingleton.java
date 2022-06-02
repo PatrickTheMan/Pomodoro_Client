@@ -2,6 +2,8 @@ package Domain.Singletons;
 
 import Domain.Consultant;
 
+import java.sql.Time;
+
 public class ConsultantSingleton {
 
     private static Consultant instance;
@@ -16,7 +18,16 @@ public class ConsultantSingleton {
     public synchronized static Consultant getInstance(){
         // Create the instance if it hasn't been initiated, set the standard values
         if (instance==null){
-            instance = new Consultant("","",25,5,30);
+            instance = new Consultant(
+                    "",
+                    "",
+                    "",
+                    Time.valueOf("00:25:00"),
+                    Time.valueOf("00:05:00"),
+                    Time.valueOf("00:30:00"),
+                    true,
+                    4
+            );
         }
         // Return the instance
         return instance;

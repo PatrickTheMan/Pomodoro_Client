@@ -19,14 +19,42 @@ public class Headline extends HBox {
     }
 
     public Headline(String text){
-        // Get normalt setup
-        NormalSetup(text, MyScaling.SMALL);
+
+        // Make this object use the custom-menu css styling
+        this.getStyleClass().add("headline");
+
+        // Add the label
+        this.label= new Label();
+        this.label.setText(text);
+
+        // Remove focus option
+        this.label.setFocusTraversable(false);
+
+        // Make this object use the custom-menu css styling
+        this.label.getStyleClass().add("headline-label");
+
+        // Add content
+        this.getChildren().add(this.label);
+
+        // Set alignment
+        this.setAlignment(Pos.CENTER);
+
     }
 
-    public Headline(String text, ArrayList<Node> nodes){
-        // Get normalt setup
-        NormalSetup(text, MyScaling.SMALL);
+    public void setScaling(MyScaling scaling){
+        // Set the scaling of the label text
+        switch (scaling){
+            case BIG -> scalingBig();
+            case SMALL -> scalingSmall();
+        }
+    }
 
+    public void setScaling(int smallestFontSize, int biggestFontSize, int offset){
+        // Set Scaling
+        scalingCustom(smallestFontSize,biggestFontSize,offset);
+    }
+
+    public void setContent(ArrayList<Node> nodes){
         // Initiate a button container
         HBox buttonContainter = new HBox();
 
@@ -40,23 +68,16 @@ public class Headline extends HBox {
         this.getChildren().add(buttonContainter);
     }
 
-    public Headline(String text, MyPos pos, MyShape shape){
-
-        // Get the normal setup with the right scaling
-        if (shape.equals(MyShape.HALFROUND)){
-            // Get normalt setup
-            NormalSetup(text,MyScaling.SMALL);
-        } else {
-            // Get normalt setup
-            NormalSetup(text,MyScaling.BIG);
-        }
-
+    public void setPos(MyPos pos){
         // Set the settings
         switch (pos){
             case CENTER -> this.setAlignment(Pos.CENTER);
             case LEFT -> this.setAlignment(Pos.CENTER_LEFT);
             case RIGHT -> this.setAlignment(Pos.CENTER_RIGHT);
         }
+    }
+
+    public void setShape(MyShape shape){
         switch (shape){
             case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
             case HALFROUND -> {
@@ -68,35 +89,9 @@ public class Headline extends HBox {
         }
     }
 
-    public Headline(String text, MyPos pos, MyShape shape, int smallestFontSize, int biggestFontSize, int offset){
-
-        // Get the normal setup with the right scaling
-        if (shape.equals(MyShape.HALFROUND)){
-            // Get normalt setup
-            NormalSetup(text,MyScaling.SMALL);
-        } else {
-            // Get normalt setup
-            NormalSetup(text,MyScaling.CUSTOM);
-        }
-
-        // Set the settings
-        switch (pos){
-            case CENTER -> this.setAlignment(Pos.CENTER);
-            case LEFT -> this.setAlignment(Pos.CENTER_LEFT);
-            case RIGHT -> this.setAlignment(Pos.CENTER_RIGHT);
-        }
-        switch (shape){
-            case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
-            case HALFROUND -> {
-                this.setStyle("-fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0;");
-                // Make this object use the custom-menu css styling
-                this.getStyleClass().add("headline-halfround");
-            }
-            case NOTROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
-        }
-
-        // Set Scaling
-        scalingCustom(smallestFontSize,biggestFontSize,offset);
+    public void removeBorder(){
+        // Make this object have nonvisible borders
+        this.setStyle("-fx-border-color: -fx-color2");
     }
 
 
@@ -128,9 +123,10 @@ public class Headline extends HBox {
     }
 
     private void scalingCustom(int smallestFont, int biggestFont, int offset){
+        // Make this object use the custom-menu css styling
+        this.getStyleClass().add("headline-sizing");
         // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
         this.widthProperty().addListener((obs, old, newVal) -> {
-
             // Changes the size of the label text
             if (newVal.intValue()/offset>=biggestFont && !this.label.getStyle().contains("-fx-font-size: "+biggestFont+";")){
                 this.label.setStyle("-fx-font-size: "+biggestFont+";");
@@ -139,33 +135,6 @@ public class Headline extends HBox {
                 this.label.setStyle("-fx-font-size: "+newVal.intValue()/offset+";");
             }
         });
-    }
-
-    private void NormalSetup(String text, MyScaling scaling){
-        // Make this object use the custom-menu css styling
-        this.getStyleClass().add("headline");
-
-        // Add the label
-        this.label= new Label();
-        this.label.setText(text);
-
-        // Remove focus option
-        this.label.setFocusTraversable(false);
-
-        // Make this object use the custom-menu css styling
-        this.getStyleClass().add("headline-label");
-
-        // Add content
-        this.getChildren().add(this.label);
-
-        // Set alignment
-        this.setAlignment(Pos.CENTER);
-
-        // Set the scaling of the label text
-        switch (scaling){
-            case BIG -> scalingBig();
-            case SMALL -> scalingSmall();
-        }
     }
 
 }
