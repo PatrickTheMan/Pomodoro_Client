@@ -49,6 +49,9 @@ public class ButtonMinus extends CustomButtonOther{
             // Remove focus
             this.setFocused(false);
 
+            // The target
+            ControllerSingleton.getInstance().subtractToCounter(taskline.getCounter());
+
         });
         return this;
     }

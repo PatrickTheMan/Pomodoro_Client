@@ -41,6 +41,11 @@ public class Headline extends HBox {
 
     }
 
+
+    public void noStyleClass(){
+        this.getStyleClass().setAll("");
+    }
+
     public void setScaling(MyScaling scaling){
         // Set the scaling of the label text
         switch (scaling){

@@ -4,6 +4,8 @@ import Domain.Consultant;
 import Domain.Project;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Task;
+import UI.Structures.SceneStructureParts.SmallParts.Taskline;
+import javafx.scene.Node;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -13,14 +15,15 @@ public class Testing {
     public void loadTestConsultant(){
 
         ConsultantSingleton.getInstance().setConsultant(new Consultant(
-                        "Jhon@Nielsen.com",
-                        "Jhon Nielsen",
-                        "Main Office",
-                        Time.valueOf("00:30:00"),
-                        Time.valueOf("00:05:00"),
-                        Time.valueOf("00:40:00"),
-                        true,
-                        1
+                "Jhon@Nielsen.com",
+                "Jhon Nielsen",
+                "Main Office",
+                Time.valueOf("00:30:00"),
+                Time.valueOf("00:05:00"),
+                Time.valueOf("00:40:00"),
+                true,
+                1,
+                ""
                 )
         );
 
@@ -35,58 +38,63 @@ public class Testing {
         ArrayList<Consultant> consultants = new ArrayList<>();
 
         consultants.add(new Consultant(
-                        "Lea@Nielsen.com",
-                        "Lea Nielsen",
-                        "Main Office",
-                        Time.valueOf("00:30:00"),
-                        Time.valueOf("00:10:00"),
-                        Time.valueOf("00:20:00"),
-                        true,
-                        3
+                "Lea@Nielsen.com",
+                "Lea Nielsen",
+                "Main Office",
+                Time.valueOf("00:30:00"),
+                Time.valueOf("00:10:00"),
+                Time.valueOf("00:20:00"),
+                true,
+                3,
+                ""
                 )
         );
         consultants.add(new Consultant(
-                        "Jeff@Jhonson.com",
-                        "Jeff Jhonson",
-                        "Main Office",
-                        Time.valueOf("00:25:00"),
-                        Time.valueOf("00:10:00"),
-                        Time.valueOf("00:15:00"),
-                        true,
-                        3
+                "Jeff@Jhonson.com",
+                "Jeff Jhonson",
+                "Main Office",
+                Time.valueOf("00:25:00"),
+                Time.valueOf("00:10:00"),
+                Time.valueOf("00:15:00"),
+                true,
+                3,
+                ""
                 )
         );
         consultants.add(new Consultant(
-                        "Tom@Christensen.com",
-                        "Tom Christensen",
-                        "Main Office",
-                        Time.valueOf("00:60:00"),
-                        Time.valueOf("00:20:00"),
-                        Time.valueOf("00:40:00"),
-                        true,
-                        2
+                "Tom@Christensen.com",
+                "Tom Christensen",
+                "Main Office",
+                Time.valueOf("00:60:00"),
+                Time.valueOf("00:20:00"),
+                Time.valueOf("00:40:00"),
+                true,
+                2,
+                ""
                 )
         );
         consultants.add(new Consultant(
-                        "Liam@Arnolsen.com",
-                        "Liam Arnolsen",
-                        "Main Office",
-                        Time.valueOf("00:15:00"),
-                        Time.valueOf("00:03:00"),
-                        Time.valueOf("00:15:00"),
-                        true,
-                        4
+                "Liam@Arnolsen.com",
+                "Liam Arnolsen",
+                "Main Office",
+                Time.valueOf("00:15:00"),
+                Time.valueOf("00:03:00"),
+                Time.valueOf("00:15:00"),
+                true,
+                4,
+                ""
                 )
         );
         consultants.add(new Consultant(
-                        "Bo@Schnell.com",
-                        "Bo Schnell",
-                        "Main Office",
-                        Time.valueOf("00:25:00"),
-                        Time.valueOf("00:05:00"),
-                        Time.valueOf("00:30:00"),
-                        true,
-                        4
+                "Bo@Schnell.com",
+                "Bo Schnell",
+                "Main Office",
+                Time.valueOf("00:25:00"),
+                Time.valueOf("00:05:00"),
+                Time.valueOf("00:30:00"),
+                true,
+                4,
+                ""
                 )
         );
 
@@ -116,12 +124,15 @@ public class Testing {
      */
     public ArrayList<Task> getTestTasksForTestProjects(){
 
-        ArrayList<Task> projects = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
+        tasks.add(new Task(1,"Bo@Schnell.com",3,"Do laundry",Time.valueOf("00:00:00"),false,1));
+        tasks.add(new Task(2,"Bo@Schnell.com",3,"Do laundry2",Time.valueOf("00:00:00"),false,2));
+        tasks.add(new Task(3,"Bo@Schnell.com",3,"Do laundry3",Time.valueOf("00:00:00"),false,3));
+        tasks.add(new Task(4,"Bo@Schnell.com",3,"Do laundry4",Time.valueOf("00:00:00"),false,4));
+        tasks.add(new Task(5,"Bo@Schnell.com",5,"Do laundry5",Time.valueOf("00:00:00"),false,5));
 
-
-
-        return projects;
+        return tasks;
     }
 
 }

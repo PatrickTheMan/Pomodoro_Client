@@ -53,11 +53,8 @@ public class CustomButton extends Button {
         this.setFocused(focused);
     }
 
-    public void setSizing(){
-        //TODO
-    }
-
-    public void setSizing(int minWidth, int maxWidth, int minHeight, int maxHeight){
-        //TODO
+    public void setSize(int size){
+        // Set the button size
+        this.setStyle("-fx-background-size: "+size+";");
     }
 }

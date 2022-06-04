@@ -24,6 +24,7 @@
     -fx-color3: -fx-colorGrey;
     -fx-color4: -fx-colorWhite;
     -fx-color5: -fx-colorGreyLight;
+    -fx-color6: -fx-colorRed;
 
     -fx-colorb3: -fx-color3;
     -fx-colorb4: -fx-color4;
@@ -42,6 +43,10 @@
 .scroll-pane > .viewport
 {
     -fx-background-color: -fx-color2;
+}
+.combo-box > .text-field {
+    -fx-background-color: -fx-color4;
+    -fx-background-radius: 10;
 }
 /*
 -----------------------------------------------------------------Buttons-START-------------------------------------------------
@@ -464,6 +469,30 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+.choice-combobox .list-view
+{
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.choice-combobox .list-view .list-cell:hover
+{
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
+    -fx-text-fill: Black;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.choice-combobox .list-view .list-cell:focused
+{
+    -fx-background-color: -fx-color6;
+    -fx-text-fill: Black;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
 .choice-combobox-hovered
 {
     -fx-background-color: -fx-color5;
@@ -497,6 +526,13 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+.choice-combobox-combobox-writable > .arrow-button
+{
+    -fx-background-color: -fx-color6;
+    -fx-background-radius: 0 10 10 0;
+    -fx-border-color: -fx-color6;
+    -fx-border-radius: 0 10 10 0;
+}
 /*
 -----------------------------------------------------------------ChoiceLines-END---------------------------------------------
  */
@@ -521,14 +557,12 @@
 
 .headline-timerandstatus
 {
+    -fx-background-color: -fx-color4;
     -fx-border-color: -fx-colorb3;
     -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
-.headline-timerandstatus
-{
-    -fx-border-color: -fx-colorb3;
-    -fx-border-radius: 10;
-}
+
 .headline-buttoncontainer
 {
     -fx-border-color: transparent;

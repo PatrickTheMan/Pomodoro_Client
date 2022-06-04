@@ -8,6 +8,9 @@ public class Pomodoro_Client extends Application {
     @Override
     public void start(Stage stage) {
 
+        // Start a update thread, which updates the clients' information every 5 min
+        new UpdateInformationThread().start();
+
         // Set the scene the scenehandler should work with
         ScenehandlerSingleton.getInstance();
 

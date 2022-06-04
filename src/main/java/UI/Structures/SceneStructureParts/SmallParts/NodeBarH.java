@@ -87,7 +87,6 @@ public class NodeBarH extends HBox {
     }
 
 
-
     public void setShape(MyShape shape){
         switch (shape){
             case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");

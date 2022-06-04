@@ -75,6 +75,8 @@ public class ChoiceComboBox extends HBox {
     }
 
     public void setContent(ArrayList<String> choices){
+        // Clear
+        this.comboBox.getItems().clear();
         // Add the choices to the combobox
         for (String s:choices) {
             comboBox.getItems().add(s);
@@ -97,6 +99,7 @@ public class ChoiceComboBox extends HBox {
 
     public void setWriteable(boolean writeable){
         comboBox.setEditable(writeable);
+        comboBox.getStyleClass().add("choice-combobox-combobox-writable");
     }
 
     public void removeBorder(){

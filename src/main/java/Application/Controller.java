@@ -3,20 +3,24 @@ package Application;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
-import Domain.Timer;
+import Domain.Task;
+import Foundation.Singletons.DBSingleton;
+import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;
 import UI.Enums.SceneType;
 import UI.Singletons.ScenehandlerSingleton;
-import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
-import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
-import UI.Structures.SceneStructureParts.SmallParts.NodePages;
+import UI.Structures.SceneStructureParts.SmallParts.*;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
+import javafx.scene.Node;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class Controller {
+
+    //endregion
 
     //region [Scene]
 
@@ -167,10 +171,37 @@ public class Controller {
 
     //endregion
 
+    //region [DB]
+
+    public void updateTaskDB(Task task){
+        DBSingleton.getInstance().updateTask(task);
+        InformationContainerSingleton.getInstance().updateAll();
+    }
+
+    //endregion
+
     //region [Buttons]
 
-    public void updateNodePage(NodePages nodePages, CustomButton customButton, int nodesPrPage){
-        nodePages.updatePage(Integer.parseInt(customButton.getText()),nodesPrPage);
+    public void addToCounter(Headline headline){
+
+        headline.getLabel().setText(""+(Integer.parseInt(headline.getLabel().getText())+1));
+
+    }
+
+    public void subtractToCounter(Headline headline){
+
+        if (!headline.getLabel().getText().equals("0")){
+            headline.getLabel().setText(""+(Integer.parseInt(headline.getLabel().getText())-1));
+        }
+
+    }
+
+    public void newTasklineInDoToday(Taskline taskline){
+        InformationContainerSingleton.getInstance().newTasklineInDoToday(taskline);
+    }
+
+    public void removeTasklineInDoToday(Taskline taskline){
+        InformationContainerSingleton.getInstance().removeTasklineInDoToday(taskline);
     }
 
     //endregion

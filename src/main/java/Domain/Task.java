@@ -6,13 +6,41 @@ public class Task {
 
     private int id;
     private String email;
-    private int projectId;
+    private Integer projectId;
     private String name;
     private Time time;
     private boolean taskDone;
     private int order;
 
-    public Task(int id, String email, int projectId, String name, Time time, boolean taskDone, int order) {
+    public int getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public boolean isTaskDone() {
+        return taskDone;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public Task(int id, String email, Integer projectId, String name, Time time, boolean taskDone, int order) {
         this.id = id;
         this.email = email;
         this.projectId = projectId;
@@ -21,4 +49,5 @@ public class Task {
         this.taskDone = taskDone;
         this.order = order;
     }
+
 }

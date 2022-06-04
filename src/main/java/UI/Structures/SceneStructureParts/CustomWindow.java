@@ -1,16 +1,16 @@
 package UI.Structures.SceneStructureParts;
 
-import Domain.Singletons.ConsultantSingleton;
-import Domain.Singletons.TimerSingleton;
 import UI.Enums.MyPos;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
+import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import UI.Structures.SceneStructureParts.Windows.NodePageWindow;
 import UI.Structures.SceneStructureParts.Windows.PomodoroTimerWindow;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int height, int offset){
+    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage, int height,int offset){
 
         // Create the headline and set settings
         Headline headline = new Headline(text);
@@ -104,6 +104,28 @@ public class CustomWindow extends VBox {
 
         // Set content
         this.getChildren().addAll(headline,new NodePageWindow(arrayList,nodesPrPage,height));
+
+        // Make this object use the custom css styling
+        this.getStyleClass().add("custom-window-list");
+
+        return this;
+    }
+
+    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int offset){
+
+        // Create the headline and set settings
+        Headline headline = new Headline(text);
+        headline.setPos(MyPos.CENTER);
+        headline.setShape(MyShape.HALFROUND);
+        headline.setScaling(15,25,offset);
+
+        // Create the nodepage window
+        NodePageWindow nodePagesWindow = new NodePageWindow(arrayList,nodesPrPage);
+        // Scaling of the list
+        nodePagesWindow.prefHeightProperty().bind(this.heightProperty());
+
+        // Set content
+        this.getChildren().addAll(headline,nodePagesWindow);
 
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-list");

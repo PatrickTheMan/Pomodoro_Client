@@ -26,7 +26,8 @@ public class ConsultantSingleton {
                     Time.valueOf("00:05:00"),
                     Time.valueOf("00:30:00"),
                     true,
-                    4
+                    0,
+                    ""
             );
         }
         // Return the instance

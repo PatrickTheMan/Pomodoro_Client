@@ -49,6 +49,9 @@ public class ButtonAdd extends CustomButtonOther {
             // Remove focus
             this.setFocused(false);
 
+            // The target
+            ControllerSingleton.getInstance().addToCounter(taskline.getCounter());
+
         });
         return this;
     }

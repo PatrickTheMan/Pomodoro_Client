@@ -1,9 +1,8 @@
 package UI;
 
-import Application.Controller;
 import Application.Singleton.ControllerSingleton;
-import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
+import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 
 import UI.Enums.MyPos;
@@ -41,8 +40,6 @@ public class Scenehandler {
     private Scene miniScene;
     private NodeBarH miniNodeBarH;
 
-    private ArrayList<Node> nodeArrayList = new ArrayList<>();
-
 
     public Scene getScene() {
         return scene;
@@ -73,8 +70,6 @@ public class Scenehandler {
     }
 
     public String getSceneTitle() {return sceneTitle;}
-
-    public ArrayList<Node> getNodeArrayList() {return nodeArrayList;}
 
 
     public Scenehandler(){
@@ -353,39 +348,12 @@ public class Scenehandler {
 
 
 
-        // Clear node arraylist if it has been used
-        if (this.nodeArrayList.size()>0){
-            this.nodeArrayList.clear();
-        }
-
-        //TESTING
-        Taskline test1 = new Taskline();
-        Taskline test2 = new Taskline();
-        Taskline test3 = new Taskline();
-        Taskline test4 = new Taskline();
-        Taskline test5 = new Taskline();
-        Taskline test6 = new Taskline();
-        Taskline test7 = new Taskline();
-        Taskline test8 = new Taskline();
-        Taskline test9 = new Taskline();
-        Taskline test10 = new Taskline();
 
 
-
-        this.nodeArrayList.add(test1);
-        this.nodeArrayList.add(test2);
-        this.nodeArrayList.add(test3);
-        this.nodeArrayList.add(test4);
-        this.nodeArrayList.add(test5);
-        this.nodeArrayList.add(test6);
-        this.nodeArrayList.add(test7);
-        this.nodeArrayList.add(test8);
-        this.nodeArrayList.add(test9);
-        this.nodeArrayList.add(test10);
 
 
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listWindow = new CustomWindow().NodePage("User Tasks",nodeArrayList,1,230,15);
+        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today", InformationContainerSingleton.getInstance().getDoTodayList(),2,230,25);
         listWindow.setMinMaxSize(100,200,1200,400);
         listWindow.prefWidthProperty().bind(mainPane.widthProperty().divide(4).multiply(3));
 
@@ -464,11 +432,6 @@ public class Scenehandler {
      */
     private VBox getDoTodayScreen() {
 
-        // Clear node arraylist if it has been used
-        if (this.nodeArrayList.size()>0){
-            this.nodeArrayList.clear();
-        }
-
         // Initiate the root for the screen
         VBox root = new VBox();
 
@@ -490,33 +453,10 @@ public class Scenehandler {
 
 
 
-        Taskline test1 = new Taskline();
-        Taskline test2 = new Taskline();
-        Taskline test3 = new Taskline();
-        Taskline test4 = new Taskline();
-        Taskline test5 = new Taskline();
-        Taskline test6 = new Taskline();
-        Taskline test7 = new Taskline();
-        Taskline test8 = new Taskline();
-        Taskline test9 = new Taskline();
-        Taskline test10 = new Taskline();
-
-
-
-        this.nodeArrayList.add(test1);
-        this.nodeArrayList.add(test2);
-        this.nodeArrayList.add(test3);
-        this.nodeArrayList.add(test4);
-        this.nodeArrayList.add(test5);
-        this.nodeArrayList.add(test6);
-        this.nodeArrayList.add(test7);
-        this.nodeArrayList.add(test8);
-        this.nodeArrayList.add(test9);
-        this.nodeArrayList.add(test10);
-
 
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listWindow = new CustomWindow().NodePage("User Tasks",nodeArrayList,1,400,15);
+        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today Tasks",InformationContainerSingleton.getInstance().getDoTodayList(),1,15);
+        listWindow.prefHeightProperty().bind(view.heightProperty());
 
 
 

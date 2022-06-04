@@ -40,7 +40,9 @@ public class PomodoroTimerWindow extends CustomWindow {
 
         // Add a timer and status container
         VBox timerStatusContainer = new VBox();
-        timerStatusContainer.getStyleClass().add("headline-timerstatus");
+
+        // Make this object use the custom css styling
+        timerStatusContainer.getStyleClass().add("headline-timerandstatus");
 
         // Set the headline & bind the timerLabel to the timer
         Headline timerLabel = new Headline("");
@@ -55,10 +57,6 @@ public class PomodoroTimerWindow extends CustomWindow {
         statusLabel.setShape(MyShape.ROUND);
         statusLabel.setScaling(15,40,18);
         statusLabel.getLabel().textProperty().bind(TimerSingleton.getInstance().timeTypeProperty());
-
-
-        // Make this object use the custom css styling
-        timerStatusContainer.getStyleClass().add("headline-timerandstatus");
 
         // Add content to the timer and status container
         timerStatusContainer.getChildren().addAll(timerLabel,statusLabel);

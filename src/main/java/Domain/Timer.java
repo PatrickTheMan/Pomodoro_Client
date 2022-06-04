@@ -182,7 +182,7 @@ public class Timer {
                 if (this.time.getMinutes() == 0){
                     this.time = Time.valueOf((this.time.getHours()-1)+":59:59");
                 } else {
-                    this.time = Time.valueOf("00:"+(this.time.getMinutes()-1)+":59");
+                    this.time = Time.valueOf((this.time.getHours())+":"+(this.time.getMinutes()-1)+":59");
                 }
             } else {
                 this.time.setSeconds(this.time.getSeconds()-1);

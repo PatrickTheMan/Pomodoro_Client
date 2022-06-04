@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.Time;
-import java.util.ArrayList;
 
 public class Consultant {
 
@@ -18,8 +17,7 @@ public class Consultant {
     private Time longBreakTime;
     private boolean active;
     private int order;
-
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private String status;
 
     private StringProperty nameProperty = new SimpleStringProperty("");
     private BooleanProperty existsProperty = new SimpleBooleanProperty(false);
@@ -60,7 +58,7 @@ public class Consultant {
         return order;
     }
 
-    public Consultant(String email, String name, String officeName, Time taskTime, Time breakTime, Time longBreakTime, boolean active, int order) {
+    public Consultant(String email, String name, String officeName, Time taskTime, Time breakTime, Time longBreakTime, boolean active, int order, String status) {
         this.email = email;
         this.name = name;
         this.officeName = officeName;
@@ -69,6 +67,7 @@ public class Consultant {
         this.longBreakTime = longBreakTime;
         this.active = active;
         this.order = order;
+        this.status = status;
 
         this.nameProperty.set(name);
     }
@@ -86,6 +85,7 @@ public class Consultant {
         this.longBreakTime = consultant.longBreakTime;
         this.active = consultant.active;
         this.order = consultant.order;
+        this.status = consultant.status;
 
         this.existsProperty.setValue(true);
     }
