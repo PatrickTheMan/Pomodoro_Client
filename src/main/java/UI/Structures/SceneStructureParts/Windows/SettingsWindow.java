@@ -7,6 +7,7 @@ import Domain.Singletons.TimerSingleton;
 import Foundation.DBConnection;
 import Foundation.Singletons.DBConnectionSingleton;
 import Foundation.Singletons.DBSingleton;
+import Foundation.Singletons.InformationContainerSingleton;
 import Testing.Singletons.TestingSingleton;
 import UI.Buttons.CustomButton;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
@@ -14,6 +15,7 @@ import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
 import UI.Structures.SceneStructureParts.CustomWindow;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class SettingsWindow extends CustomWindow {
@@ -55,8 +57,8 @@ public class SettingsWindow extends CustomWindow {
         // Create an arraylist with consultants
         ArrayList<Consultant> consultants = new ArrayList<>();
 
-        // Get The different consultants
-        consultants.addAll(DBSingleton.getInstance().getConsultants());
+        // Get The different consultants' names
+        consultants.addAll(InformationContainerSingleton.getInstance().getConsultants());
 
         // Convert to names only
         ArrayList<String> consultantNames = new ArrayList<>();
@@ -72,7 +74,7 @@ public class SettingsWindow extends CustomWindow {
             if (this.consultantChoice.getChoicebox().getValue() != null && !this.consultantChoice.getChoicebox().getValue().toString().equals("")){
                 for (Consultant c: consultants) {
                     if (this.consultantChoice.getChoicebox().getValue().equals(c.getName())){
-                        ControllerSingleton.getInstance().updateConsultantValues(c,this);
+                        ControllerSingleton.getInstance().getConsultantValues(c,this);
                     }
                 }
             }
@@ -87,15 +89,36 @@ public class SettingsWindow extends CustomWindow {
         this.longbreakTimeField.setScaling(true);
 
         // Add the save button
-        CustomButton customButton = new CustomButton().Other().Save().setToSaveConsultant(
-                this.taskTimeField,
-                this.breakTimeField,
-                this.longbreakTimeField,
-                this.consultantChoice,
-                consultants);
+        CustomButton saveButton = new CustomButton().Other().Save();
+        saveButton.setOnAction(e -> {
+            // Saves the consultants settings
+
+            // Remove focus
+            this.setFocused(false);
+
+            // Set the times from the settings window and the consultant (Also in DB)
+            ControllerSingleton.getInstance().setTimes(
+                    this.consultantChoice,
+                    Time.valueOf(this.taskTimeField.getTextField().getText()),
+                    Time.valueOf(this.breakTimeField.getTextField().getText()),
+                    Time.valueOf(this.longbreakTimeField.getTextField().getText())
+            );
+
+            // Reset timer
+            ControllerSingleton.getInstance().setTimeOnTimer(Time.valueOf(this.taskTimeField.getTextField().getText()));
+
+            if (this.consultantChoice.getChoicebox().getValue() != null && !this.consultantChoice.getChoicebox().getValue().toString().equals("")){
+                for (Consultant c: consultants) {
+                    if (this.consultantChoice.getChoicebox().getValue().equals(c.getName())){
+                        ControllerSingleton.getInstance().setConsultantTitle(c);
+                    }
+                }
+            }
+
+        });
 
         // Add the button to a bar
-        NodeBarH buttonBarH = new NodeBarH(customButton);
+        NodeBarH buttonBarH = new NodeBarH(saveButton);
 
         // Add the content to the class object
         this.getChildren().addAll(
@@ -109,14 +132,14 @@ public class SettingsWindow extends CustomWindow {
         if (ConsultantSingleton.getInstance().exists()){
             consultantChoice.getChoicebox().setValue(ConsultantSingleton.getInstance().getName());
         }
-        ControllerSingleton.getInstance().updateConsultantValues(ConsultantSingleton.getInstance(),this);
+        ControllerSingleton.getInstance().getConsultantValues(ConsultantSingleton.getInstance(),this);
 
         // Lock the fields when the timer runs
         this.consultantChoice.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
         this.taskTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
         this.breakTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
         this.longbreakTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
-        customButton.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
+        saveButton.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
 
     }
 

@@ -476,6 +476,7 @@
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+    -fx-min-height: 150;
 }
 .choice-combobox .list-view .list-cell:hover
 {

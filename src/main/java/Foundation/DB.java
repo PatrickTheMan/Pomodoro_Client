@@ -4,7 +4,6 @@ import Domain.Consultant;
 import Domain.Project;
 import Domain.Task;
 import Foundation.Singletons.DBConnectionSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class DB {
 
     /**
      *
-     * @return
+     * @param task
      */
     public void updateTask(Task task){
 
@@ -69,9 +68,6 @@ public class DB {
                     ";");
             // Executes the stored procedure
             ps.executeUpdate();
-
-            // Update the information in the InformationContainer
-            InformationContainerSingleton.getInstance().updateAll();
 
         }catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -158,6 +154,34 @@ public class DB {
             return null;
         }
     }
+
+    /**
+     *
+     * @param consultant
+     */
+    public void updateConsultant(Consultant consultant){
+
+        try {
+            // Makes a prepared statement with the information and the stored procedure
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[updatingConsultant] "+
+                    "@FldOrder = "+consultant.getOrder()+", "+
+                    "@FldConsultant_name = '"+consultant.getName()+"', "+
+                    "@FldConsultant_email = '"+consultant.getEmail()+"', "+
+                    "@FldOffice_name = '"+consultant.getOfficeName()+"', "+
+                    "@FldPreferred_pomodoro_work_time = '"+consultant.getTaskTime()+"', "+
+                    "@FldPreferred_pomodoro_break_time = '"+consultant.getBreakTime()+"', "+
+                    "@FldPreferred_pomodoro_long_break_time = '"+consultant.getLongBreakTime()+"',"+
+                    "@FldActive = "+consultant.isActive()+
+                    ";");
+            // Executes the stored procedure
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
 
     //
 

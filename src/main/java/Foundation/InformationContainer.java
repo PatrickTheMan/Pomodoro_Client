@@ -1,31 +1,61 @@
 package Foundation;
 
+import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Project;
 import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
 import Domain.Task;
 import Foundation.Singletons.DBSingleton;
+import Foundation.Singletons.InformationContainerSingleton;
+import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
+import UI.Structures.SceneStructureParts.Windows.NodePageWindow;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class InformationContainer {
 
-    private ArrayList<Node> doTodayList;
+    private NodePages activeNodePage;
+    private ArrayList<Taskline> doTodayList;
 
     private ArrayList<Consultant> consultants;
     private ArrayList<Project> projects;
     private ArrayList<Task> tasks;
 
+    private BooleanProperty updateNodePages = new SimpleBooleanProperty(false);
 
-    public void setDoTodayList(ArrayList<Node> doTodayList) {
+
+
+    public BooleanProperty updateNodePagesProperty() {
+        return updateNodePages;
+    }
+
+    public NodePages getActiveNodePage() {
+        return activeNodePage;
+    }
+
+    public void setActiveNodePage(NodePages activeNodePage) {
+        this.activeNodePage = activeNodePage;
+    }
+
+    public void setDoTodayList(ArrayList<Taskline> doTodayList) {
         this.doTodayList = doTodayList;
     }
 
     public ArrayList<Node> getDoTodayList() {
-        return doTodayList;
+
+        ArrayList<Node> doTodayListAsNodes = new ArrayList();
+
+        doTodayListAsNodes.addAll(this.doTodayList);
+
+        return doTodayListAsNodes;
     }
+
 
     public ArrayList<Consultant> getConsultants() {
         return consultants;
@@ -71,7 +101,7 @@ public class InformationContainer {
 
     public void updateAll(){
 
-        System.out.println("update-method");
+        System.out.println("update-all-method");
 
         this.consultants.clear();
         this.projects.clear();
@@ -80,6 +110,24 @@ public class InformationContainer {
         this.consultants.addAll(DBSingleton.getInstance().getConsultants());
         this.projects.addAll(DBSingleton.getInstance().getProjects());
         this.tasks.addAll(DBSingleton.getInstance().getTasks());
+    }
+
+    public void updateConsultants(){
+        System.out.println("update-consultants-method");
+        this.consultants.clear();
+        this.consultants.addAll(DBSingleton.getInstance().getConsultants());
+    }
+
+    public void updateTasks(){
+        System.out.println("update-tasks-method");
+        this.tasks.clear();
+        this.tasks.addAll(DBSingleton.getInstance().getTasks());
+    }
+
+    public void updateProjects(){
+        System.out.println("update-projects-method");
+        this.projects.clear();
+        this.projects.addAll(DBSingleton.getInstance().getProjects());
     }
 
 
@@ -93,6 +141,44 @@ public class InformationContainer {
 
     public void removeTasklineInDoToday(Taskline taskline){
         this.doTodayList.remove(taskline);
+    }
+
+    public void nextTask(){
+
+        // If there is a task in the doTodayList
+        if (this.doTodayList.size()>0 && this.doTodayList.get(0).getTaskID()==0){
+            Task currentTask = InformationContainerSingleton.getInstance().getTask(this.doTodayList.get(0).getTaskID());
+
+            // The Task is updated in the DB
+            ControllerSingleton.getInstance().updateTaskDB(new Task(
+                            currentTask.getId(),
+                            currentTask.getEmail(),
+                            (currentTask.getProjectId()==0 ? null : currentTask.getProjectId()),
+                            currentTask.getName(),
+                            Time.valueOf(
+                                    (currentTask.getTime().getHours() + TimerSingleton.getInstance().getCurrentTimeSpent().getHours()) + ":" +
+                                            (currentTask.getTime().getMinutes() + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes()) + ":" +
+                                            (currentTask.getTime().getSeconds() + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds())
+                            ),
+                            currentTask.isTaskDone(),
+                            0
+                    )
+            );
+
+            // Change the pomodoroTimer or remove the task from doToday (does not have to be finished)
+            if (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())==1){
+
+                // Remove taskline for that task
+                this.doTodayList.remove(0);
+            } else {
+                this.doTodayList.get(0).getCounter().getLabel().setText(""+
+                        (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())-1)
+                );
+            }
+
+            // Update nodePages
+            this.updateNodePages.setValue(true);
+        }
     }
 
     //endregion
@@ -145,7 +231,7 @@ public class InformationContainer {
      *
      * @return
      */
-    public ArrayList<String> taskNamesFromProject(Project project){
+    public ArrayList<String> getTaskNamesFromProject(Project project){
 
         ArrayList<String> task = new ArrayList<>();
 
@@ -162,7 +248,7 @@ public class InformationContainer {
      *
      * @return
      */
-    public ArrayList<String> availableTaskNamesFromProject(Project project){
+    public ArrayList<String> getAvailableTaskNamesFromProject(Project project){
 
         ArrayList<String> task = new ArrayList<>();
 
@@ -189,7 +275,7 @@ public class InformationContainer {
      *
      * @return
      */
-    public ArrayList<String> projectsToNames(ArrayList<Project> projects){
+    public ArrayList<String> getProjectsToNames(ArrayList<Project> projects){
 
         ArrayList<String> names = new ArrayList<>();
 
@@ -198,6 +284,20 @@ public class InformationContainer {
         }
 
         return names;
+    }
+
+    /**
+     *
+     * @param s
+     * @return
+     */
+    public Consultant getConsultant(String s){
+        for (Consultant c:this.consultants) {
+            if (c.getName().equals(s)){
+                return c;
+            }
+        }
+        return null;
     }
 
     //endregion

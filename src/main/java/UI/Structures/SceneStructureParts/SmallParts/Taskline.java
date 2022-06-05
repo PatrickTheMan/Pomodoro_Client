@@ -14,15 +14,12 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 import java.sql.Time;
 import java.util.ArrayList;
 
 public class Taskline extends HBox {
-
-    private NodePages nodePages;
 
     private Integer projectId= null;
     private int taskId= -1;
@@ -71,9 +68,6 @@ public class Taskline extends HBox {
         // Normal setup
         normalSetup();
 
-        // Save parent
-        this.nodePages=nodePages;
-
         // Set mode
         this.editing = true;
         setEditSetup();
@@ -88,9 +82,6 @@ public class Taskline extends HBox {
 
         // Normal setup
         normalSetup();
-
-        // Save parent
-        this.nodePages=nodePages;
 
         // Set initial values
         this.taskId = task.getId();
@@ -176,7 +167,7 @@ public class Taskline extends HBox {
         this.projectChoice.removeBorder();
         this.projectChoice.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(2));
         // Fill in the information from DB
-        this.projectChoice.setContent(InformationContainerSingleton.getInstance().projectsToNames(DBSingleton.getInstance().getProjects()));
+        this.projectChoice.setContent(InformationContainerSingleton.getInstance().getProjectsToNames(DBSingleton.getInstance().getProjects()));
         this.projectChoice.getChoicebox().setOnAction(e -> {
             // Set the project id for the taskbar
             if (InformationContainerSingleton.getInstance().getProject(this.projectChoice.getChoicebox().getValue().toString())!=null){
@@ -208,7 +199,7 @@ public class Taskline extends HBox {
 
             // Fill up the choose task combobox
             if (!this.projectChoice.getChoicebox().getValue().equals("Personal")){
-                this.taskChoice.setContent(InformationContainerSingleton.getInstance().availableTaskNamesFromProject(
+                this.taskChoice.setContent(InformationContainerSingleton.getInstance().getAvailableTaskNamesFromProject(
                                 InformationContainerSingleton.getInstance().getProject(
                                         this.projectChoice.getChoicebox().getValue().toString()
                                 )
@@ -217,7 +208,7 @@ public class Taskline extends HBox {
             } else {
                 // If the user is logged in then it loads the users task when hovering none
                 if (ConsultantSingleton.getInstance().exists()){
-                    this.taskChoice.setContent(InformationContainerSingleton.getInstance().availableTaskNamesFromProject(
+                    this.taskChoice.setContent(InformationContainerSingleton.getInstance().getAvailableTaskNamesFromProject(
                                     InformationContainerSingleton.getInstance().getProject(
                                             null
                                     )
@@ -234,7 +225,14 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> buttonsAndCounter = new ArrayList<>();
 
-        CustomButton buttonMinus = new CustomButton().Other().Minus().setToRemovePomodoro(this);
+        CustomButton buttonMinus = new CustomButton().Other().Minus();
+        buttonMinus.setOnAction(e -> {
+            // Remove focus
+            this.setFocused(false);
+
+            // The target
+            ControllerSingleton.getInstance().subtractToCounter(this.counter);
+        });
         buttonsAndCounter.add(buttonMinus);
 
         this.counter = new Headline("0");
@@ -244,7 +242,14 @@ public class Taskline extends HBox {
         this.counter.removeBorder();
         buttonsAndCounter.add(this.counter);
 
-        CustomButton buttonAdd = new CustomButton().Other().Add().setToAddPomodoro(this);
+        CustomButton buttonAdd = new CustomButton().Other().Add();
+        buttonAdd.setOnAction(e -> {
+            // Remove focus
+            this.setFocused(false);
+
+            // The target
+            ControllerSingleton.getInstance().addToCounter(this.counter);
+        });
         buttonsAndCounter.add(buttonAdd);
 
         //
@@ -260,8 +265,8 @@ public class Taskline extends HBox {
         CustomButton buttonDelete = new CustomButton().Other().Minus();
         buttonDelete.setOnAction(e -> {
 
-            // Remove this node from nodepage
-            this.nodePages.removeNode(this);
+            // Remove this node from active nodepage
+            InformationContainerSingleton.getInstance().getActiveNodePage().removeNode(this);
 
             // Remove this from the information container
             ControllerSingleton.getInstance().removeTasklineInDoToday(this);
@@ -269,8 +274,8 @@ public class Taskline extends HBox {
         });
         buttonsRemoveDone.add(buttonDelete);
 
-        CustomButton buttonDone = new CustomButton().Other().Save();
-        buttonDone.setOnAction(e -> {
+        CustomButton buttonSaveEdit = new CustomButton().Other().Save();
+        buttonSaveEdit.setOnAction(e -> {
             if (this.taskChoice.getChoicebox().getValue() != null && !this.taskChoice.getChoicebox().getValue().equals("") && !counter.getLabel().getText().equals("0")){
 
                 // Does the task already exist?
@@ -289,16 +294,7 @@ public class Taskline extends HBox {
                     if (ConsultantSingleton.getInstance().exists()){
                         // User does exists
 
-                        System.out.println("Saved / Updated to DB - Saved DB");
-                        System.out.println("TaskId: "+taskId);
-                        System.out.println("Email: "+ConsultantSingleton.getInstance().getEmail());
-                        System.out.println("ProjectId: "+projectId);
-                        System.out.println("TaskName: "+this.taskChoice.getChoicebox().getValue().toString());
-                        System.out.println("TimeSpent: "+taskTimeSpent);
-                        System.out.println("TaskDone: "+taskDone);
-                        System.out.println("Order: "+0);
-
-                        // If no project is selected
+                        // If no project is selected set projectId to null
                         if (this.projectChoice.getChoicebox().getValue()!=null && !this.projectChoice.getChoicebox().getValue().equals("")){
                             this.projectId=null;
                         }
@@ -314,12 +310,6 @@ public class Taskline extends HBox {
                                         0
                                 )
                         );
-
-                        System.out.println(this.taskChoice.getChoicebox().getValue().toString());
-                        System.out.println(InformationContainerSingleton.getInstance().getTask(
-                                this.taskChoice.getChoicebox().getValue().toString()
-                        ));
-                        System.out.println(InformationContainerSingleton.getInstance().getTaskNames());
 
                         // Set the id of the task
                         this.taskId=InformationContainerSingleton.getInstance().getTask(
@@ -342,7 +332,7 @@ public class Taskline extends HBox {
             }
             //TODO - ERROR MESSAGES
         });
-        buttonsRemoveDone.add(buttonDone);
+        buttonsRemoveDone.add(buttonSaveEdit);
 
         //
         this.buttonsRemoveDoneContainerBar = new NodeBarH(buttonsRemoveDone);
@@ -384,6 +374,7 @@ public class Taskline extends HBox {
         this.pomodorosHeadline.noStyleClass();
         this.pomodorosHeadline.setShape(MyShape.ROUND);
         this.pomodorosHeadline.setScaling(MyScaling.SMALL);
+        this.pomodorosHeadline.getLabel().textProperty().bind(this.counter.getLabel().textProperty());
 
         this.pomodoroHeadlineBar = new NodeBarH(pomodorosHeadline);
         this.pomodoroHeadlineBar.setShape(MyShape.ROUND);
@@ -395,8 +386,36 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> arrayListButtonsEditFinish = new ArrayList<>();
 
-        //TODO
         CustomButton buttonSave = new CustomButton().Other().Add();
+        buttonSave.setOnAction(e -> {
+
+            // Set done
+            this.taskDone=true;
+
+            // The Task is updated in the DB
+            ControllerSingleton.getInstance().updateTaskDB(new Task(
+                            this.taskId,
+                            ConsultantSingleton.getInstance().getEmail(),
+                            this.projectId,
+                            this.taskChoice.getChoicebox().getValue().toString(),
+                            Time.valueOf(
+                                    (this.taskTimeSpent.getHours() + TimerSingleton.getInstance().getCurrentTimeSpent().getHours()) + ":" +
+                                            (this.taskTimeSpent.getMinutes() + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes()) + ":" +
+                                            (this.taskTimeSpent.getSeconds() + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds())
+                            ),
+                            this.taskDone,
+                            0
+                    )
+            );
+
+
+            // Remove this node from active nodepage
+            InformationContainerSingleton.getInstance().getActiveNodePage().removeNode(this);
+
+            // Remove this from the information container
+            ControllerSingleton.getInstance().removeTasklineInDoToday(this);
+
+        });
         arrayListButtonsEditFinish.add(buttonSave);
 
         // TODO
@@ -441,7 +460,6 @@ public class Taskline extends HBox {
             this.projectChoiceShow.getChoicebox().setValue(this.projectChoice.getChoicebox().getValue().toString());
         }
         this.taskChoiceShow.getChoicebox().setValue(this.taskChoice.getChoicebox().getValue().toString());
-        this.pomodorosHeadline.getLabel().setText(this.counter.getLabel().getText());
 
         // Change the setup
         if (this.projectChoice.getChoicebox().getValue().equals("Personal")){

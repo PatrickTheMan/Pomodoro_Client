@@ -10,6 +10,17 @@ import java.util.ArrayList;
 
 public class NodeBarH extends HBox {
 
+    private ArrayList<Node> nodes = new ArrayList<>();
+
+
+    public ArrayList<Node> getContent() {
+        return nodes;
+    }
+
+    public void setContent(ArrayList<Node> nodes) {
+        this.nodes = nodes;
+    }
+
     public NodeBarH(ArrayList<Node> nodes){
 
         // Make this object use the custom-menu css styling
@@ -18,8 +29,11 @@ public class NodeBarH extends HBox {
         // Set alignment
         this.setAlignment(Pos.CENTER_RIGHT);
 
+        // Set the nodes
+        this.nodes = nodes;
+
         // Add in the buttons in the bar
-        for (Node n : nodes) {
+        for (Node n : this.nodes) {
             // Make this button use the custom css styling
             n.getStyleClass().add("node-bar-h-node");
             // Add the button

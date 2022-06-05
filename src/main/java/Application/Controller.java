@@ -4,6 +4,7 @@ import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
+import Domain.Timer;
 import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
@@ -75,16 +76,8 @@ public class Controller {
                         ScenehandlerSingleton.getInstance().getSceneTitle()
         );
 
-
-
-        // Set the new consultant
-        ConsultantSingleton.getInstance().setConsultant(consultant);
-
         // Update boolean
         this.consultantSetAlready = true;
-
-        // Update the timer
-        TimerSingleton.getInstance().resetTimer();
 
         // Update title timer
         this.setTimerTitle();
@@ -95,7 +88,7 @@ public class Controller {
      * @param consultant
      * @param settingsWindow
      */
-    public void updateConsultantValues(Consultant consultant, SettingsWindow settingsWindow){
+    public void getConsultantValues(Consultant consultant, SettingsWindow settingsWindow){
         // Update fields
         settingsWindow.setTaskTimeFieldText(consultant.getTaskTime().toString());
         settingsWindow.setBreakTimeFieldText(consultant.getBreakTime().toString());
@@ -126,13 +119,22 @@ public class Controller {
         TimerSingleton.getInstance().setTime(time);
     }
 
-    public void setTimes(Time taskTime, Time breakTime, Time longBreakTime){
-        if (ConsultantSingleton.getInstance().exists()){
+    public void setTimes(ChoiceComboBox choiceComboBox,Time taskTime, Time breakTime, Time longBreakTime){
+        if (choiceComboBox.getChoicebox().getValue()!=null && !choiceComboBox.getChoicebox().getValue().equals("")){
             System.out.println("C - Standard changed");
 
-            //TODO - Change settings via DB
+            // Set the consultant & Set the times to the ones chosen
+            ConsultantSingleton.getInstance().setConsultantNewTimes(
+                    InformationContainerSingleton.getInstance().getConsultant(choiceComboBox.getChoicebox().getValue().toString()),
+                    taskTime,
+                    breakTime,
+                    longBreakTime);
 
-            //TODO - get new consultant information
+            // Update the consultant with the new preferred times in DB
+            DBSingleton.getInstance().updateConsultant(ConsultantSingleton.getInstance());
+
+            // Reset Timer
+            TimerSingleton.getInstance().resetTimer();
 
         } else {
             System.out.println("Standard changed");
@@ -175,7 +177,7 @@ public class Controller {
 
     public void updateTaskDB(Task task){
         DBSingleton.getInstance().updateTask(task);
-        InformationContainerSingleton.getInstance().updateAll();
+        InformationContainerSingleton.getInstance().updateTasks();
     }
 
     //endregion

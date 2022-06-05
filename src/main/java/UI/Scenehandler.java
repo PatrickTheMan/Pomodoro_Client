@@ -134,7 +134,7 @@ public class Scenehandler {
                 ControllerSingleton.getInstance().setTimerTitle();
 
                 // Set the main content
-                this.mainPane.setCenter(getHomeScreen());
+                this.mainPane.setCenter(setupHomeScreen());
 
                 // Set the stylesheet for the scene
                 this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Home.css").toURI().toString());
@@ -147,7 +147,7 @@ public class Scenehandler {
                 ControllerSingleton.getInstance().setTimerTitle();
 
                 // Set the main content
-                this.mainPane.setCenter(getOverviewScreen());
+                this.mainPane.setCenter(setupOverviewScreen());
 
                 // Set the stylesheet for the scene
                 this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Overview.css").toURI().toString());
@@ -160,7 +160,7 @@ public class Scenehandler {
                 ControllerSingleton.getInstance().setTimerTitle();
 
                 // Set the main content
-                this.mainPane.setCenter(getDoTodayScreen());
+                this.mainPane.setCenter(setupDoTodayScreen());
 
                 // Set the stylesheet for the scene
                 this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_DoToday.css").toURI().toString());
@@ -317,7 +317,7 @@ public class Scenehandler {
      *
      * @return
      */
-    private VBox getHomeScreen(){
+    private VBox setupHomeScreen(){
 
         // Initiate the root for the screen
         VBox root = new VBox();
@@ -341,26 +341,12 @@ public class Scenehandler {
         // Create the setting window
         CustomWindow settingsWindow = new CustomWindow().Settings();
         settingsWindow.setMinMaxSize(200,200,600,400);
-        settingsWindow.prefWidthProperty().bind(mainPane.widthProperty().divide(4));
-
-
-
-
-
-
-
-
-
+        settingsWindow.prefWidthProperty().bind(this.mainPane.widthProperty().divide(4));
 
         // Create the list window with the nodeArrayList as it's content
         CustomWindow listWindow = new CustomWindow().NodePage("Do-Today", InformationContainerSingleton.getInstance().getDoTodayList(),2,230,25);
         listWindow.setMinMaxSize(100,200,1200,400);
-        listWindow.prefWidthProperty().bind(mainPane.widthProperty().divide(4).multiply(3));
-
-
-
-
-
+        listWindow.prefWidthProperty().bind(this.mainPane.widthProperty().divide(4).multiply(3));
 
 
         // Add the container, so 2 windows can be next to each other
@@ -387,7 +373,7 @@ public class Scenehandler {
      *
      * @return
      */
-    private VBox getOverviewScreen(){
+    private VBox setupOverviewScreen(){
 
         // Initiate the root for the screen
         VBox root = new VBox();
@@ -430,7 +416,7 @@ public class Scenehandler {
      *
      * @return
      */
-    private VBox getDoTodayScreen() {
+    private VBox setupDoTodayScreen() {
 
         // Initiate the root for the screen
         VBox root = new VBox();

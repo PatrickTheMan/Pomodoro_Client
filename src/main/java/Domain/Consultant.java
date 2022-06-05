@@ -87,7 +87,25 @@ public class Consultant {
         this.order = consultant.order;
         this.status = consultant.status;
 
-        this.existsProperty.setValue(true);
+        if (!this.existsProperty().getValue()){
+            this.existsProperty.setValue(true);
+        }
+    }
+
+    public void setConsultantNewTimes(Consultant consultant,Time taskTime, Time breakTime, Time longBreakTime){
+        this.email = consultant.email;
+        this.name = consultant.name;
+        this.officeName = consultant.officeName;
+        this.taskTime =taskTime;
+        this.breakTime = breakTime;
+        this.longBreakTime = longBreakTime;
+        this.active = consultant.active;
+        this.order = consultant.order;
+        this.status = consultant.status;
+
+        if (!this.existsProperty().getValue()){
+            this.existsProperty.setValue(true);
+        }
     }
 
 }
