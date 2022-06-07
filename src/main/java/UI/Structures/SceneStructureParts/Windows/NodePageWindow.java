@@ -13,17 +13,9 @@ public class NodePageWindow extends CustomWindow {
     /**
      *
      */
-    public NodePageWindow(ArrayList<Node> nodes , int nodesPrPage,int height){
+    public NodePageWindow(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
         // Normal setup
-        NormalSetup(nodes,nodesPrPage,height);
-    }
-
-    /**
-     *
-     */
-    public NodePageWindow(ArrayList<Node> nodes , int nodesPrPage){
-        // Normal setup
-        NormalSetup(nodes,nodesPrPage,-1);
+        NormalSetup(nodes,nodesPrPage,addNodeButton);
         // Set scaling of the window
         this.prefHeightProperty().bind(this.heightProperty());
     }
@@ -32,27 +24,31 @@ public class NodePageWindow extends CustomWindow {
     /**
      *
      */
-    private void NormalSetup(ArrayList<Node> nodes , int nodesPrPage, int height){
+    private void NormalSetup(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-nodepages");
 
         NodePages nodePages;
 
-        // Add the list
-        if (height==-1){
-            // With scaling
-            nodePages = new NodePages(nodes,nodesPrPage);
+        // Add the list with scaling
+        if (InformationContainerSingleton.getInstance().getActiveNodePage()!=null && addNodeButton){
+            nodePages = new NodePages(InformationContainerSingleton.getInstance().getActiveNodePage().getNodes(),nodesPrPage,addNodeButton);
         } else {
-            // Without scaling
-            nodePages = new NodePages(nodes,nodesPrPage, height);
+            nodePages = new NodePages(nodes,nodesPrPage,addNodeButton);
         }
+
 
         // Add the content to the class object
         this.getChildren().addAll(nodePages);
 
         // Set the newest created to the current one
-        InformationContainerSingleton.getInstance().setActiveNodePage(nodePages);
+        if (addNodeButton){
+            InformationContainerSingleton.getInstance().setActiveNodePage(nodePages);
+        } else {
+            InformationContainerSingleton.getInstance().setActiveOverviewNodePage(nodePages);
+        }
+
 
     }
 

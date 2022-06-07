@@ -94,24 +94,7 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage, int height,int offset){
-
-        // Create the headline and set settings
-        Headline headline = new Headline(text);
-        headline.setPos(MyPos.CENTER);
-        headline.setShape(MyShape.HALFROUND);
-        headline.setScaling(15,25,offset);
-
-        // Set content
-        this.getChildren().addAll(headline,new NodePageWindow(arrayList,nodesPrPage,height));
-
-        // Make this object use the custom css styling
-        this.getStyleClass().add("custom-window-list");
-
-        return this;
-    }
-
-    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int offset){
+    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int offset, boolean addNodeButton){
 
         // Create the headline and set settings
         Headline headline = new Headline(text);
@@ -120,7 +103,7 @@ public class CustomWindow extends VBox {
         headline.setScaling(15,25,offset);
 
         // Create the nodepage window
-        NodePageWindow nodePagesWindow = new NodePageWindow(arrayList,nodesPrPage);
+        NodePageWindow nodePagesWindow = new NodePageWindow(arrayList,nodesPrPage,addNodeButton);
         // Scaling of the list
         nodePagesWindow.prefHeightProperty().bind(this.heightProperty());
 

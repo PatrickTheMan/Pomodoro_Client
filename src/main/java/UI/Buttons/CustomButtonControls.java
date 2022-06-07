@@ -155,6 +155,8 @@ public class CustomButtonControls extends CustomButton {
 
         // Give the button the controls
         this.setOnAction(e -> {
+
+            // Sound turned on or off
             ControllerSingleton.getInstance().soundOnOff();
 
             // Remove focus

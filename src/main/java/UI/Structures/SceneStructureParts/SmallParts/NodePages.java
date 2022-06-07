@@ -4,8 +4,6 @@ import Application.Singleton.ControllerSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,14 +18,12 @@ public class NodePages extends VBox {
     private ArrayList<Node> nodes = new ArrayList<>();
 
     private int nodesPrPage;
-    private int height;
     private int currentPage;
+    private boolean addNodeButton;
 
     private ScrollPane contentContainer;
     private VBox itemContainer;
     private NodeBarH pageSelector;
-
-    private BooleanProperty updateNodePages = new SimpleBooleanProperty();
 
 
     public int getNodesPrPage() {
@@ -42,10 +38,16 @@ public class NodePages extends VBox {
         return nodes;
     }
 
-    public NodePages(ArrayList<Node> nodes, int nodesPrPage){
+    public void setNodes(ArrayList<Node> nodes) {
+        this.nodes = nodes;
+    }
+
+    public NodePages(ArrayList<Node> nodes, int nodesPrPage, boolean addNodeButton){
 
         // Set the initial value
         this.nodesPrPage=nodesPrPage;
+        // Add button on/off?
+        this.addNodeButton=addNodeButton;
         // Normal setup
         normalSetup(nodes);
         // Set the scaling
@@ -56,22 +58,12 @@ public class NodePages extends VBox {
         this.itemContainer.prefHeightProperty().addListener((obs,old,newVal) -> {
             if ((newVal.intValue()-20)/98!=0){
                 this.nodesPrPage = (newVal.intValue()-20)/98;
-                updatePageContent();
+                updatePageContent(false);
                 updatePageButtons();
             } else {
                 this.nodesPrPage=1;
             }
         });
-    }
-
-    public NodePages(ArrayList<Node> nodes ,int nodesPrPage, int height){
-        // Set the initial value
-        this.nodesPrPage=nodesPrPage;
-        // Normal setup
-        normalSetup(nodes);
-        // Set min height
-        this.contentContainer.setMinHeight(height);
-        this.contentContainer.setMaxHeight(height);
     }
 
     private void normalSetup(ArrayList<Node> nodes){
@@ -97,16 +89,12 @@ public class NodePages extends VBox {
         // Fit to width of the parent
         this.contentContainer.setFitToWidth(true);
 
-        // Bind update NodePages to InformationContainer
-        this.updateNodePages.bind(InformationContainerSingleton.getInstance().updateNodePagesProperty());
-        this.updateNodePages.addListener((obs,old,newVal) -> {
-            if (this.updateNodePages.getValue()){
-                // Update content and buttons
-                updatePageContent();
-                updatePageButtons();
-                // Set it back to false
-                InformationContainerSingleton.getInstance().updateNodePagesProperty().setValue(false);
-            }
+        InformationContainerSingleton.getInstance().updateNodePagesProperty().addListener((obs,old,newVal) -> {
+            // Update content and buttons
+            updatePageContent(true);
+            updatePageButtons();
+            // Set it back to false
+            InformationContainerSingleton.getInstance().updateNodePagesProperty().setValue(false);
         });
 
         // Get the content
@@ -160,7 +148,7 @@ public class NodePages extends VBox {
                 this.currentPage=Integer.parseInt(customButton.getText());
 
                 // Update the page
-                updatePageContent();
+                updatePageContent(false);
 
                 // Remove focus
                 customButton.setCustomFocused(false);
@@ -207,10 +195,17 @@ public class NodePages extends VBox {
 
     }
 
-    public void updatePageContent(){
+    public void updatePageContent(boolean removeCurrentTask){
 
         // Clear the current itemContainer
         this.itemContainer.getChildren().clear();
+
+        // Remove the first task in line if it should be
+        if (removeCurrentTask && this.nodes.size()>0){
+            if (!this.nodes.get(0).getClass().getName().equals("UI.Structures.SceneStructureParts.SmallParts.Projectline") && ((Taskline)this.nodes.get(0)).getCounter().getLabel().getText().equals("0")){
+                this.nodes.remove(0);
+            }
+        }
 
         // Add the ones the user wants to see
         if (this.currentPage*this.nodesPrPage > this.nodes.size()){
@@ -223,42 +218,45 @@ public class NodePages extends VBox {
             }
         }
 
-        // Create the add node button
-        CustomButton addNewNode = new CustomButton().Other().Add();
-        addNewNode.setOnAction(e -> {
+        if (this.addNodeButton){
+            // Create the add node button
+            CustomButton addNewNode = new CustomButton().Other().Add();
+            addNewNode.setOnAction(e -> {
 
-            // 1 more page or not
-            if (this.buttons.size()*this.nodesPrPage <= this.nodes.size()){
+                // 1 more page or not
+                if (this.buttons.size()*this.nodesPrPage <= this.nodes.size()){
 
-                // Save the taskline in the informationContainer
-                ControllerSingleton.getInstance().newTasklineInDoToday(new Taskline(this));
+                    // Save the taskline in the informationContainer
+                    ControllerSingleton.getInstance().newTasklineInDoToday(new Taskline());
 
-                // Get new information
-                this.nodes.clear();
-                this.nodes.addAll(InformationContainerSingleton.getInstance().getDoTodayList());
+                    // Get new information
+                    this.nodes.clear();
+                    this.nodes.addAll(InformationContainerSingleton.getInstance().getDoTodayList());
 
-                updatePageButtons();
+                    updatePageButtons();
 
-            } else {
+                } else {
 
-                // Save the taskline in the informationContainer
-                ControllerSingleton.getInstance().newTasklineInDoToday(new Taskline(this));
+                    // Save the taskline in the informationContainer
+                    ControllerSingleton.getInstance().newTasklineInDoToday(new Taskline());
 
-                // Get new information
-                this.nodes.clear();
-                this.nodes.addAll(InformationContainerSingleton.getInstance().getDoTodayList());
+                    // Get new information
+                    this.nodes.clear();
+                    this.nodes.addAll(InformationContainerSingleton.getInstance().getDoTodayList());
 
-                updatePageContent();
-            }
+                    updatePageContent(false);
+                }
 
-            // Go to the page, where it was added
-            ((Button)this.buttons.get(this.buttons.size()-1)).fire();
+                // Go to the page, where it was added
+                ((Button)this.buttons.get(this.buttons.size()-1)).fire();
 
-            // Set the children again
-            this.getChildren().setAll(this.contentContainer,this.pageSelector);
+                // Set the children again
+                this.getChildren().setAll(this.contentContainer,this.pageSelector);
 
-        });
-        this.itemContainer.getChildren().add(addNewNode);
+            });
+
+            this.itemContainer.getChildren().add(addNewNode);
+        }
 
     }
 
@@ -275,7 +273,7 @@ public class NodePages extends VBox {
 
             this.nodes.remove(node);
 
-            updatePageContent();
+            updatePageContent(false);
         }
 
         // Go to the page, where it was removed from

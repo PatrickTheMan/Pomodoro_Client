@@ -9,8 +9,8 @@ import Domain.Task;
 import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.NodePages;
+import UI.Structures.SceneStructureParts.SmallParts.Projectline;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
-import UI.Structures.SceneStructureParts.Windows.NodePageWindow;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
@@ -22,6 +22,7 @@ public class InformationContainer {
 
     private NodePages activeNodePage;
     private ArrayList<Taskline> doTodayList;
+    private NodePages activeOverviewNodePage;
 
     private ArrayList<Consultant> consultants;
     private ArrayList<Project> projects;
@@ -35,17 +36,18 @@ public class InformationContainer {
         return updateNodePages;
     }
 
-    public NodePages getActiveNodePage() {
-        return activeNodePage;
+    public NodePages getActiveNodePage() {return activeNodePage;}
+
+    public void setActiveNodePage(NodePages activeNodePage) {this.activeNodePage = activeNodePage;}
+
+    public NodePages getActiveOverviewNodePage() {
+        return activeOverviewNodePage;
     }
 
-    public void setActiveNodePage(NodePages activeNodePage) {
-        this.activeNodePage = activeNodePage;
+    public void setActiveOverviewNodePage(NodePages activeOverviewNodePage) {
+        this.activeOverviewNodePage = activeOverviewNodePage;
     }
 
-    public void setDoTodayList(ArrayList<Taskline> doTodayList) {
-        this.doTodayList = doTodayList;
-    }
 
     public ArrayList<Node> getDoTodayList() {
 
@@ -146,39 +148,89 @@ public class InformationContainer {
     public void nextTask(){
 
         // If there is a task in the doTodayList
-        if (this.doTodayList.size()>0 && this.doTodayList.get(0).getTaskID()==0){
-            Task currentTask = InformationContainerSingleton.getInstance().getTask(this.doTodayList.get(0).getTaskID());
+        if (this.doTodayList.size()>0 && this.doTodayList.get(0).getTaskID()!=0){
 
-            // The Task is updated in the DB
-            ControllerSingleton.getInstance().updateTaskDB(new Task(
-                            currentTask.getId(),
-                            currentTask.getEmail(),
-                            (currentTask.getProjectId()==0 ? null : currentTask.getProjectId()),
-                            currentTask.getName(),
-                            Time.valueOf(
-                                    (currentTask.getTime().getHours() + TimerSingleton.getInstance().getCurrentTimeSpent().getHours()) + ":" +
-                                            (currentTask.getTime().getMinutes() + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes()) + ":" +
-                                            (currentTask.getTime().getSeconds() + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds())
-                            ),
-                            currentTask.isTaskDone(),
-                            0
-                    )
-            );
+            if (ConsultantSingleton.getInstance().exists()){
+                Task currentTask = InformationContainerSingleton.getInstance().getTask(this.doTodayList.get(0).getTaskID());
 
-            // Change the pomodoroTimer or remove the task from doToday (does not have to be finished)
-            if (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())==1){
-
-                // Remove taskline for that task
-                this.doTodayList.remove(0);
-            } else {
-                this.doTodayList.get(0).getCounter().getLabel().setText(""+
-                        (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())-1)
+                // The Task is updated in the DB
+                ControllerSingleton.getInstance().updateTaskDB(new Task(
+                                currentTask.getId(),
+                                currentTask.getEmail(),
+                                (currentTask.getProjectId()==0 ? null : currentTask.getProjectId()),
+                                currentTask.getName(),
+                                Time.valueOf(
+                                        (currentTask.getTime().getHours() + TimerSingleton.getInstance().getCurrentTimeSpent().getHours()) + ":" +
+                                                (currentTask.getTime().getMinutes() + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes()) + ":" +
+                                                (currentTask.getTime().getSeconds() + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds())
+                                ),
+                                currentTask.isTaskDone(),
+                                0
+                        )
                 );
             }
 
-            // Update nodePages
-            this.updateNodePages.setValue(true);
+            // Change the pomodoroTimer or remove the task from doToday (does not have to be finished)
+            if (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())==1){
+                // Update the pomodoro counter on the taskline
+                this.doTodayList.get(0).getCounter().getLabel().setText(""+
+                        (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())-1)
+                );
+                // Update nodePages
+                this.updateNodePages.setValue(true);
+                // Remove taskline for that task in dotoday
+                this.doTodayList.remove(0);
+            } else {
+                // Update the pomodoro counter on the taskline
+                this.doTodayList.get(0).getCounter().getLabel().setText(""+
+                        (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())-1)
+                );
+                // Update nodePages
+                this.updateNodePages.setValue(true);
+            }
+
         }
+
+    }
+
+    public void getTasksFromProjectToList(Project project){
+
+        // Add the tasks to the view
+        ArrayList<Node> overviewTaskContent = new ArrayList<>();
+
+        Projectline backLine = new Projectline("Back");
+        overviewTaskContent.add(backLine);
+
+        for (Task t:InformationContainerSingleton.getInstance().getTasks()) {
+            if (t.getProjectId()==project.getId()){
+                overviewTaskContent.add(new Taskline(t));
+            }
+        }
+
+        // Add tasklines for that project
+        this.activeOverviewNodePage.setNodes(overviewTaskContent);
+
+        // Update
+        this.activeOverviewNodePage.updatePageContent(false);
+        this.activeOverviewNodePage.updatePageButtons();
+
+    }
+
+    public void getProjectsToList(){
+
+        // Add the projectlines to the view
+        ArrayList<Node> overviewProjectContent = new ArrayList<>();
+        for (Project p:InformationContainerSingleton.getInstance().getProjects()) {
+            overviewProjectContent.add(new Projectline(p));
+        }
+
+        // Set the content
+        this.activeOverviewNodePage.setNodes(overviewProjectContent);
+
+        // Update
+        this.activeOverviewNodePage.updatePageContent(false);
+        this.activeOverviewNodePage.updatePageButtons();
+
     }
 
     //endregion

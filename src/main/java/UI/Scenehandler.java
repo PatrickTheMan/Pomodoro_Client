@@ -1,6 +1,7 @@
 package UI;
 
 import Application.Singleton.ControllerSingleton;
+import Domain.Project;
 import Domain.Singletons.TimerSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
@@ -18,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -110,6 +112,9 @@ public class Scenehandler {
         // Set the stages limits in terms of sizing
         this.stage.setMinWidth(850);
         this.stage.setMinHeight(450);
+
+        // Set the stage icon
+        this.stage.getIcons().add(new Image(new File("src/main/resources/Images/pomodoroIcon.png").toURI().toString()));
 
         // Close miniStage if the main window is closed
         this.stage.setOnCloseRequest(e -> {
@@ -344,8 +349,8 @@ public class Scenehandler {
         settingsWindow.prefWidthProperty().bind(this.mainPane.widthProperty().divide(4));
 
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today", InformationContainerSingleton.getInstance().getDoTodayList(),2,230,25);
-        listWindow.setMinMaxSize(100,200,1200,400);
+        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today", InformationContainerSingleton.getInstance().getDoTodayList(),2,25,true);
+        listWindow.setMinMaxSize(100,200,1200,370);
         listWindow.prefWidthProperty().bind(this.mainPane.widthProperty().divide(4).multiply(3));
 
 
@@ -391,14 +396,19 @@ public class Scenehandler {
         // Create the headline
         CustomWindow headline = new CustomWindow().Headline("Overview");
 
-        CustomWindow settingsWindow = new CustomWindow().Pomodoro();
+        // Add the projects to the view
+        ArrayList<Node> overviewProjectContent = new ArrayList<>();
+        for (Project p:InformationContainerSingleton.getInstance().getProjects()) {
+            overviewProjectContent.add(new Projectline(p));
+        }
 
-
-
+        // Create the list window with the nodeArrayList as it's content
+        CustomWindow listOverviewWindow = new CustomWindow().NodePage("View",overviewProjectContent,1,15,false);
+        listOverviewWindow.prefHeightProperty().bind(view.heightProperty());
 
 
         // Set contentcontainers content
-        container.getChildren().addAll(settingsWindow);
+        container.getChildren().addAll(listOverviewWindow);
 
         // Set the content of the view
         view.setContent(container);
@@ -407,7 +417,7 @@ public class Scenehandler {
         root.getChildren().addAll(headline,view);
 
         // Bind the size of the view
-        view.prefHeightProperty().bind(root.heightProperty().subtract(headline.getHeight()));
+        view.prefHeightProperty().bind(root.heightProperty().subtract(headline.getHeight()-(root.getChildren().size()*20)));
 
         return root;
     }
@@ -441,7 +451,7 @@ public class Scenehandler {
 
 
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today Tasks",InformationContainerSingleton.getInstance().getDoTodayList(),1,15);
+        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today Tasks",InformationContainerSingleton.getInstance().getDoTodayList(),5,15,true);
         listWindow.prefHeightProperty().bind(view.heightProperty());
 
 

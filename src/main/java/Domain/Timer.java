@@ -3,12 +3,17 @@ package Domain;
 import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
+import UI.Structures.SceneStructureParts.SmallParts.Taskline;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.*;
 import javafx.util.Duration;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.sql.Time;
+import java.util.Objects;
 
 public class Timer {
 
@@ -21,7 +26,7 @@ public class Timer {
     private Time time=Time.valueOf("00:00:00");
     private int cycle = 1;
 
-    private boolean sound = true; //TODO
+    private boolean sound = true;
 
     private final StringProperty timeTypeProperty = new SimpleStringProperty("Task");
     private final BooleanProperty timeRunningProperty = new SimpleBooleanProperty(false);
@@ -144,7 +149,8 @@ public class Timer {
     }
 
     public void skipTimer(){
-        if (timeTypeProperty.getValue()=="Task"){
+        // Change timer type
+        if (Objects.equals(timeTypeProperty.getValue(), "Task")){
             if (this.cycle==4){
                 this.timeTypeProperty.setValue("Long Break");
                 setTime((ConsultantSingleton.getInstance().exists() ?
@@ -178,6 +184,28 @@ public class Timer {
         ControllerSingleton.getInstance().setTimerTitle();
     }
 
+    private Media media;
+
+    public void playSound(){
+
+        media = null;
+
+        if (sound){
+            switch (this.timeTypeProperty.getValue()){
+                case ("Task") -> media = new Media(new File("src/main/resources/Sound/taskSound.mp3").toURI().toString());
+                case ("Break") -> media = new Media(new File("src/main/resources/Sound/breakSound.mp3").toURI().toString());
+                case ("Long Break") -> media = new Media(new File("src/main/resources/Sound/longbreakSound.mp3").toURI().toString());
+            }
+        }
+
+        if (media != null){
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setOnEndOfMedia(mediaPlayer::stop);
+            mediaPlayer.play();
+        }
+
+    }
+
     public synchronized void timerTick(){
 
         // If the timer is done
@@ -188,31 +216,60 @@ public class Timer {
                 // Next cycle
                 cycle++;
 
+                // Set task + title
+                //TODO
+                /*
+                if (InformationContainerSingleton.getInstance().getDoTodayList().get(0)==null){
+                    this.timeTypeProperty.setValue("Task");
+                } else {
+                    this.timeTypeProperty.setValue("Task - "+
+                            InformationContainerSingleton.getInstance().getTask(
+                                    ((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskID()
+                            ).getName()
+                    );
+                }
+                 */
+
                 this.timeTypeProperty.setValue("Task");
+
                 setTime((ConsultantSingleton.getInstance().exists() ?
                         ConsultantSingleton.getInstance().getTaskTime() :
                         this.standardTaskTime)
                 );
 
-            } else if (cycle==4){
-                // Set long break
-                this.timeTypeProperty.setValue("Long Break");
-                setTime((ConsultantSingleton.getInstance().exists() ?
-                        ConsultantSingleton.getInstance().getLongBreakTime() :
-                        this.standardLongBreakTime)
-                );
-                this.cycle=1;
+                // Play Sound
+                playSound();
 
             } else {
+
                 // Change the Task time spend on the task in DB and update the remaining time if any
                 InformationContainerSingleton.getInstance().nextTask();
 
-                // Set break
-                this.timeTypeProperty.setValue("Break");
-                setTime((ConsultantSingleton.getInstance().exists() ?
-                        ConsultantSingleton.getInstance().getBreakTime() :
-                        this.standardBreakTime)
-                );
+                if (cycle==4){
+
+                    // Set long break
+                    this.timeTypeProperty.setValue("Long Break");
+                    setTime((ConsultantSingleton.getInstance().exists() ?
+                            ConsultantSingleton.getInstance().getLongBreakTime() :
+                            this.standardLongBreakTime)
+                    );
+                    this.cycle=1;
+
+                } else {
+
+
+
+                    // Set break
+                    this.timeTypeProperty.setValue("Break");
+                    setTime((ConsultantSingleton.getInstance().exists() ?
+                            ConsultantSingleton.getInstance().getBreakTime() :
+                            this.standardBreakTime)
+                    );
+                }
+
+                // Play Sound
+                playSound();
+
             }
         } else {
             if (this.time.getSeconds() == 0){

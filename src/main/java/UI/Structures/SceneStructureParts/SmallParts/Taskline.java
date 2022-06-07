@@ -28,6 +28,7 @@ public class Taskline extends HBox {
 
     private boolean editing;
     private boolean small;
+    private boolean showOnly;
 
     private ChoiceComboBox projectChoice;
     private ChoiceComboBox taskChoice;
@@ -63,7 +64,7 @@ public class Taskline extends HBox {
     /**
      *
      */
-    public Taskline(NodePages nodePages){
+    public Taskline(){
 
         // Normal setup
         normalSetup();
@@ -78,7 +79,10 @@ public class Taskline extends HBox {
      *
      * @param task
      */
-    public Taskline(Task task,NodePages nodePages){
+    public Taskline(Task task){
+
+        //
+        this.showOnly=true;
 
         // Normal setup
         normalSetup();
@@ -90,16 +94,14 @@ public class Taskline extends HBox {
         this.taskChoice.getChoicebox().setValue(task.getName());
         this.projectChoice.getChoicebox().setValue(InformationContainerSingleton.getInstance().getProject(task.getProjectId()));
 
-        System.out.println("TaskId: "+task.getId()+" / Saved to Taskline-TaskID: "+this.taskId);
-
         // Set values
         this.projectChoiceShow.getChoicebox().setValue(InformationContainerSingleton.getInstance().getProject(task.getProjectId()).getName());
         this.taskChoiceShow.getChoicebox().setValue(InformationContainerSingleton.getInstance().getTask(task.getId()).getName());
-        this.pomodorosHeadline.getLabel().setText("");
 
         // Set mode
         this.editing = false;
-        showSetup();
+
+        setShowOnlySetup();
 
     }
 
@@ -122,34 +124,36 @@ public class Taskline extends HBox {
 
         // Some width property functionality
         this.widthProperty().addListener((obs,old,newVal) -> {
-            if (newVal.intValue()<800){
-                if (!this.editing){
+            if (!this.showOnly){
+                if (newVal.intValue()<800){
+                    if (!this.editing){
+
+                        if (this.projectChoice.getChoicebox().getValue().equals("Personal")){
+                            this.getChildren().setAll(this.taskChoiceShow);
+                            this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty());
+                        } else {
+                            this.getChildren().setAll(this.projectChoiceShow,this.taskChoiceShow);
+                            this.projectChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(4));
+                            this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(6));
+                        }
+
+                        this.small=true;
+                    }
+                } else if (this.small && !this.editing){
 
                     if (this.projectChoice.getChoicebox().getValue().equals("Personal")){
-                        this.getChildren().setAll(this.taskChoiceShow);
-                        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty());
+                        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(8));
+                        this.getChildren().setAll(this.taskChoiceShow,this.pomodoroHeadlineBar,this.buttonsEditFinishBar);
                     } else {
-                        this.getChildren().setAll(this.projectChoiceShow,this.taskChoiceShow);
-                        this.projectChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(4));
-                        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(6));
+                        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(5));
+                        this.projectChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(3));
+                        this.getChildren().setAll(this.projectChoiceShow,this.taskChoiceShow,this.pomodoroHeadlineBar,this.buttonsEditFinishBar);
                     }
 
-                    this.small=true;
+
+                    this.small=false;
+
                 }
-            } else if (this.small && !this.editing){
-
-                if (this.projectChoice.getChoicebox().getValue().equals("Personal")){
-                    this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(8));
-                    this.getChildren().setAll(this.taskChoiceShow,this.pomodoroHeadlineBar,this.buttonsEditFinishBar);
-                } else {
-                    this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(5));
-                    this.projectChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(3));
-                    this.getChildren().setAll(this.projectChoiceShow,this.taskChoiceShow,this.pomodoroHeadlineBar,this.buttonsEditFinishBar);
-                }
-
-
-                this.small=false;
-
             }
         });
 
@@ -418,7 +422,7 @@ public class Taskline extends HBox {
         });
         arrayListButtonsEditFinish.add(buttonSave);
 
-        // TODO
+
         CustomButton buttonEdit = new CustomButton().Other().Save();
         buttonEdit.setOnAction(e -> {
 
@@ -446,6 +450,16 @@ public class Taskline extends HBox {
             this.editing = true;
             setEditSetup();
         }
+    }
+
+    /**
+     *
+     */
+    private void setShowOnlySetup(){
+        // Set children
+        this.getChildren().setAll(projectChoiceShow,taskChoiceShow);
+        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(6));
+        this.projectChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(4));
     }
 
     /**

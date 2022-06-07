@@ -418,6 +418,17 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.projectline
+{
+    -fx-background-color: -fx-color1;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-spacing: 10;
 }
 
 
@@ -461,6 +472,11 @@
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+.choice-textfield-textfield:disabled, .choice-textfield-textfield:disabled > *
+{
+    -fx-opacity: 0.8;
+}
+
 .choice-combobox
 {
     -fx-background-color: -fx-color4;
@@ -515,17 +531,14 @@
 }
 .choice-combobox-combobox
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-}
-.choice-combobox-combobox
-{
     -fx-background-color: -fx-color2;
     -fx-border-color: -fx-colorb3;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+}
+.choice-combobox-combobox:disabled, .choice-combobox-combobox:disabled > *
+{
+    -fx-opacity: 0.8;
 }
 .choice-combobox-combobox-writable > .arrow-button
 {
@@ -554,6 +567,10 @@
 .headline-label
 {
     -fx-font-weight: bold;
+}
+.headline-label:disabled, .headline-label:disabled > *
+{
+    -fx-opacity: 0.8;
 }
 
 .headline-timerandstatus
