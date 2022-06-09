@@ -145,19 +145,19 @@
 {
     /*-fx-background-color: -fx-color3;*/
 }
-.custom-other-button-save
+.custom-other-button-edit
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Edit/editcircleicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
-.custom-other-button-save:hover
+.custom-other-button-edit:hover
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Edit/editcirclefillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
-.custom-other-button-save:focused
+.custom-other-button-edit:focused
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Edit/editcirclefillicon.png");
     -fx-background-repeat: no-repeat;
@@ -196,6 +196,78 @@
 .custom-other-button-remove:focused
 {
     -fx-background-image: url("Scenes/ButtonImg/Others/Minus/minuscirclefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-back
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Back/backicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-back:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Back/backfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-back:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Back/backfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-accept
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Accept/accepticon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-accept:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Accept/acceptfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-accept:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Accept/acceptfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-delete
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Delete/deleteicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-delete:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Delete/deletefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-delete:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Delete/deletefillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-forward
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Forward/forwardicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-forward:hover
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Forward/forwardfillicon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+.custom-other-button-forward:focused
+{
+    -fx-background-image: url("Scenes/ButtonImg/Others/Forward/forwardfillicon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
@@ -362,80 +434,6 @@
     -fx-background-position: 50%;
 }
 /*
------------------------------------------------------------------Node-Containers-START-------------------------------------------------
- */
-.custom-menu-bar
-{
-    -fx-background-color: -fx-color1;
-    -fx-max-width: 50;
-}
-.custom-menu-bar-part-pane
-{
-    -fx-background-color: -fx-color1;
-    -fx-background-radius: 0 5 5 0;
-
-    -fx-border-color: -fx-colorb4;
-    -fx-border-radius: 0 5 5 0;
-
-}
-.custom-menu-bar-part-label
-{
-    -fx-font-size: 20;
-}
-.custom-menu-seperator
-{
-    -fx-max-width: 90;
-    -fx-translate-x: 15;
-}
-
-
-
-.node-bar-h
-{
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
-    -fx-padding: 10 10 10 10;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-spacing: 10;
-}
-.node-pages
-{
-    -fx-spacing: 10;
-}
-.node-pages-container
-{
-    -fx-background-color: -fx-color2;
-    -fx-border-color: -fx-colorb3;
-    -fx-background-radius: 10;
-    -fx-border-radius: 0;
-}
-
-.taskline
-{
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-padding: 10;
-    -fx-spacing: 10;
-}
-
-.projectline
-{
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-padding: 10;
-    -fx-spacing: 10;
-}
-
-
-/*
------------------------------------------------------------------Node-Containers-END--------------------------------------------------
- */
-/*
 -----------------------------------------------------------------ChoiceLines-START-----------------------------------------
  */
 .choice-textfield
@@ -458,8 +456,7 @@
 }
 .choice-textfield-error
 {
-    -fx-padding: 10 10 10 10;
-    -fx-background-color: red;
+    -fx-background-color: -fx-color6;
 }
 .choice-textfield-label
 {
@@ -522,8 +519,7 @@
 }
 .choice-combobox-error
 {
-    -fx-padding: 10 10 10 10;
-    -fx-background-color: red;
+    -fx-background-color: -fx-color6;
 }
 .choice-combobox-label
 {
@@ -558,6 +554,7 @@
     -fx-background-color: -fx-color4;
     -fx-padding: 10 10 0 10;
 }
+
 .headline-halfround
 {
     -fx-background-color: -fx-color4;
@@ -598,6 +595,90 @@
 
 /*
 -----------------------------------------------------------------Headline&Sizing-END-----------------------------------------
+ */
+/*
+-----------------------------------------------------------------Node-Containers-START-------------------------------------------------
+ */
+.custom-menu-bar
+{
+    -fx-background-color: -fx-color1;
+    -fx-max-width: 50;
+}
+.custom-menu-bar-part-pane
+{
+    -fx-background-color: -fx-color1;
+    -fx-background-radius: 0 5 5 0;
+
+    -fx-border-color: -fx-colorb4;
+    -fx-border-radius: 0 5 5 0;
+
+}
+.custom-menu-bar-part-label
+{
+    -fx-font-size: 20;
+}
+.custom-menu-seperator
+{
+    -fx-max-width: 90;
+    -fx-translate-x: 15;
+}
+
+
+
+.node-bar-h
+{
+    -fx-background-color: -fx-color4;
+    -fx-border-color: -fx-colorb3;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-spacing: 10;
+}
+.node-bar-h-error
+{
+    -fx-background-color: -fx-color6;
+}
+.node-bar-h-node-error
+{
+    -fx-background-color: -fx-color6;
+    -fx-border-color: red;
+}
+
+.node-pages
+{
+    -fx-spacing: 10;
+}
+.node-pages-container
+{
+    -fx-background-color: -fx-color2;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 0;
+}
+
+.taskline
+{
+    -fx-background-color: -fx-color1;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.projectline
+{
+    -fx-background-color: -fx-color1;
+    -fx-border-color: -fx-colorb3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+
+/*
+-----------------------------------------------------------------Node-Containers-END--------------------------------------------------
  */
 /*
 -----------------------------------------------------------------Windows-START--------------------------------------------
@@ -660,3 +741,4 @@
 /*
 -----------------------------------------------------------------Screens-END--------------------------------------------
  */
+

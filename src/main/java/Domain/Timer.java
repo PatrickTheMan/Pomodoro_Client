@@ -2,6 +2,7 @@ package Domain;
 
 import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
 import javafx.animation.KeyFrame;
@@ -22,6 +23,8 @@ public class Timer {
     private Time standardTaskTime = Time.valueOf("00:25:00");
     private Time standardBreakTime = Time.valueOf("00:05:00");
     private Time standardLongBreakTime = Time.valueOf("00:30:00");
+
+    private Time taskOffsetTime = Time.valueOf("00:00:00");
 
     private Time time=Time.valueOf("00:00:00");
     private int cycle = 1;
@@ -64,24 +67,56 @@ public class Timer {
     }
 
     public Time getCurrentTimeSpent(){
-        switch (timeTypeProperty.getValue()) {
+
+        System.out.println("Time: "+Time.valueOf((this.standardTaskTime.getHours()- this.time.getHours()) + ":" +
+                (this.standardTaskTime.getMinutes() - this.time.getMinutes()) + ":" +
+                (this.standardTaskTime.getSeconds() - this.time.getSeconds())));
+
+        switch (timeTypeProperty.getValue().substring(0,4)) {
             case ("Task") -> {
-                return Time.valueOf((ConsultantSingleton.getInstance().getTaskTime().getHours()- this.time.getHours()) + ":" +
-                        (ConsultantSingleton.getInstance().getTaskTime().getMinutes() - this.time.getMinutes()) + ":" +
-                        (ConsultantSingleton.getInstance().getTaskTime().getSeconds() - this.time.getSeconds())
-                );
+                if (!ConsultantSingleton.getInstance().exists()){
+                    System.out.println("t1");
+                    return Time.valueOf((this.standardTaskTime.getHours()- this.time.getHours()) + ":" +
+                            (this.standardTaskTime.getMinutes() - this.time.getMinutes()) + ":" +
+                            (this.standardTaskTime.getSeconds() - this.time.getSeconds())
+                    );
+                } else {
+                    System.out.println("t2");
+                    return Time.valueOf((ConsultantSingleton.getInstance().getTaskTime().getHours()- this.time.getHours()) + ":" +
+                            (ConsultantSingleton.getInstance().getTaskTime().getMinutes() - this.time.getMinutes()) + ":" +
+                            (ConsultantSingleton.getInstance().getTaskTime().getSeconds() - this.time.getSeconds())
+                    );
+                }
             }
-            case ("Break") -> {
-                return Time.valueOf((ConsultantSingleton.getInstance().getBreakTime().getHours()- this.time.getHours()) + ":" +
-                        (ConsultantSingleton.getInstance().getBreakTime().getMinutes() - this.time.getMinutes()) + ":" +
-                        (ConsultantSingleton.getInstance().getBreakTime().getSeconds() - this.time.getSeconds())
-                );
+            case ("Brea") -> {
+                if (!ConsultantSingleton.getInstance().exists()){
+                    System.out.println("b1");
+                    return Time.valueOf((this.standardBreakTime.getHours()- this.time.getHours()) + ":" +
+                            (this.standardBreakTime.getMinutes() - this.time.getMinutes()) + ":" +
+                            (this.standardBreakTime.getSeconds() - this.time.getSeconds())
+                    );
+                } else {
+                    System.out.println("b2");
+                    return Time.valueOf((ConsultantSingleton.getInstance().getBreakTime().getHours()- this.time.getHours()) + ":" +
+                            (ConsultantSingleton.getInstance().getBreakTime().getMinutes() - this.time.getMinutes()) + ":" +
+                            (ConsultantSingleton.getInstance().getBreakTime().getSeconds() - this.time.getSeconds())
+                    );
+                }
             }
-            case ("Long Break") -> {
-                return Time.valueOf((ConsultantSingleton.getInstance().getLongBreakTime().getHours()- this.time.getHours()) + ":" +
-                        (ConsultantSingleton.getInstance().getLongBreakTime().getMinutes() - this.time.getMinutes()) + ":" +
-                        (ConsultantSingleton.getInstance().getLongBreakTime().getSeconds() - this.time.getSeconds())
-                );
+            case ("Long") -> {
+                if (!ConsultantSingleton.getInstance().exists()){
+                    System.out.println("lb1");
+                    return Time.valueOf((this.standardLongBreakTime.getHours()- this.time.getHours()) + ":" +
+                            (this.standardLongBreakTime.getMinutes() - this.time.getMinutes()) + ":" +
+                            (this.standardLongBreakTime.getSeconds() - this.time.getSeconds())
+                    );
+                } else {
+                    System.out.println("lb2");
+                    return Time.valueOf((ConsultantSingleton.getInstance().getLongBreakTime().getHours()- this.time.getHours()) + ":" +
+                            (ConsultantSingleton.getInstance().getLongBreakTime().getMinutes() - this.time.getMinutes()) + ":" +
+                            (ConsultantSingleton.getInstance().getLongBreakTime().getSeconds() - this.time.getSeconds())
+                    );
+                }
             }
         }
         return Time.valueOf("00:00:00");
@@ -95,6 +130,13 @@ public class Timer {
         this.sound = sound;
     }
 
+    public Time getTaskOffsetTime() {
+        return taskOffsetTime;
+    }
+
+    public void setTaskOffsetTime() {
+        this.taskOffsetTime = getCurrentTimeSpent();
+    }
 
     public Timer(){
 
@@ -117,6 +159,17 @@ public class Timer {
         );
     }
 
+    public void setTimerTypeTaskWithTaskName(){
+        // Set new title to the timertype
+        if (InformationContainerSingleton.getInstance().getDoTodayList().size()>0 &&
+                ((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue() != null &&
+                !((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue().toString().equals("")){
+            this.timeTypeProperty.setValue("Task - "+((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue().toString());
+        } else {
+            this.timeTypeProperty.setValue("Task");
+        }
+    }
+
     public void setTime(Time time){
         this.time = Time.valueOf(time.toString());
         this.timeProperty.setValue(this.time.toString());
@@ -127,7 +180,7 @@ public class Timer {
         this.setTime(ConsultantSingleton.getInstance().getTaskTime());
         this.cycle=1;
         this.timeRunningProperty.setValue(false);
-        this.timeTypeProperty.setValue("Task");
+        setTimerTypeTaskWithTaskName();
         this.timeline.stop();
 
         // Set stage title, so you can se the time
@@ -150,7 +203,7 @@ public class Timer {
 
     public void skipTimer(){
         // Change timer type
-        if (Objects.equals(timeTypeProperty.getValue(), "Task")){
+        if (Objects.equals(timeTypeProperty.getValue().substring(0,4), "Task")){
             if (this.cycle==4){
                 this.timeTypeProperty.setValue("Long Break");
                 setTime((ConsultantSingleton.getInstance().exists() ?
@@ -165,12 +218,16 @@ public class Timer {
                 );
             }
         } else {
+
             if (this.cycle==4){
                 this.cycle=1;
             } else {
                 this.cycle++;
             }
-            this.timeTypeProperty.setValue("Task");
+
+            // Set the timertype to task + the task name
+            setTimerTypeTaskWithTaskName();
+
             setTime((ConsultantSingleton.getInstance().exists() ?
                     ConsultantSingleton.getInstance().getTaskTime() :
                     this.standardTaskTime)
@@ -191,10 +248,10 @@ public class Timer {
         media = null;
 
         if (sound){
-            switch (this.timeTypeProperty.getValue()){
+            switch (this.timeTypeProperty.getValue().substring(0,4)){
                 case ("Task") -> media = new Media(new File("src/main/resources/Sound/taskSound.mp3").toURI().toString());
-                case ("Break") -> media = new Media(new File("src/main/resources/Sound/breakSound.mp3").toURI().toString());
-                case ("Long Break") -> media = new Media(new File("src/main/resources/Sound/longbreakSound.mp3").toURI().toString());
+                case ("Brea") -> media = new Media(new File("src/main/resources/Sound/breakSound.mp3").toURI().toString());
+                case ("Long") -> media = new Media(new File("src/main/resources/Sound/longbreakSound.mp3").toURI().toString());
             }
         }
 
@@ -217,20 +274,7 @@ public class Timer {
                 cycle++;
 
                 // Set task + title
-                //TODO
-                /*
-                if (InformationContainerSingleton.getInstance().getDoTodayList().get(0)==null){
-                    this.timeTypeProperty.setValue("Task");
-                } else {
-                    this.timeTypeProperty.setValue("Task - "+
-                            InformationContainerSingleton.getInstance().getTask(
-                                    ((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskID()
-                            ).getName()
-                    );
-                }
-                 */
-
-                this.timeTypeProperty.setValue("Task");
+                TimerSingleton.getInstance().setTimerTypeTaskWithTaskName();
 
                 setTime((ConsultantSingleton.getInstance().exists() ?
                         ConsultantSingleton.getInstance().getTaskTime() :
@@ -266,6 +310,9 @@ public class Timer {
                             this.standardBreakTime)
                     );
                 }
+
+                // Reset the timeOffset
+                this.taskOffsetTime = Time.valueOf("00:00:00");
 
                 // Play Sound
                 playSound();

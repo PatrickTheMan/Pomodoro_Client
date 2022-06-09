@@ -11,7 +11,8 @@ public class DBConnection {
     public Connection getConnection(){
 
         if (this.con == null){
-            connect();
+            //connect();
+            connectTestServer();
         }
 
         return this.con;
@@ -24,6 +25,18 @@ public class DBConnection {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection("jdbc:sqlserver://vps-837bc3ec.vps.ovh.net:1433;databaseName=TOMATOSOUP", "SA", "Datamatiker-2021");
+        } catch (SQLException | ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    /**
+     * establishes the connection to the database of the test pomodoro programs
+     */
+    public void connectTestServer() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection("jdbc:sqlserver://vps-837bc3ec.vps.ovh.net:1433;databaseName=TOMATOSOUPclone", "SA", "Datamatiker-2021");
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println(e.getMessage());
         }

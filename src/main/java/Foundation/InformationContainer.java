@@ -12,17 +12,25 @@ import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import UI.Structures.SceneStructureParts.SmallParts.Projectline;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class InformationContainer {
 
     private NodePages activeNodePage;
     private ArrayList<Taskline> doTodayList;
     private NodePages activeOverviewNodePage;
+
+    private IntegerProperty amountOfActivePomodoros = new SimpleIntegerProperty();
+    private boolean workDayCreated = false;
+    private Date workDayStart;
 
     private ArrayList<Consultant> consultants;
     private ArrayList<Project> projects;
@@ -91,11 +99,76 @@ public class InformationContainer {
         return taskNames;
     }
 
+    public int getAmountOfActivePomodoros() {
+        return amountOfActivePomodoros.get();
+    }
+
+    public IntegerProperty amountOfActivePomodorosProperty() {
+        return amountOfActivePomodoros;
+    }
+
+    public void setAmountOfActivePomodoros(int amountOfActivePomodoros) {
+        this.amountOfActivePomodoros.set(amountOfActivePomodoros);
+    }
+
+    public boolean isUpdateNodePages() {
+        return updateNodePages.get();
+    }
+
+    public void setWorkDayStart(Date workDayStart) {
+        this.workDayStart = workDayStart;
+    }
+
     public InformationContainer(){
         this.doTodayList = new ArrayList<>();
         this.consultants = new ArrayList<>();
         this.projects = new ArrayList<>();
         this.tasks = new ArrayList<>();
+
+        this.amountOfActivePomodoros.addListener((obs,old,newVal) -> {
+
+            if (ConsultantSingleton.getInstance().exists()){
+
+                if (old.intValue()>newVal.intValue()){
+                    System.out.println("smaller");
+
+                    // Remove the pomodoros thats not in use
+                    for (int i = old.intValue()+1; i > newVal.intValue()+1 ; i--) {
+                        DBSingleton.getInstance().removePomodoro(ConsultantSingleton.getInstance().getEmail());
+                    }
+
+                    // Update the workday
+                    try {
+                        if (!workDayCreated){
+                            DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(),this.workDayStart);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    System.out.println("larger");
+
+                    // Remove the pomodoros thats not in use
+                    for (int i = old.intValue()+1; i < newVal.intValue()+1 ; i++) {
+                        if (i % 4 == 0){
+                            DBSingleton.getInstance().addPomodoro(ConsultantSingleton.getInstance().getTaskTime(), ConsultantSingleton.getInstance().getLongBreakTime());
+                        } else {
+                            DBSingleton.getInstance().addPomodoro(ConsultantSingleton.getInstance().getTaskTime(), ConsultantSingleton.getInstance().getBreakTime());
+                        }
+                    }
+
+                    // Update or create the workday
+                    try {
+                        DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(),this.workDayStart);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        });
 
         updateAll();
     }
@@ -153,17 +226,23 @@ public class InformationContainer {
             if (ConsultantSingleton.getInstance().exists()){
                 Task currentTask = InformationContainerSingleton.getInstance().getTask(this.doTodayList.get(0).getTaskID());
 
+                int hh = (currentTask.getTime().getHours() -
+                        TimerSingleton.getInstance().getTaskOffsetTime().getHours())
+                        + TimerSingleton.getInstance().getCurrentTimeSpent().getHours();
+                int mm = (currentTask.getTime().getMinutes() -
+                        TimerSingleton.getInstance().getTaskOffsetTime().getMinutes())
+                        + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes();
+                int ss = (currentTask.getTime().getSeconds() -
+                        TimerSingleton.getInstance().getTaskOffsetTime().getSeconds())
+                        + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds();
+
                 // The Task is updated in the DB
                 ControllerSingleton.getInstance().updateTaskDB(new Task(
                                 currentTask.getId(),
                                 currentTask.getEmail(),
                                 (currentTask.getProjectId()==0 ? null : currentTask.getProjectId()),
                                 currentTask.getName(),
-                                Time.valueOf(
-                                        (currentTask.getTime().getHours() + TimerSingleton.getInstance().getCurrentTimeSpent().getHours()) + ":" +
-                                                (currentTask.getTime().getMinutes() + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes()) + ":" +
-                                                (currentTask.getTime().getSeconds() + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds())
-                                ),
+                                Time.valueOf(hh+":"+mm+":"+ss),
                                 currentTask.isTaskDone(),
                                 0
                         )
@@ -189,6 +268,15 @@ public class InformationContainer {
                 this.updateNodePages.setValue(true);
             }
 
+            //Update the activePomodoros
+            this.setAmountOfActivePomodoros(this.getAmountOfActivePomodoros()-1);
+
+            System.out.println("Active Pomodoros: "+amountOfActivePomodoros);
+
+            System.out.println("Offset: "+Time.valueOf(TimerSingleton.getInstance().getTaskOffsetTime().getHours()+":"+
+                    TimerSingleton.getInstance().getTaskOffsetTime().getMinutes()+":"+
+                    TimerSingleton.getInstance().getTaskOffsetTime().getSeconds()));
+
         }
 
     }
@@ -198,7 +286,7 @@ public class InformationContainer {
         // Add the tasks to the view
         ArrayList<Node> overviewTaskContent = new ArrayList<>();
 
-        Projectline backLine = new Projectline("Back");
+        Projectline backLine = new Projectline("");
         overviewTaskContent.add(backLine);
 
         for (Task t:InformationContainerSingleton.getInstance().getTasks()) {

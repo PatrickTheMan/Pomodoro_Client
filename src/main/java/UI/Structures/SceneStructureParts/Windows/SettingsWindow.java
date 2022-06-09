@@ -4,11 +4,7 @@ import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
-import Foundation.DBConnection;
-import Foundation.Singletons.DBConnectionSingleton;
-import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
-import Testing.Singletons.TestingSingleton;
 import UI.Buttons.CustomButton;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
@@ -17,6 +13,8 @@ import UI.Structures.SceneStructureParts.CustomWindow;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class SettingsWindow extends CustomWindow {
 
@@ -88,32 +86,74 @@ public class SettingsWindow extends CustomWindow {
         this.longbreakTimeField = new ChoiceTextField("Long break time: ");
         this.longbreakTimeField.setScaling(true);
 
+
+        Pattern timePattern = Pattern.compile("^(\\d?\\d):(\\d?\\d):(\\d?\\d)$");
+
         // Add the save button
-        CustomButton saveButton = new CustomButton().Other().Save();
+        CustomButton saveButton = new CustomButton().Other().Accept();
         saveButton.setOnAction(e -> {
             // Saves the consultants settings
 
-            // Remove focus
-            this.setFocused(false);
+            boolean error=false;
 
-            // Set the times from the settings window and the consultant (Also in DB)
-            ControllerSingleton.getInstance().setTimes(
-                    this.consultantChoice,
-                    Time.valueOf(this.taskTimeField.getTextField().getText()),
-                    Time.valueOf(this.breakTimeField.getTextField().getText()),
-                    Time.valueOf(this.longbreakTimeField.getTextField().getText())
-            );
+            // Validation
+            Matcher matcher = timePattern.matcher(this.taskTimeField.getTextField().getText());
+            if (!matcher.find()){
+                if (!this.taskTimeField.getStyleClass().contains("choice-textfield-error")){
+                    this.taskTimeField.getStyleClass().add("choice-textfield-error");
+                }
+                error=true;
+            } else {
+                this.taskTimeField.getStyleClass().remove("choice-textfield-error");
+            }
+            matcher = timePattern.matcher(this.breakTimeField.getTextField().getText());
+            if (!matcher.find()){
+                if (!this.breakTimeField.getStyleClass().contains("choice-textfield-error")){
+                    this.breakTimeField.getStyleClass().add("choice-textfield-error");
+                }
+                error=true;
+            } else {
+                this.taskTimeField.getStyleClass().remove("choice-textfield-error");
+            }
+            matcher = timePattern.matcher(this.longbreakTimeField.getTextField().getText());
+            if (!matcher.find()){
+                if (!this.longbreakTimeField.getStyleClass().contains("choice-textfield-error")){
+                    this.longbreakTimeField.getStyleClass().add("choice-textfield-error");
+                }
+                error=true;
+            } else {
+                this.longbreakTimeField.getStyleClass().remove("choice-textfield-error");
+            }
 
-            // Reset timer
-            ControllerSingleton.getInstance().setTimeOnTimer(Time.valueOf(this.taskTimeField.getTextField().getText()));
 
-            if (this.consultantChoice.getChoicebox().getValue() != null && !this.consultantChoice.getChoicebox().getValue().toString().equals("")){
-                for (Consultant c: consultants) {
-                    if (this.consultantChoice.getChoicebox().getValue().equals(c.getName())){
-                        ControllerSingleton.getInstance().setConsultantTitle(c);
+            if (!error){
+                // Set the times from the settings window and the consultant (Also in DB)
+                ControllerSingleton.getInstance().setTimes(
+                        this.consultantChoice,
+                        Time.valueOf(this.taskTimeField.getTextField().getText()),
+                        Time.valueOf(this.breakTimeField.getTextField().getText()),
+                        Time.valueOf(this.longbreakTimeField.getTextField().getText())
+                );
+
+                // Reset timer
+                ControllerSingleton.getInstance().setTimeOnTimer(Time.valueOf(this.taskTimeField.getTextField().getText()));
+
+                if (this.consultantChoice.getChoicebox().getValue() != null && !this.consultantChoice.getChoicebox().getValue().toString().equals("")){
+                    for (Consultant c: consultants) {
+                        if (this.consultantChoice.getChoicebox().getValue().equals(c.getName())){
+                            ControllerSingleton.getInstance().setConsultantTitle(c);
+                        }
                     }
                 }
             }
+
+
+            System.out.println("StandardTaskTime: "+TimerSingleton.getInstance().getStandardTaskTime());
+            System.out.println("StandardBreakTime: "+TimerSingleton.getInstance().getStandardBreakTime());
+            System.out.println("StandardLongBreakTime: "+TimerSingleton.getInstance().getStandardLongBreakTime());
+
+            // Remove focus
+            this.setFocused(false);
 
         });
 

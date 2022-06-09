@@ -276,8 +276,14 @@ public class NodePages extends VBox {
             updatePageContent(false);
         }
 
-        // Go to the page, where it was removed from
-        ((Button)this.buttons.get(this.buttons.size()-1)).fire();
+        if (this.currentPage>this.buttons.size()){
+            // Go to the last page
+            ((Button)this.buttons.get(this.buttons.size()-1)).fire();
+        } else {
+            // Go to the page, where it was removed from
+            ((Button)this.buttons.get(this.currentPage-1)).fire();
+        }
+
 
         // Set the children again
         this.getChildren().setAll(this.contentContainer,this.pageSelector);

@@ -4,6 +4,7 @@ import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
+import Foundation.InformationContainer;
 import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
@@ -59,6 +60,14 @@ public class Taskline extends HBox {
 
     public void setTaskID(int taskID) {
         this.taskId = taskID;
+    }
+
+    public ChoiceComboBox getTaskChoice() {
+        return taskChoice;
+    }
+
+    public void setTaskChoice(ChoiceComboBox taskChoice) {
+        this.taskChoice = taskChoice;
     }
 
     /**
@@ -196,6 +205,7 @@ public class Taskline extends HBox {
         this.taskChoice.removeBorder();
         this.taskChoice.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(4));
         this.taskChoice.getChoicebox().setOnMouseClicked(e -> {
+
             // Resets the taskId if it gets changed
             if (this.taskId!=-1){
                 this.taskId=-1;
@@ -222,8 +232,6 @@ public class Taskline extends HBox {
                     taskChoice.getChoicebox().getItems().clear();
                 }
             }
-
-
         });
 
         //
@@ -239,7 +247,7 @@ public class Taskline extends HBox {
         });
         buttonsAndCounter.add(buttonMinus);
 
-        this.counter = new Headline("0");
+        this.counter = new Headline("1");
         this.counter.getLabel().setStyle("-fx-font-size: 25;");
         this.counter.noStyleClass();
         this.counter.setAlignment(Pos.CENTER);
@@ -266,7 +274,7 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> buttonsRemoveDone = new ArrayList<>();
 
-        CustomButton buttonDelete = new CustomButton().Other().Minus();
+        CustomButton buttonDelete = new CustomButton().Other().Delete();
         buttonDelete.setOnAction(e -> {
 
             // Remove this node from active nodepage
@@ -278,12 +286,15 @@ public class Taskline extends HBox {
         });
         buttonsRemoveDone.add(buttonDelete);
 
-        CustomButton buttonSaveEdit = new CustomButton().Other().Save();
+        CustomButton buttonSaveEdit = new CustomButton().Other().Accept();
         buttonSaveEdit.setOnAction(e -> {
-            if (this.taskChoice.getChoicebox().getValue() != null && !this.taskChoice.getChoicebox().getValue().equals("") && !counter.getLabel().getText().equals("0")){
+            if (this.taskChoice.getChoicebox().getValue() != null
+                    && !this.taskChoice.getChoicebox().getValue().equals("")
+                    && !counter.getLabel().getText().equals("0")){
 
                 // Does the task already exist?
-                if (InformationContainerSingleton.getInstance().getTask(this.taskChoice.getChoicebox().getValue().toString())!=null){
+                if (InformationContainerSingleton.getInstance().getTask(this.taskChoice.getChoicebox().getValue().toString())!=null
+                        && ConsultantSingleton.getInstance().exists()){
                     // It does exist
 
                     System.out.println("Exists just assigning - Exists");
@@ -329,12 +340,24 @@ public class Taskline extends HBox {
 
                 System.out.println("Project: "+this.projectId+" / Task: "+this.taskId);
 
+                // Change activePomodoroAmount
+                ControllerSingleton.getInstance().addActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
+
+                // Set new title to the timertype
+                TimerSingleton.getInstance().setTimerTypeTaskWithTaskName();
+
                 // Change to show setup
                 changeTasklineSetup();
                 this.editing = false;
 
+            } else {
+                // Error no task
+                if (this.taskChoice.getChoicebox().getValue()==null || this.taskChoice.getChoicebox().getValue().equals("")) {
+                    if (!this.taskChoice.getStyleClass().contains("choice-combobox-error")){
+                        this.taskChoice.getStyleClass().add("choice-combobox-error");
+                    }
+                } else this.taskChoice.getStyleClass().remove("choice-combobox-error");
             }
-            //TODO - ERROR MESSAGES
         });
         buttonsRemoveDone.add(buttonSaveEdit);
 
@@ -390,28 +413,41 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> arrayListButtonsEditFinish = new ArrayList<>();
 
-        CustomButton buttonSave = new CustomButton().Other().Add();
-        buttonSave.setOnAction(e -> {
+        CustomButton buttonFinish = new CustomButton().Other().Accept();
+        buttonFinish.setOnAction(e -> {
 
             // Set done
             this.taskDone=true;
 
-            // The Task is updated in the DB
-            ControllerSingleton.getInstance().updateTaskDB(new Task(
-                            this.taskId,
-                            ConsultantSingleton.getInstance().getEmail(),
-                            this.projectId,
-                            this.taskChoice.getChoicebox().getValue().toString(),
-                            Time.valueOf(
-                                    (this.taskTimeSpent.getHours() + TimerSingleton.getInstance().getCurrentTimeSpent().getHours()) + ":" +
-                                            (this.taskTimeSpent.getMinutes() + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes()) + ":" +
-                                            (this.taskTimeSpent.getSeconds() + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds())
-                            ),
-                            this.taskDone,
-                            0
-                    )
-            );
+            if (ConsultantSingleton.getInstance().exists()){
 
+                int hh = InformationContainerSingleton.getInstance().getTask(this.taskId).getTime().getHours()
+                        + TimerSingleton.getInstance().getCurrentTimeSpent().getHours() -
+                        TimerSingleton.getInstance().getTaskOffsetTime().getHours();
+                int mm = InformationContainerSingleton.getInstance().getTask(this.taskId).getTime().getMinutes()
+                        + TimerSingleton.getInstance().getCurrentTimeSpent().getMinutes() -
+                        TimerSingleton.getInstance().getTaskOffsetTime().getMinutes();
+                int ss = InformationContainerSingleton.getInstance().getTask(this.taskId).getTime().getSeconds()
+                        + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds() -
+                        TimerSingleton.getInstance().getTaskOffsetTime().getSeconds();
+
+                System.out.println("here"+Time.valueOf(hh+":"+mm+":"+ss));
+
+                // The Task is updated in the DB
+                ControllerSingleton.getInstance().updateTaskDB(new Task(
+                                this.taskId,
+                                ConsultantSingleton.getInstance().getEmail(),
+                                this.projectId,
+                                this.taskChoice.getChoicebox().getValue().toString(),
+                                Time.valueOf(hh+":"+mm+":"+ss),
+                                this.taskDone,
+                                0
+                        )
+                );
+            }
+
+            // Change activePomodoroAmount
+            ControllerSingleton.getInstance().removeActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
 
             // Remove this node from active nodepage
             InformationContainerSingleton.getInstance().getActiveNodePage().removeNode(this);
@@ -419,15 +455,31 @@ public class Taskline extends HBox {
             // Remove this from the information container
             ControllerSingleton.getInstance().removeTasklineInDoToday(this);
 
+            // Add 1 pomodoro to the next task in line
+            if (InformationContainerSingleton.getInstance().getDoTodayList().size()>0){
+                ((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getCounter().getLabel().setText(""+
+                        (Integer.parseInt(((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getCounter().getLabel().getText())+1)
+                );
+            }
+
+            // Set the time offset
+            TimerSingleton.getInstance().setTaskOffsetTime();
+
+            // Set new title to the timertype
+            TimerSingleton.getInstance().setTimerTypeTaskWithTaskName();
+
         });
-        arrayListButtonsEditFinish.add(buttonSave);
+        arrayListButtonsEditFinish.add(buttonFinish);
 
 
-        CustomButton buttonEdit = new CustomButton().Other().Save();
+        CustomButton buttonEdit = new CustomButton().Other().Edit();
         buttonEdit.setOnAction(e -> {
 
             changeTasklineSetup();
             this.editing = true;
+
+            // Change activePomodoroAmount
+            ControllerSingleton.getInstance().removeActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
 
         });
         arrayListButtonsEditFinish.add(buttonEdit);
@@ -457,9 +509,8 @@ public class Taskline extends HBox {
      */
     private void setShowOnlySetup(){
         // Set children
-        this.getChildren().setAll(projectChoiceShow,taskChoiceShow);
-        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(6));
-        this.projectChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(4));
+        this.getChildren().setAll(taskChoiceShow);
+        this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty());
     }
 
     /**

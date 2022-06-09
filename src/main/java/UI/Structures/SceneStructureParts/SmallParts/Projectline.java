@@ -67,28 +67,34 @@ public class Projectline extends HBox {
         this.projectNameHeadline.noStyleClass();
         this.projectNameHeadline.setShape(MyShape.ROUND);
         this.projectNameHeadline.setScaling(MyScaling.SMALL);
-        this.projectNameHeadline.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(2));
+        this.projectNameHeadline.setAlignment(Pos.CENTER_LEFT);
+        this.projectNameHeadline.setStyle("-fx-padding: 10");
+        this.projectNameHeadline.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(9));
 
         //
-        CustomButton buttonSaveEdit = new CustomButton().Other().Save();
-        buttonSaveEdit.setOnAction(e -> {
-
-            if (this.projectNameHeadline.getLabel().getText().equals("Back")){
+        CustomButton buttonSaveEdit;
+        if (this.projectNameHeadline.getLabel().getText().equals("")){
+            buttonSaveEdit = new CustomButton().Other().Back();
+            buttonSaveEdit.setOnAction(e -> {
                 InformationContainerSingleton.getInstance().getProjectsToList();
-            } else {
+            });
+        } else {
+            buttonSaveEdit = new CustomButton().Other().Forward();
+            buttonSaveEdit.setOnAction(e -> {
                 InformationContainerSingleton.getInstance().getTasksFromProjectToList(InformationContainerSingleton.getInstance().getProject(
                                 this.projectNameHeadline.getLabel().getText()
                         )
                 );
-            }
+            });
+        }
 
-        });
+
 
         //
         this.buttonGotoBar = new NodeBarH(buttonSaveEdit);
         this.buttonGotoBar.setAlignment(Pos.TOP_RIGHT);
         this.buttonGotoBar.removeBorder();
-        this.buttonGotoBar.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(8));
+        this.buttonGotoBar.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(1));
 
         //
         this.getChildren().addAll(this.projectNameHeadline,this.buttonGotoBar);

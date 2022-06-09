@@ -279,6 +279,12 @@ public class Scenehandler {
         this.miniScene.getStylesheets().add("miniscene");
         this.miniStage.initStyle(StageStyle.TRANSPARENT);
 
+        // Bind the size of the miniScene to the timertype string
+        this.miniStage.minWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(4).add(270));
+        this.miniStage.maxWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(4).add(270));
+        TimerSingleton.getInstance().timeTypeProperty().addListener((obs,old,newVal) -> {
+            this.miniStage.setX(Screen.getPrimary().getVisualBounds().getWidth()-this.miniStage.getWidth()-10);
+        });
 
         // Set the stylesheet for the scene
         this.miniScene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString());

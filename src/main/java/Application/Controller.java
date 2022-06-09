@@ -182,6 +182,26 @@ public class Controller {
 
     //endregion
 
+    //region [InformationContainer]
+
+    public void addActivePomodoro(int amount){
+        InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(
+                InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()+amount
+        );
+    }
+
+    public void removeActivePomodoro(int amount){
+        InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(
+                InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()-amount
+        );
+    }
+
+    public void clearActivePomodoro(){
+        InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(0);
+    }
+
+    //endregion
+
     //region [Buttons]
 
     public void addToCounter(Headline headline){
@@ -192,7 +212,7 @@ public class Controller {
 
     public void subtractToCounter(Headline headline){
 
-        if (!headline.getLabel().getText().equals("0")){
+        if (!headline.getLabel().getText().equals("1")){
             headline.getLabel().setText(""+(Integer.parseInt(headline.getLabel().getText())-1));
         }
 

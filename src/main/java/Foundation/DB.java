@@ -2,13 +2,196 @@ package Foundation;
 
 import Domain.Consultant;
 import Domain.Project;
+import Domain.Singletons.ConsultantSingleton;
+import Domain.Singletons.TimerSingleton;
 import Domain.Task;
 import Foundation.Singletons.DBConnectionSingleton;
+import Foundation.Singletons.InformationContainerSingleton;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DB {
+
+    //region [PomodoroTimes&&WorkDay]
+
+    public void addPomodoro(Time taskTime, Time breakTime){
+
+        //TODO
+
+        System.out.println("add pomodoro");
+        System.out.println("TaskTime: "+taskTime+" / BreakTime: "+breakTime);
+
+        /*
+        try {
+            //
+            Date endDateTime = Date.from(Instant.parse(Date.from(Instant.now()).getYear()+"/"+
+                    Date.from(Instant.now()).getMonth()+"/"+
+                    Date.from(Instant.now()).getDay()+"/"+
+                    Date.from(Instant.now()).getHours()+":"+
+                    Date.from(Instant.now()).getMinutes()+":"+
+                    Date.from(Instant.now()).getSeconds()
+                    )
+            );
+
+            // Makes a prepared statement with the information and the stored procedure
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
+                    "@FldStart = '"+ Date.from(Instant.now()) + "'," +
+                    "@FldEnd = '"+ endDateTime + "'," +
+                    "@FldWork_time = '"+ taskTime + "',"+
+                    "@FldBreak_time = '"+ breakTime + "';"
+            );
+            // Executes the stored procedure
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+         */
+
+    }
+
+    public void removePomodoro(String email){
+
+        //TODO
+
+        System.out.println("remove pomodoro");
+
+        /*
+        try {
+            // Makes a prepared statement with the information and the stored procedure
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
+                    "@FldConsultant = "+email);
+            // Executes the stored procedure
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+         */
+
+    }
+
+    public void clearPomodoros(String email){
+
+        //TODO
+
+        System.out.println("clear pomodoros");
+
+        /*
+        try {
+            // Makes a prepared statement with the information and the stored procedure
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
+                    "@FldConsultant = "+email);
+            // Executes the stored procedure
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+         */
+
+    }
+
+    public void updateWorkDay(Consultant consultant, int amountOfPomodoros, Date startTime) throws ParseException {
+
+        //TODO
+
+        System.out.println("update work day");
+
+        int extraHours=0;
+        int extraMinutes=0;
+        int extraSeconds=0;
+
+        for (int i = 1; i <= amountOfPomodoros; i++) {
+            if (i==4){
+                extraHours += (consultant.getTaskTime().getHours()+consultant.getLongBreakTime().getHours());
+                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getLongBreakTime().getMinutes());
+                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getLongBreakTime().getSeconds());
+            } else {
+                extraHours += (consultant.getTaskTime().getHours()+consultant.getBreakTime().getHours());
+                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getBreakTime().getMinutes());
+                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getBreakTime().getSeconds());
+            }
+        }
+
+        System.out.println("hh"+extraHours);
+        System.out.println("mm"+extraMinutes);
+        System.out.println("ss"+extraSeconds);
+
+        Date endDateTime;
+
+        if (startTime==null){
+            endDateTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(
+                    (Date.from(Instant.now()).getYear()+1900)+"/"+
+                            (Date.from(Instant.now()).getMonth()+1)+"/"+
+                            Date.from(Instant.now()).getDate()+" "+
+                            (Date.from(Instant.now()).getHours()+extraHours)+":"+
+                            (Date.from(Instant.now()).getMinutes()+extraMinutes)+":"+
+                            (Date.from(Instant.now()).getSeconds()+extraSeconds)
+            );
+        } else {
+            endDateTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(
+                    (startTime.getYear()+1900)+"/"+
+                            (startTime.getMonth()+1)+"/"+
+                            startTime.getDate()+" "+
+                            (startTime.getHours()+extraHours)+":"+
+                            (startTime.getMinutes()+extraMinutes)+":"+
+                            (startTime.getSeconds()+extraSeconds)
+            );
+            InformationContainerSingleton.getInstance().setWorkDayStart(Date.from(Instant.now()));
+        }
+
+
+        System.out.println(Date.from(Instant.now()));
+        System.out.println(endDateTime);
+
+        /*
+        try {
+            // Makes a prepared statement with the information and the stored procedure
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
+                    "@email = "+ConsultantSingleton.getInstance().getEmail());
+            // Executes the stored procedure
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+         */
+
+    }
+
+    public void removeWorkDay(String email){
+
+        //TODO
+
+        System.out.println("remove workday");
+
+        /*
+        try {
+            // Makes a prepared statement with the information and the stored procedure
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
+                    "@FldConsultant = "+email);
+            // Executes the stored procedure
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+         */
+
+    }
+
+    //endregion
 
     //region [Tasks]
 
