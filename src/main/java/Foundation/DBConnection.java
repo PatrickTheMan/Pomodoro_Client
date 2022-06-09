@@ -11,8 +11,8 @@ public class DBConnection {
     public Connection getConnection(){
 
         if (this.con == null){
-            //connect();
-            connectTestServer();
+            connect();
+            //connectTestServer();
         }
 
         return this.con;

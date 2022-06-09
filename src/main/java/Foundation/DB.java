@@ -3,92 +3,114 @@ package Foundation;
 import Domain.Consultant;
 import Domain.Project;
 import Domain.Singletons.ConsultantSingleton;
-import Domain.Singletons.TimerSingleton;
 import Domain.Task;
+import Domain.WorkDay;
 import Foundation.Singletons.DBConnectionSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DB {
 
     //region [PomodoroTimes&&WorkDay]
 
-    public void addPomodoro(Time taskTime, Time breakTime){
+    public void addPomodoro(WorkDay workDay, Consultant consultant, int pomodoroNum) {
 
-        //TODO
+        //TODO - ADD POMODORO
 
-        System.out.println("add pomodoro");
-        System.out.println("TaskTime: "+taskTime+" / BreakTime: "+breakTime);
 
-        /*
+        int extraHours=0;
+        int extraMinutes=0;
+        int extraSeconds=0;
+
+        for (int i = 1; i <= pomodoroNum; i++) {
+            if (i==4){
+                extraHours += (consultant.getTaskTime().getHours()+consultant.getLongBreakTime().getHours());
+                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getLongBreakTime().getMinutes());
+                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getLongBreakTime().getSeconds());
+            } else {
+                extraHours += (consultant.getTaskTime().getHours()+consultant.getBreakTime().getHours());
+                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getBreakTime().getMinutes());
+                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getBreakTime().getSeconds());
+            }
+        }
+
+        System.out.println("hh"+extraHours);
+        System.out.println("mm"+extraMinutes);
+        System.out.println("ss"+extraSeconds);
+
+
+        System.out.println("WorkDayStart: "+workDay.getStartDateTime().getHours());
+
+        Timestamp endDateTime=Timestamp.valueOf(workDay.getStartDateTime().toLocalDateTime());
+        endDateTime.setYear(workDay.getStartDateTime().getYear());
+        endDateTime.setMonth(workDay.getStartDateTime().getMonth());
+        endDateTime.setDate(workDay.getStartDateTime().getDate());
+        endDateTime.setHours(workDay.getStartDateTime().getHours()+extraHours);
+        endDateTime.setMinutes(workDay.getStartDateTime().getMinutes()+extraMinutes);
+        endDateTime.setSeconds(workDay.getStartDateTime().getSeconds()+extraSeconds);
+
+        Timestamp startDateTime=Timestamp.valueOf(workDay.getStartDateTime().toLocalDateTime());
+        startDateTime.setYear(workDay.getStartDateTime().getYear());
+        startDateTime.setMonth(workDay.getStartDateTime().getMonth());
+        startDateTime.setDate(workDay.getStartDateTime().getDate());
+        startDateTime.setHours(workDay.getStartDateTime().getHours()+extraHours-consultant.getTaskTime().getHours()-(pomodoroNum%4==0 ?
+                consultant.getLongBreakTime().getHours() : consultant.getBreakTime().getHours()
+                )
+        );
+        startDateTime.setMinutes(workDay.getStartDateTime().getMinutes()+extraMinutes-consultant.getTaskTime().getMinutes()-(pomodoroNum%4==0 ?
+                consultant.getLongBreakTime().getMinutes() : consultant.getBreakTime().getMinutes()
+                )
+        );
+        startDateTime.setSeconds(workDay.getStartDateTime().getSeconds()+extraSeconds-consultant.getTaskTime().getSeconds()-(pomodoroNum%4==0 ?
+                consultant.getLongBreakTime().getSeconds() : consultant.getBreakTime().getSeconds()
+                )
+        );
+
+
+
+        System.out.println(Date.from(Instant.now()));
+        System.out.println(endDateTime);
+
+
         try {
             //
-            Date endDateTime = Date.from(Instant.parse(Date.from(Instant.now()).getYear()+"/"+
-                    Date.from(Instant.now()).getMonth()+"/"+
-                    Date.from(Instant.now()).getDay()+"/"+
-                    Date.from(Instant.now()).getHours()+":"+
-                    Date.from(Instant.now()).getMinutes()+":"+
-                    Date.from(Instant.now()).getSeconds()
-                    )
-            );
 
             // Makes a prepared statement with the information and the stored procedure
-            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
-                    "@FldStart = '"+ Date.from(Instant.now()) + "'," +
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[addPomodoro]"+
+                    "@FldWorkday = "+ workDay.getId()+","+
+                    "@FldStart = '"+ startDateTime + "'," +
                     "@FldEnd = '"+ endDateTime + "'," +
-                    "@FldWork_time = '"+ taskTime + "',"+
-                    "@FldBreak_time = '"+ breakTime + "';"
+                    "@FldWorkTime = '"+ consultant.getTaskTime() + "',"+
+                    "@FldBreaKTime = '"+ (pomodoroNum%4==0 ?
+                    consultant.getLongBreakTime() : consultant.getBreakTime()
+                    ) + "';"
             );
             // Executes the stored procedure
             ps.executeUpdate();
 
-        }catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
 
-         */
-
-    }
-
-    public void removePomodoro(String email){
-
-        //TODO
-
-        System.out.println("remove pomodoro");
-
-        /*
-        try {
-            // Makes a prepared statement with the information and the stored procedure
-            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
-                    "@FldConsultant = "+email);
-            // Executes the stored procedure
-            ps.executeUpdate();
 
         }catch (SQLException e) {
             System.err.println(e.getMessage());
         }
 
-         */
+
 
     }
 
-    public void clearPomodoros(String email){
+    public void clearPomodoros(WorkDay workDay){
 
-        //TODO
+        //TODO - CLEAR POMODOROS
 
         System.out.println("clear pomodoros");
 
-        /*
         try {
             // Makes a prepared statement with the information and the stored procedure
-            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
-                    "@FldConsultant = "+email);
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[clearPomodoros]"+
+                    "@workdayID = "+workDay.getId());
             // Executes the stored procedure
             ps.executeUpdate();
 
@@ -96,13 +118,11 @@ public class DB {
             System.err.println(e.getMessage());
         }
 
-         */
-
     }
 
-    public void updateWorkDay(Consultant consultant, int amountOfPomodoros, Date startTime) throws ParseException {
+    public void updateWorkDay(Consultant consultant, int amountOfPomodoros, Timestamp workDayStart) {
 
-        //TODO
+        //TODO - UPDATE WORK DAY
 
         System.out.println("update work day");
 
@@ -126,70 +146,92 @@ public class DB {
         System.out.println("mm"+extraMinutes);
         System.out.println("ss"+extraSeconds);
 
-        Date endDateTime;
 
-        if (startTime==null){
-            endDateTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(
-                    (Date.from(Instant.now()).getYear()+1900)+"/"+
-                            (Date.from(Instant.now()).getMonth()+1)+"/"+
-                            Date.from(Instant.now()).getDate()+" "+
-                            (Date.from(Instant.now()).getHours()+extraHours)+":"+
-                            (Date.from(Instant.now()).getMinutes()+extraMinutes)+":"+
-                            (Date.from(Instant.now()).getSeconds()+extraSeconds)
-            );
-        } else {
-            endDateTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(
-                    (startTime.getYear()+1900)+"/"+
-                            (startTime.getMonth()+1)+"/"+
-                            startTime.getDate()+" "+
-                            (startTime.getHours()+extraHours)+":"+
-                            (startTime.getMinutes()+extraMinutes)+":"+
-                            (startTime.getSeconds()+extraSeconds)
-            );
-            InformationContainerSingleton.getInstance().setWorkDayStart(Date.from(Instant.now()));
-        }
+        System.out.println("WorkDayStart: "+workDayStart.getHours());
 
+        Timestamp endDateTime=Timestamp.valueOf(workDayStart.toLocalDateTime());
+        endDateTime.setYear(workDayStart.getYear());
+        endDateTime.setMonth(workDayStart.getMonth());
+        endDateTime.setDate(workDayStart.getDate());
+        endDateTime.setHours(workDayStart.getHours()+extraHours);
+        endDateTime.setMinutes(workDayStart.getMinutes()+extraMinutes);
+        endDateTime.setSeconds(workDayStart.getSeconds()+extraSeconds);
 
         System.out.println(Date.from(Instant.now()));
         System.out.println(endDateTime);
 
-        /*
+
+
         try {
+            System.out.println("Done1");
+
             // Makes a prepared statement with the information and the stored procedure
-            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
-                    "@email = "+ConsultantSingleton.getInstance().getEmail());
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[updateWorkDay] "+
+                    "@FldConsultant = '"+ConsultantSingleton.getInstance().getEmail()+"',"+
+                    "@FldStart = '"+ (
+                            (workDayStart.getYear()+1900)+"-"+
+                                    (workDayStart.getMonth()+1)+"-"+
+                                    workDayStart.getDate()+" "+
+                                    workDayStart.getHours()+":"+
+                                    workDayStart.getMinutes()+":"+
+                                    workDayStart.getSeconds()
+                    )+"',"+
+                    "@FldEnd = '"+(
+                            (endDateTime.getYear()+1900)+"-"+
+                                    (endDateTime.getMonth()+1)+"-"+
+                                    endDateTime.getDate()+" "+
+                                    endDateTime.getHours()+":"+
+                                    endDateTime.getMinutes()+":"+
+                                    endDateTime.getSeconds()
+                    )+"'"
+            );
             // Executes the stored procedure
             ps.executeUpdate();
+
+            System.out.println("Done2");
 
         }catch (SQLException e) {
             System.err.println(e.getMessage());
         }
 
-         */
+
+        InformationContainerSingleton.getInstance().setWorkDay(
+                getWorkDay(consultant.getEmail())
+        );
+
 
     }
 
-    public void removeWorkDay(String email){
+    public WorkDay getWorkDay(String email){
 
-        //TODO
+        WorkDay workDay = null;
 
-        System.out.println("remove workday");
-
-        /*
         try {
             // Makes a prepared statement with the information and the stored procedure
-            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[]"+
-                    "@FldConsultant = "+email);
+            PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[getWorkday] "+
+                    "@consultantEmail = '"+email+"'");
             // Executes the stored procedure
-            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                workDay = new WorkDay(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getTimestamp(3),
+                        rs.getTimestamp(4)
+                );
+            }
+            System.out.println("WorkDayID: "+workDay.getId());
 
         }catch (SQLException e) {
             System.err.println(e.getMessage());
         }
 
-         */
 
+        return workDay;
     }
+
+
 
     //endregion
 

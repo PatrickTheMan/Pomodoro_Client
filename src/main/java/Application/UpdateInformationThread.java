@@ -50,6 +50,7 @@ public class UpdateInformationThread implements Runnable {
                     if (!foundConsultant){
                         System.out.println("Consultant has been removed");
                         System.out.println("TERMINATE CLIENT");
+                        //TODO - CLOSE CLIENT
                     }
                 }
 
@@ -67,6 +68,8 @@ public class UpdateInformationThread implements Runnable {
                     }
                     if (!foundTask){
                         System.out.println("Task dont exist any more");
+                        System.out.println("TERMINATE TASK");
+                        //TODO - GIVE A NOTICE AND REMOVE TASK
                     }
                 }
 

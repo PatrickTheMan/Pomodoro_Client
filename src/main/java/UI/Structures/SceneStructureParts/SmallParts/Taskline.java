@@ -14,8 +14,11 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -246,12 +249,27 @@ public class Taskline extends HBox {
         });
         buttonsAndCounter.add(buttonMinus);
 
+        //
+        ArrayList<Node> counterAndImage = new ArrayList<>();
+
         this.counter = new Headline("1");
         this.counter.getLabel().setStyle("-fx-font-size: 25;");
         this.counter.noStyleClass();
         this.counter.setAlignment(Pos.CENTER);
         this.counter.removeBorder();
-        buttonsAndCounter.add(this.counter);
+        counterAndImage.add(this.counter);
+
+        ImageView tomatoImage = new ImageView();
+        tomatoImage.setImage(new Image(new File("src/main/resources/Images/tomatoimage.png").toURI().toString()));
+        tomatoImage.setPreserveRatio(true);
+        tomatoImage.setFitWidth(30);
+        counterAndImage.add(tomatoImage);
+
+        NodeBarH counterAndImageBar = new NodeBarH(counterAndImage);
+        counterAndImageBar.setAlignment(Pos.CENTER);
+        counterAndImageBar.removeBorder();
+        buttonsAndCounter.add(counterAndImageBar);
+
 
         CustomButton buttonAdd = new CustomButton().Other().Add();
         buttonAdd.setOnAction(e -> {
@@ -399,14 +417,24 @@ public class Taskline extends HBox {
         this.taskChoiceShow.removeBorder();
         this.taskChoiceShow.setDisable(true);
 
+        //
+        ArrayList<Node> headlineAndImage = new ArrayList<>();
+
         this.pomodorosHeadline = new Headline("");
         this.pomodorosHeadline.getLabel().setStyle("-fx-font-size: 25");
         this.pomodorosHeadline.noStyleClass();
         this.pomodorosHeadline.setShape(MyShape.ROUND);
         this.pomodorosHeadline.setScaling(MyScaling.SMALL);
         this.pomodorosHeadline.getLabel().textProperty().bind(this.counter.getLabel().textProperty());
+        headlineAndImage.add(this.pomodorosHeadline);
 
-        this.pomodoroHeadlineBar = new NodeBarH(pomodorosHeadline);
+        ImageView tomatoImage = new ImageView();
+        tomatoImage.setImage(new Image(new File("src/main/resources/Images/tomatoimage.png").toURI().toString()));
+        tomatoImage.setPreserveRatio(true);
+        tomatoImage.setFitWidth(30);
+        headlineAndImage.add(tomatoImage);
+
+        this.pomodoroHeadlineBar = new NodeBarH(headlineAndImage);
         this.pomodoroHeadlineBar.setShape(MyShape.ROUND);
         this.pomodoroHeadlineBar.setAlignment(Pos.CENTER);
         this.pomodoroHeadlineBar.removeBorder();
@@ -449,8 +477,8 @@ public class Taskline extends HBox {
                 );
             }
 
-            // Change activePomodoroAmount
-            ControllerSingleton.getInstance().removeActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
+            // Change activePomodoroAmount MAYBE
+            //ControllerSingleton.getInstance().removeActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
 
             // Remove this node from active nodepage
             InformationContainerSingleton.getInstance().getActiveNodePage().removeNode(this);
@@ -458,10 +486,11 @@ public class Taskline extends HBox {
             // Remove this from the information container
             ControllerSingleton.getInstance().removeTasklineInDoToday(this);
 
-            // Add 1 pomodoro to the next task in line
+            // Add x amount of pomodoro to the next task in line
             if (InformationContainerSingleton.getInstance().getDoTodayList().size()>0){
                 ((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getCounter().getLabel().setText(""+
-                        (Integer.parseInt(((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getCounter().getLabel().getText())+1)
+                        (Integer.parseInt(((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getCounter().getLabel().getText())+
+                                Integer.parseInt(this.counter.getLabel().getText()))
                 );
             }
 

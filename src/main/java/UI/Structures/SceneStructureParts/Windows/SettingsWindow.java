@@ -147,6 +147,10 @@ public class SettingsWindow extends CustomWindow {
                 }
             }
 
+            // Clear and create all pomodoros
+            if (InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()>0){
+                InformationContainerSingleton.getInstance().clearAndRemakePomodoros(InformationContainerSingleton.getInstance().getAmountOfActivePomodoros());
+            }
 
             System.out.println("StandardTaskTime: "+TimerSingleton.getInstance().getStandardTaskTime());
             System.out.println("StandardBreakTime: "+TimerSingleton.getInstance().getStandardBreakTime());

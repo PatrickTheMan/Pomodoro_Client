@@ -110,11 +110,11 @@ public class Scenehandler {
         this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString());
 
         // Set the stages limits in terms of sizing
-        this.stage.setMinWidth(850);
+        this.stage.setMinWidth(950);
         this.stage.setMinHeight(450);
 
         // Set the stage icon
-        this.stage.getIcons().add(new Image(new File("src/main/resources/Images/pomodoroIcon.png").toURI().toString()));
+        this.stage.getIcons().add(new Image(new File("src/main/resources/Images/pomodoroicon.png").toURI().toString()));
 
         // Close miniStage if the main window is closed
         this.stage.setOnCloseRequest(e -> {
@@ -280,8 +280,8 @@ public class Scenehandler {
         this.miniStage.initStyle(StageStyle.TRANSPARENT);
 
         // Bind the size of the miniScene to the timertype string
-        this.miniStage.minWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(4).add(270));
-        this.miniStage.maxWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(4).add(270));
+        this.miniStage.minWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(5).add(280));
+        this.miniStage.maxWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(5).add(280));
         TimerSingleton.getInstance().timeTypeProperty().addListener((obs,old,newVal) -> {
             this.miniStage.setX(Screen.getPrimary().getVisualBounds().getWidth()-this.miniStage.getWidth()-10);
         });
