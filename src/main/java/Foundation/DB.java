@@ -18,9 +18,6 @@ public class DB {
 
     public void addPomodoro(WorkDay workDay, Consultant consultant, int pomodoroNum) {
 
-        //TODO - ADD POMODORO
-
-
         int extraHours=0;
         int extraMinutes=0;
         int extraSeconds=0;
@@ -103,8 +100,6 @@ public class DB {
 
     public void clearPomodoros(WorkDay workDay){
 
-        //TODO - CLEAR POMODOROS
-
         System.out.println("clear pomodoros");
 
         try {
@@ -121,8 +116,6 @@ public class DB {
     }
 
     public void updateWorkDay(Consultant consultant, int amountOfPomodoros, Timestamp workDayStart) {
-
-        //TODO - UPDATE WORK DAY
 
         System.out.println("update work day");
 
