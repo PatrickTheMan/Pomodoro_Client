@@ -281,9 +281,6 @@ public class Timer {
                         this.standardTaskTime)
                 );
 
-                // Play Sound
-                playSound();
-
             } else {
 
                 // Change the Task time spend on the task in DB and update the remaining time if any
@@ -314,10 +311,13 @@ public class Timer {
                 // Reset the timeOffset
                 this.taskOffsetTime = Time.valueOf("00:00:00");
 
-                // Play Sound
-                playSound();
+
 
             }
+
+            // Play Sound
+            playSound();
+
         } else {
             if (this.time.getSeconds() == 0){
                 if (this.time.getMinutes() == 0){

@@ -4,7 +4,6 @@ import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
-import Domain.Timer;
 import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
@@ -14,10 +13,8 @@ import UI.Enums.SceneType;
 import UI.Singletons.ScenehandlerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.*;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
-import javafx.scene.Node;
 
 import java.sql.Time;
-import java.util.ArrayList;
 
 public class Controller {
 

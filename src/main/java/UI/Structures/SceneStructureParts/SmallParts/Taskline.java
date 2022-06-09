@@ -4,7 +4,6 @@ import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
-import Foundation.InformationContainer;
 import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
@@ -314,6 +313,9 @@ public class Taskline extends HBox {
                             this.projectId=null;
                         }
 
+                        // Reset the taskId if it has been changed
+                        this.taskId=-1;
+
                         // The Task is saved to DB
                         ControllerSingleton.getInstance().updateTaskDB(new Task(
                                         this.taskId,
@@ -330,6 +332,7 @@ public class Taskline extends HBox {
                         this.taskId=InformationContainerSingleton.getInstance().getTask(
                                 this.taskChoice.getChoicebox().getValue().toString()
                         ).getId();
+
                     } else {
 
 
