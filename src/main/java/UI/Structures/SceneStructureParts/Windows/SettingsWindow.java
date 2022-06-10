@@ -148,11 +148,13 @@ public class SettingsWindow extends CustomWindow {
             }
 
             // Clear and create all pomodoros
-            if (ConsultantSingleton.getInstance().exists() && InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()>0){
+            if (ConsultantSingleton.getInstance().exists() && InformationContainerSingleton.getInstance().getDoTodayList().size()>0){
 
                 InformationContainerSingleton.getInstance().clearDoTodayList();
 
-                InformationContainerSingleton.getInstance().clearAndRemakePomodoros();
+                if (InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()>0){
+                    InformationContainerSingleton.getInstance().clearAndRemakePomodoros();
+                }
 
                 TimerSingleton.getInstance().setTimerTypeTaskWithTaskName();
             }

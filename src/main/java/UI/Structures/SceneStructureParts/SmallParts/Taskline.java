@@ -300,9 +300,6 @@ public class Taskline extends HBox {
             // Remove this from the information container
             ControllerSingleton.getInstance().removeTasklineInDoToday(this);
 
-            //
-            //TODO
-
         });
         buttonsRemoveDone.add(buttonDelete);
 

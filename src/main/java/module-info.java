@@ -3,6 +3,7 @@ module Application {
     requires javafx.fxml;
     requires java.sql;
     requires javafx.media;
+    requires junit;
 
 
     opens Application to javafx.fxml;
