@@ -34,13 +34,6 @@ public class DB {
             }
         }
 
-        System.out.println("hh"+extraHours);
-        System.out.println("mm"+extraMinutes);
-        System.out.println("ss"+extraSeconds);
-
-
-        System.out.println("WorkDayStart: "+workDay.getStartDateTime().getHours());
-
         Timestamp endDateTime=Timestamp.valueOf(workDay.getStartDateTime().toLocalDateTime());
         endDateTime.setYear(workDay.getStartDateTime().getYear());
         endDateTime.setMonth(workDay.getStartDateTime().getMonth());
@@ -135,13 +128,6 @@ public class DB {
             }
         }
 
-        System.out.println("hh"+extraHours);
-        System.out.println("mm"+extraMinutes);
-        System.out.println("ss"+extraSeconds);
-
-
-        System.out.println("WorkDayStart: "+workDayStart.getHours());
-
         Timestamp endDateTime=Timestamp.valueOf(workDayStart.toLocalDateTime());
         endDateTime.setYear(workDayStart.getYear());
         endDateTime.setMonth(workDayStart.getMonth());
@@ -156,7 +142,6 @@ public class DB {
 
 
         try {
-            System.out.println("Done1");
 
             // Makes a prepared statement with the information and the stored procedure
             PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[updateWorkDay] "+
@@ -180,8 +165,6 @@ public class DB {
             );
             // Executes the stored procedure
             ps.executeUpdate();
-
-            System.out.println("Done2");
 
         }catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -214,7 +197,6 @@ public class DB {
                         rs.getTimestamp(4)
                 );
             }
-            System.out.println("WorkDayID: "+workDay.getId());
 
         }catch (SQLException e) {
             System.err.println(e.getMessage());

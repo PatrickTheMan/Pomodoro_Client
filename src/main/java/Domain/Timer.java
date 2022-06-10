@@ -75,13 +75,11 @@ public class Timer {
         switch (timeTypeProperty.getValue().substring(0,4)) {
             case ("Task") -> {
                 if (!ConsultantSingleton.getInstance().exists()){
-                    System.out.println("t1");
                     return Time.valueOf((this.standardTaskTime.getHours()- this.time.getHours()) + ":" +
                             (this.standardTaskTime.getMinutes() - this.time.getMinutes()) + ":" +
                             (this.standardTaskTime.getSeconds() - this.time.getSeconds())
                     );
                 } else {
-                    System.out.println("t2");
                     return Time.valueOf((ConsultantSingleton.getInstance().getTaskTime().getHours()- this.time.getHours()) + ":" +
                             (ConsultantSingleton.getInstance().getTaskTime().getMinutes() - this.time.getMinutes()) + ":" +
                             (ConsultantSingleton.getInstance().getTaskTime().getSeconds() - this.time.getSeconds())
@@ -90,13 +88,11 @@ public class Timer {
             }
             case ("Brea") -> {
                 if (!ConsultantSingleton.getInstance().exists()){
-                    System.out.println("b1");
                     return Time.valueOf((this.standardBreakTime.getHours()- this.time.getHours()) + ":" +
                             (this.standardBreakTime.getMinutes() - this.time.getMinutes()) + ":" +
                             (this.standardBreakTime.getSeconds() - this.time.getSeconds())
                     );
                 } else {
-                    System.out.println("b2");
                     return Time.valueOf((ConsultantSingleton.getInstance().getBreakTime().getHours()- this.time.getHours()) + ":" +
                             (ConsultantSingleton.getInstance().getBreakTime().getMinutes() - this.time.getMinutes()) + ":" +
                             (ConsultantSingleton.getInstance().getBreakTime().getSeconds() - this.time.getSeconds())
@@ -105,13 +101,11 @@ public class Timer {
             }
             case ("Long") -> {
                 if (!ConsultantSingleton.getInstance().exists()){
-                    System.out.println("lb1");
                     return Time.valueOf((this.standardLongBreakTime.getHours()- this.time.getHours()) + ":" +
                             (this.standardLongBreakTime.getMinutes() - this.time.getMinutes()) + ":" +
                             (this.standardLongBreakTime.getSeconds() - this.time.getSeconds())
                     );
                 } else {
-                    System.out.println("lb2");
                     return Time.valueOf((ConsultantSingleton.getInstance().getLongBreakTime().getHours()- this.time.getHours()) + ":" +
                             (ConsultantSingleton.getInstance().getLongBreakTime().getMinutes() - this.time.getMinutes()) + ":" +
                             (ConsultantSingleton.getInstance().getLongBreakTime().getSeconds() - this.time.getSeconds())

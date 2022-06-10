@@ -300,6 +300,9 @@ public class Taskline extends HBox {
             // Remove this from the information container
             ControllerSingleton.getInstance().removeTasklineInDoToday(this);
 
+            //
+            //TODO
+
         });
         buttonsRemoveDone.add(buttonDelete);
 
@@ -313,8 +316,6 @@ public class Taskline extends HBox {
                 if (InformationContainerSingleton.getInstance().getTask(this.taskChoice.getChoicebox().getValue().toString())!=null
                         && ConsultantSingleton.getInstance().exists()){
                     // It does exist
-
-                    System.out.println("Exists just assigning - Exists");
 
                     // Set the id of the task
                     this.taskId=InformationContainerSingleton.getInstance().getTask(
@@ -351,10 +352,6 @@ public class Taskline extends HBox {
                                 this.taskChoice.getChoicebox().getValue().toString()
                         ).getId();
 
-                    } else {
-
-
-                        System.out.println("Tryed to Save / Update user don't exist - Saved Temp");
                     }
 
                 }
@@ -438,7 +435,7 @@ public class Taskline extends HBox {
         this.pomodoroHeadlineBar.setShape(MyShape.ROUND);
         this.pomodoroHeadlineBar.setAlignment(Pos.CENTER);
         this.pomodoroHeadlineBar.removeBorder();
-        this.pomodoroHeadlineBar.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(1));
+        this.pomodoroHeadlineBar.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(2));
 
 
         //
@@ -462,8 +459,6 @@ public class Taskline extends HBox {
                         + TimerSingleton.getInstance().getCurrentTimeSpent().getSeconds() -
                         TimerSingleton.getInstance().getTaskOffsetTime().getSeconds();
 
-                System.out.println("here"+Time.valueOf(hh+":"+mm+":"+ss));
-
                 // The Task is updated in the DB
                 ControllerSingleton.getInstance().updateTaskDB(new Task(
                                 this.taskId,
@@ -478,6 +473,7 @@ public class Taskline extends HBox {
             }
 
             // Change activePomodoroAmount MAYBE
+            //InformationContainerSingleton.getInstance().clearAndRemakePomodoros();
             //ControllerSingleton.getInstance().removeActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
 
             // Remove this node from active nodepage
@@ -561,7 +557,7 @@ public class Taskline extends HBox {
         // Change the setup
         if (this.projectChoice.getChoicebox().getValue().equals("Personal")){
             this.getChildren().setAll(taskChoiceShow,pomodoroHeadlineBar,buttonsEditFinishBar);
-            this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(8));
+            this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(7));
         } else {
             this.getChildren().setAll(projectChoiceShow,taskChoiceShow,pomodoroHeadlineBar,buttonsEditFinishBar);
             this.taskChoiceShow.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(5));

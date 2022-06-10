@@ -116,11 +116,12 @@ public class Scenehandler {
         // Set the stage icon
         this.stage.getIcons().add(new Image(new File("src/main/resources/Images/pomodoroicon.png").toURI().toString()));
 
-        // Close miniStage if the main window is closed
+        // Close miniStage if the main window is closed and then everything else
         this.stage.setOnCloseRequest(e -> {
             if (this.miniStage!=null){
                 this.miniStage.close();
             }
+            System.exit(0);
         });
     }
 

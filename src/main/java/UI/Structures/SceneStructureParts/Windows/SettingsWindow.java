@@ -148,16 +148,19 @@ public class SettingsWindow extends CustomWindow {
             }
 
             // Clear and create all pomodoros
-            if (InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()>0){
-                InformationContainerSingleton.getInstance().clearAndRemakePomodoros(InformationContainerSingleton.getInstance().getAmountOfActivePomodoros());
-            }
+            if (ConsultantSingleton.getInstance().exists() && InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()>0){
 
-            System.out.println("StandardTaskTime: "+TimerSingleton.getInstance().getStandardTaskTime());
-            System.out.println("StandardBreakTime: "+TimerSingleton.getInstance().getStandardBreakTime());
-            System.out.println("StandardLongBreakTime: "+TimerSingleton.getInstance().getStandardLongBreakTime());
+                InformationContainerSingleton.getInstance().clearDoTodayList();
+
+                InformationContainerSingleton.getInstance().clearAndRemakePomodoros();
+
+                TimerSingleton.getInstance().setTimerTypeTaskWithTaskName();
+            }
 
             // Remove focus
             this.setFocused(false);
+
+            System.out.println("Consultant Updated");
 
         });
 

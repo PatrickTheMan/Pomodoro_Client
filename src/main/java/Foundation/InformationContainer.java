@@ -18,6 +18,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 
+import java.math.BigInteger;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -67,6 +68,9 @@ public class InformationContainer {
         return doTodayListAsNodes;
     }
 
+    public void setDoTodayList(ArrayList<Taskline> doTodayList) {
+        this.doTodayList = doTodayList;
+    }
 
     public ArrayList<Consultant> getConsultants() {
         return consultants;
@@ -133,7 +137,7 @@ public class InformationContainer {
                 if (old.intValue()>newVal.intValue()){
                     System.out.println("smaller");
 
-                    //clearAndRemakePomodoros(newVal.intValue());
+                    clearAndRemakePomodoros();
 
                 } else {
                     System.out.println("larger");
@@ -194,6 +198,18 @@ public class InformationContainer {
         this.doTodayList.remove(taskline);
     }
 
+    public void clearDoTodayList(){
+
+        for (int i = 0; i <= this.doTodayList.size()-1; i++) {
+            // Remove this node from active nodepage
+            InformationContainerSingleton.getInstance().getActiveNodePage().removeNode(this.doTodayList.get(i));
+
+            this.doTodayList.remove(this.doTodayList.get(i));
+        }
+        this.amountOfActivePomodoros.setValue(0);
+
+    }
+
     public void nextTask(){
 
         // If there is a task in the doTodayList
@@ -220,7 +236,7 @@ public class InformationContainer {
                                 currentTask.getName(),
                                 Time.valueOf(hh+":"+mm+":"+ss),
                                 currentTask.isTaskDone(),
-                                0
+                                currentTask.getOrder()
                         )
                 );
             }
@@ -301,52 +317,55 @@ public class InformationContainer {
 
     //region [Pomodoro&&WorkDay-DB]
 
-    public void clearAndRemakePomodoros(Integer amountToCreate){
+    public void clearAndRemakePomodoros(){
 
         // Remove the pomodoros thats not in use
         DBSingleton.getInstance().clearPomodoros(this.workDay);
+        System.out.println("Clear pomodoros");
 
-        // Update the workday
-        if (!workDayCreated){
-            DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(),this.workDay.getStartDateTime());
-        }
-        this.workDay = DBSingleton.getInstance().getWorkDay(ConsultantSingleton.getInstance().getEmail());
 
-        // Add the pomodoros
-        for (int i = 1; i < amountToCreate +1 ; i++) {
-            if (i % 4 == 0){
-                DBSingleton.getInstance().addPomodoro(this.workDay,
-                        ConsultantSingleton.getInstance(),
-                        i);
-            } else {
-                DBSingleton.getInstance().addPomodoro(this.workDay,
-                        ConsultantSingleton.getInstance(),
-                        i);
-            }
-        }
+        addPomodoroToDB(0,this.amountOfActivePomodoros.getValue());
+
     }
 
     public void addPomodoroToDB(Integer old, Integer newVal){
+
+        Timestamp newestWorkDay = null;
+        if (DBSingleton.getInstance().getWorkDay(ConsultantSingleton.getInstance().getEmail())!=null){
+            newestWorkDay = DBSingleton.getInstance().getWorkDay(ConsultantSingleton.getInstance().getEmail()).getStartDateTime();
+        }
+        Timestamp today = Timestamp.valueOf(LocalDateTime.now());
+        Timestamp yesterday = Timestamp.valueOf(today.toLocalDateTime());
+        yesterday.setHours(yesterday.getHours()-12);
+
+        boolean remakeDB = false;
+
         // Update or create the workday
         if (this.workDay!=null){
             DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(),this.workDay.getStartDateTime());
         } else {
-            DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(), Timestamp.valueOf(LocalDateTime.now()));
+            if (newestWorkDay!=null && BigInteger.valueOf(newestWorkDay.getTime()).compareTo(BigInteger.valueOf(yesterday.getTime()))==1){
+                remakeDB = true;
+            } else {
+                DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(), today);
+            }
         }
         this.workDay = DBSingleton.getInstance().getWorkDay(ConsultantSingleton.getInstance().getEmail());
 
-
-
-        // Add the pomodoros
-        for (int i = old.intValue()+1; i < newVal.intValue()+1 ; i++) {
-            if (i % 4 == 0){
-                DBSingleton.getInstance().addPomodoro(this.workDay,
-                        ConsultantSingleton.getInstance(),
-                        i);
-            } else {
-                DBSingleton.getInstance().addPomodoro(this.workDay,
-                        ConsultantSingleton.getInstance(),
-                        i);
+        if (remakeDB){
+            clearAndRemakePomodoros();
+        } else {
+            // Add the pomodoros
+            for (int i = old.intValue()+1; i < newVal.intValue()+1 ; i++) {
+                if (i % 4 == 0){
+                    DBSingleton.getInstance().addPomodoro(this.workDay,
+                            ConsultantSingleton.getInstance(),
+                            i);
+                } else {
+                    DBSingleton.getInstance().addPomodoro(this.workDay,
+                            ConsultantSingleton.getInstance(),
+                            i);
+                }
             }
         }
     }

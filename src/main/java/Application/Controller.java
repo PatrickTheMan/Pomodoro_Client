@@ -118,7 +118,6 @@ public class Controller {
 
     public void setTimes(ChoiceComboBox choiceComboBox,Time taskTime, Time breakTime, Time longBreakTime){
         if (choiceComboBox.getChoicebox().getValue()!=null && !choiceComboBox.getChoicebox().getValue().equals("")){
-            System.out.println("C - Standard changed");
 
             // Set the consultant & Set the times to the ones chosen
             ConsultantSingleton.getInstance().setConsultantNewTimes(
@@ -134,7 +133,6 @@ public class Controller {
             TimerSingleton.getInstance().resetTimer();
 
         } else {
-            System.out.println("Standard changed");
             TimerSingleton.getInstance().setStandardTaskTime(taskTime);
             TimerSingleton.getInstance().setStandardBreakTime(breakTime);
             TimerSingleton.getInstance().setStandardLongBreakTime(longBreakTime);

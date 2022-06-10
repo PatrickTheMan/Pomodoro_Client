@@ -94,5 +94,8 @@ public class UpdateInformationThread implements Runnable {
         }
     }
 
+    public Thread getUpdateInfoThread(){
+        return this.updateInfoThread;
+    }
 
 }
