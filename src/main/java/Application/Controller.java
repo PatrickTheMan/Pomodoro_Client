@@ -63,7 +63,7 @@ public class Controller {
 
     /**
      * <Strong>Set the consultants name in the stage title</Strong>
-     * @param consultant
+     * @param consultant is the consultant that is chosen
      */
     public void setConsultantTitle(Consultant consultant){
 
@@ -124,6 +124,13 @@ public class Controller {
         TimerSingleton.getInstance().setTime(time);
     }
 
+    /**
+     * <Strong>Set the times on the consultantsingleton or set the standardtimes</Strong>
+     * @param choiceComboBox is the choiceComboBox with the consultants name
+     * @param taskTime is the task time chosen
+     * @param breakTime is the break time chosen
+     * @param longBreakTime is the long break time chosen
+     */
     public void setTimes(ChoiceComboBox choiceComboBox,Time taskTime, Time breakTime, Time longBreakTime){
         if (choiceComboBox.getChoicebox().getValue()!=null && !choiceComboBox.getChoicebox().getValue().equals("")){
 
@@ -213,7 +220,7 @@ public class Controller {
 
     /**
      * <Strong>Remove from the active </Strong>
-     * @param amount
+     * @param amount is the amount that will be removed
      */
     public void removeActivePomodoro(int amount){
         InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(
@@ -277,6 +284,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for focused</Strong>
      * @param choiceComboBox is the node
+     * @param focused is whether or not it is being focused or not
      */
     public void setSelected(ChoiceComboBox choiceComboBox, boolean focused){
         // Make this object use the custom css styling
@@ -290,6 +298,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for focused</Strong>
      * @param choiceTextField is the node
+     * @param focused is whether or not it is being focused or not
      */
     public void setSelected(ChoiceTextField choiceTextField, boolean focused){
         // Make this object use the custom css styling
@@ -303,6 +312,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for focused</Strong>
      * @param customButton is the node
+     * @param focused is whether or not it is being focused or not
      */
     public void setSelected(CustomButton customButton, boolean focused){
         // Make this object use the custom css styling
@@ -324,6 +334,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for focused</Strong>
      * @param customButtonOther is the node
+     * @param focused is whether or not it is being focused or not
      */
     public void setSelected(CustomButtonOther customButtonOther, boolean focused){
         // Make this object use the custom css styling
@@ -337,6 +348,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for hovered</Strong>
      * @param choiceComboBox is the node
+     * @param hovered is whether or not it is being hovederd or not
      */
     public void setHovered(ChoiceComboBox choiceComboBox, boolean hovered){
         // Make this object use the custom css styling
@@ -350,6 +362,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for hovered</Strong>
      * @param choiceTextField is the node
+     * @param hovered is whether or not it is being hovederd or not
      */
     public void setHovered(ChoiceTextField choiceTextField, boolean hovered){
         // Make this object use the custom css styling
@@ -363,6 +376,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for hovered</Strong>
      * @param customButton is the node
+     * @param hovered is whether or not it is being hovederd or not
      */
     public void setHovered(CustomButton customButton, boolean hovered){
         // Make this object use the custom css styling
@@ -384,6 +398,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for hovered</Strong>
      * @param customButtonOther is the node
+     * @param hovered is whether or not it is being hovederd or not
      */
     public void setHovered(CustomButtonOther customButtonOther, boolean hovered){
         // Make this object use the custom css styling
@@ -397,6 +412,7 @@ public class Controller {
     /**
      * <Strong>Makes the node use custom css for hovered</Strong>
      * @param customButtonControls is the node
+     * @param hovered is whether or not it is being hovederd or not
      */
     public void setHovered(CustomButtonControls customButtonControls, boolean hovered){
         // Make this object use the custom css styling
