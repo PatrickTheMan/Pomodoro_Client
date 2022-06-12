@@ -4,7 +4,6 @@ import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
-import Foundation.Singletons.DBSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
@@ -22,7 +21,13 @@ import java.io.File;
 import java.sql.Time;
 import java.util.ArrayList;
 
+
+/**
+ * @author Patrick G. Schemel
+ */
 public class Taskline extends HBox {
+
+    //region [Variables]
 
     private Integer projectId= null;
     private int taskId= -1;
@@ -45,8 +50,15 @@ public class Taskline extends HBox {
     private NodeBarH pomodoroHeadlineBar;
     private NodeBarH buttonsEditFinishBar;
 
+    //endregion
+
+    //region [Properties]
+
     private BooleanProperty diabled = new SimpleBooleanProperty();
 
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public Headline getCounter() {
         return counter;
@@ -72,9 +84,10 @@ public class Taskline extends HBox {
         this.taskChoice = taskChoice;
     }
 
-    /**
-     *
-     */
+    //endregion
+
+    //region [Constructor]
+
     public Taskline(){
 
         // Normal setup
@@ -86,10 +99,6 @@ public class Taskline extends HBox {
 
     }
 
-    /**
-     *
-     * @param task
-     */
     public Taskline(Task task){
 
         //
@@ -116,8 +125,12 @@ public class Taskline extends HBox {
 
     }
 
+    //endregion
+
+    //region [Normal Setup]
+
     /**
-     *
+     * <Strong>The normal setup for the taskline</Strong>
      */
     private void normalSetup(){
 
@@ -170,8 +183,12 @@ public class Taskline extends HBox {
 
     }
 
+    //endregion
+
+    //region [Setup]
+
     /**
-     *
+     * <Strong>The setup used for setting up the edit mode</Strong>
      */
     private void editSetup(){
 
@@ -391,6 +408,9 @@ public class Taskline extends HBox {
 
     }
 
+    /**
+     * <Strong>The setup used for setting up the show mode</Strong>
+     */
     private void showSetup(){
 
         //
@@ -467,10 +487,6 @@ public class Taskline extends HBox {
                 );
             }
 
-            // Change activePomodoroAmount MAYBE
-            //InformationContainerSingleton.getInstance().clearAndRemakePomodoros();
-            //ControllerSingleton.getInstance().removeActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
-
             // Remove this node from active nodepage
             InformationContainerSingleton.getInstance().getActiveNodePage().removeNode(this);
 
@@ -517,18 +533,12 @@ public class Taskline extends HBox {
         buttonEdit.disableProperty().bind(this.diabled);
     }
 
-    public void changeTasklineSetup(){
-        if (this.editing){
-            this.editing = false;
-            setShowSetup();
-        } else {
-            this.editing = true;
-            setEditSetup();
-        }
-    }
+    //endregion
+
+    //region [Show]
 
     /**
-     *
+     * <Strong>Set the mode to show only, so no functionality</Strong>
      */
     private void setShowOnlySetup(){
         // Set children
@@ -537,7 +547,7 @@ public class Taskline extends HBox {
     }
 
     /**
-     *
+     * <Strong>Set the mode to show, which changes the tasklines layout</Strong>
      */
     public void setShowSetup(){
 
@@ -562,11 +572,30 @@ public class Taskline extends HBox {
     }
 
     /**
-     *
+     * <Strong>Set the mode to edit, which changes the tasklines layout</Strong>
      */
     public void setEditSetup(){
         // Add the content to this
         this.getChildren().setAll(projectChoice,taskChoice,buttonsCounterBar,buttonsRemoveDoneContainerBar);
     }
+
+    //endregion
+
+    //region [Method]
+
+    /**
+     * <Strong>Change the mode between edit and show</Strong>
+     */
+    public void changeTasklineSetup(){
+        if (this.editing){
+            this.editing = false;
+            setShowSetup();
+        } else {
+            this.editing = true;
+            setEditSetup();
+        }
+    }
+
+    //endregion
 
 }

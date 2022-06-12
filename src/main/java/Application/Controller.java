@@ -27,21 +27,21 @@ public class Controller {
      * <Strong>Set the scene to home</Strong>
      */
     public void setSceneHome(){
-        ScenehandlerSingleton.getInstance().setStage(SceneType.Home);
+        ScenehandlerSingleton.getInstance().setStage(SceneType.HOME);
     }
 
     /**
      * <Strong>Set the scene to overview</Strong>
      */
     public void setSceneOverview(){
-        ScenehandlerSingleton.getInstance().setStage(SceneType.Overview);
+        ScenehandlerSingleton.getInstance().setStage(SceneType.OVERVIEW);
     }
 
     /**
      * <Strong>Set the scene to dotoday</Strong>
      */
     public void setSceneDoToday(){
-        ScenehandlerSingleton.getInstance().setStage(SceneType.DoToday);
+        ScenehandlerSingleton.getInstance().setStage(SceneType.DOTODAY);
     }
 
     /**

@@ -12,7 +12,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * A simple scrollpane which has a multiple pages function, so it only shows some nodes at a time
+ * @author Patrick G. Schemel
+ * @version 0.1
+ */
 public class NodePages extends VBox {
+
+    //region [Variables]
 
     private ArrayList<Node> buttons= new ArrayList<>();
     private ArrayList<Node> nodes = new ArrayList<>();
@@ -25,6 +32,9 @@ public class NodePages extends VBox {
     private VBox itemContainer;
     private NodeBarH pageSelector;
 
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public int getNodesPrPage() {
         return nodesPrPage;
@@ -41,6 +51,10 @@ public class NodePages extends VBox {
     public void setNodes(ArrayList<Node> nodes) {
         this.nodes = nodes;
     }
+
+    //endregion
+
+    //region [Constructor]
 
     public NodePages(ArrayList<Node> nodes, int nodesPrPage, boolean addNodeButton){
 
@@ -66,6 +80,14 @@ public class NodePages extends VBox {
         });
     }
 
+    //endregion
+
+    //region [Normal Setup]
+
+    /**
+     * <Strong>The normal setup of the nodePages</Strong>
+     * @param nodes is the initial content of the nodePages
+     */
     private void normalSetup(ArrayList<Node> nodes){
 
         // Make this use the custom css styling
@@ -97,16 +119,6 @@ public class NodePages extends VBox {
             InformationContainerSingleton.getInstance().updateNodePagesProperty().setValue(false);
         });
 
-        // Get the content
-        getContent();
-
-        // Get the right amount of buttons, 1 button pr page
-        getAmountOfPages();
-
-    }
-
-    public void getContent(){
-
         // Create the item container
         this.itemContainer = new VBox();
         this.itemContainer.setAlignment(Pos.TOP_CENTER);
@@ -117,15 +129,19 @@ public class NodePages extends VBox {
 
         // Add the nodes to the content container
         this.getChildren().add(this.contentContainer);
-    }
 
-    public void getAmountOfPages(){
-
-        // Make the right amount of buttons
+        // Get the right amount of buttons, 1 button pr page
         updatePageButtons();
 
     }
 
+    //endregion
+
+    //region [Pages]
+
+    /**
+     * <Strong>Update the buttons depending on the nodesprpage</Strong>
+     */
     public void updatePageButtons(){
 
         // Clear buttons if it has been used and remove bar
@@ -188,13 +204,18 @@ public class NodePages extends VBox {
         }
 
         // Set the pagebar
-        this.pageSelector = new NodeBarH(this.buttons, MyPos.CENTER);
+        this.pageSelector = new NodeBarH(this.buttons);
+        this.pageSelector.setPos(MyPos.CENTER);
 
         // Set the children again
         this.getChildren().setAll(this.contentContainer,this.pageSelector);
 
     }
 
+    /**
+     * <Strong>Update the nodePages content depending on the nodesprpage and current pagenum</Strong>
+     * @param removeCurrentTask
+     */
     public void updatePageContent(boolean removeCurrentTask){
 
         // Clear the current itemContainer
@@ -260,6 +281,14 @@ public class NodePages extends VBox {
 
     }
 
+    //endregion
+
+    //region [Nodes]
+
+    /**
+     * <Strong>Remove a node from the nodePage</Strong>
+     * @param node is the node to be removed
+     */
     public void removeNode(Node node){
 
         // 1 less page or not
@@ -289,5 +318,7 @@ public class NodePages extends VBox {
         this.getChildren().setAll(this.contentContainer,this.pageSelector);
 
     }
+
+    //endregion
 
 }

@@ -34,6 +34,8 @@ import java.util.ArrayList;
  */
 public class Scenehandler {
 
+    //region [Variables]
+
     private String sceneTitle;
 
     private Stage stage;
@@ -45,6 +47,9 @@ public class Scenehandler {
     private Scene miniScene;
     private NodeBarH miniNodeBarH;
 
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public Scene getScene() {
         return scene;
@@ -76,6 +81,9 @@ public class Scenehandler {
 
     public String getSceneTitle() {return sceneTitle;}
 
+    //endregion
+
+    //region [Constructor]
 
     public Scenehandler(){
 
@@ -128,59 +136,13 @@ public class Scenehandler {
         });
     }
 
+    //endregion
+
+    //region [MiniStage]
+
     /**
-     *
-     * @param sceneType
+     * <Strong>Start the miniStage, a mini version of the pomodoroTimer which contains only status, time, play/pause, stop and skip</Strong>
      */
-    public void setStage(SceneType sceneType){
-
-        // Set the stages scene to the right one
-        switch (sceneType){
-            case Home -> {
-
-                // Set title of the stage
-                this.sceneTitle="Home";
-                ControllerSingleton.getInstance().setTimerTitle();
-
-                // Set the main content
-                this.mainPane.setCenter(setupHomeScreen());
-
-                // Set the stylesheet for the scene
-                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Home.css").toURI().toString());
-
-            }
-            case Overview ->{
-
-                // Set title of the stage
-                this.sceneTitle="Overview";
-                ControllerSingleton.getInstance().setTimerTitle();
-
-                // Set the main content
-                this.mainPane.setCenter(setupOverviewScreen());
-
-                // Set the stylesheet for the scene
-                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Overview.css").toURI().toString());
-
-            }
-            case DoToday -> {
-
-                // Set title of the stage
-                this.sceneTitle="DoToday";
-                ControllerSingleton.getInstance().setTimerTitle();
-
-                // Set the main content
-                this.mainPane.setCenter(setupDoTodayScreen());
-
-                // Set the stylesheet for the scene
-                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_DoToday.css").toURI().toString());
-
-            }
-        }
-
-        // Set focus to none of the nodes
-        this.root.requestFocus();
-    }
-
     public void startMiniStage(){
 
         // The list with nodes
@@ -244,7 +206,8 @@ public class Scenehandler {
         nodesControls.add(buttonSkip);
 
         // Initiate a container for the buttons
-        NodeBarH buttonContainer = new NodeBarH(nodesControls,MyPos.RIGHT);
+        NodeBarH buttonContainer = new NodeBarH(nodesControls);
+        buttonContainer.setPos(MyPos.RIGHT);
         // Style the container
         buttonContainer.setStyle("-fx-spacing: 5; -fx-padding: 0; -fx-border-color: -fx-color2");
 
@@ -253,8 +216,11 @@ public class Scenehandler {
         nodes.add(timerLabel);
         nodes.add(buttonContainer);
 
+        NodeBarH nodeBarH = new NodeBarH(nodes);
+        nodeBarH.setPos(MyPos.RIGHT);
+
         // Initiate the root
-        this.miniNodeBarH = new NodeBarH(nodes,MyPos.RIGHT);
+        this.miniNodeBarH = nodeBarH;
 
         // Style the miniNodeBarH
         this.miniNodeBarH.setStyle("-fx-spacing: 15; -fx-padding: 0;");
@@ -286,8 +252,8 @@ public class Scenehandler {
         // Bind the size of the miniScene to the timertype string
         this.miniStage.minWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(5).add(280));
         this.miniStage.maxWidthProperty().bind(TimerSingleton.getInstance().timeTypeProperty().length().multiply(5).add(280));
-        TimerSingleton.getInstance().timeTypeProperty().addListener((obs,old,newVal) -> {
-            this.miniStage.setX(Screen.getPrimary().getVisualBounds().getWidth()-this.miniStage.getWidth()-10);
+        this.miniStage.widthProperty().addListener((obs,old,newVal) -> {
+            this.miniStage.setX(this.miniStage.getX()+(old.intValue()-newVal.intValue()));
         });
 
         // Set the stylesheet for the scene
@@ -309,9 +275,66 @@ public class Scenehandler {
         this.miniStage.close();
     }
 
+    //endregion
+
+    //region [Special Getters & Setters]
+
     /**
-     *
-     * @return
+     * <Strong>Set the scene to the chosen SceneType</Strong>
+     * @param sceneType is the scenetype, which will be set to (HOME,OVERVIEW and DOTODAY)
+     */
+    public void setStage(SceneType sceneType){
+
+        // Set the stages scene to the right one
+        switch (sceneType){
+            case HOME -> {
+
+                // Set title of the stage
+                this.sceneTitle="Home";
+                ControllerSingleton.getInstance().setTimerTitle();
+
+                // Set the main content
+                this.mainPane.setCenter(setupHomeScreen());
+
+                // Set the stylesheet for the scene
+                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Home.css").toURI().toString());
+
+            }
+            case OVERVIEW ->{
+
+                // Set title of the stage
+                this.sceneTitle="Overview";
+                ControllerSingleton.getInstance().setTimerTitle();
+
+                // Set the main content
+                this.mainPane.setCenter(setupOverviewScreen());
+
+                // Set the stylesheet for the scene
+                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_Overview.css").toURI().toString());
+
+            }
+            case DOTODAY -> {
+
+                // Set title of the stage
+                this.sceneTitle="DoToday";
+                ControllerSingleton.getInstance().setTimerTitle();
+
+                // Set the main content
+                this.mainPane.setCenter(setupDoTodayScreen());
+
+                // Set the stylesheet for the scene
+                this.scene.getStylesheets().setAll(new File("src/main/resources/CSS/ClientStyleSheet.css").toURI().toString(),new File("src/main/resources/CSS/Scenes/ClientStyleSheet_DoToday.css").toURI().toString());
+
+            }
+        }
+
+        // Set focus to none of the nodes
+        this.root.requestFocus();
+    }
+
+    /**
+     * <Strong>Get the menuBar, which has all the menu buttons</Strong>
+     * @return the menu bar
      */
     private VBox getMenuBar(){
 
@@ -328,9 +351,13 @@ public class Scenehandler {
         return customMenuBar;
     }
 
+    //endregion
+
+    //region [Screens]
+
     /**
-     *
-     * @return
+     * <Strong>Get the setup for the home screen</Strong>
+     * @return the home screen
      */
     private VBox setupHomeScreen(){
 
@@ -348,18 +375,19 @@ public class Scenehandler {
         root.getStyleClass().add("screen-home");
 
         // Create the headline
-        CustomWindow headline = new CustomWindow().Headline("Home");
+        CustomWindow headline = new CustomWindow().headline("Home");
 
         // Create the pomodoroTimerWindow
-        CustomWindow pomodoroWindow = new CustomWindow().Pomodoro();
+        CustomWindow pomodoroWindow = new CustomWindow().pomodoro();
 
         // Create the setting window
-        CustomWindow settingsWindow = new CustomWindow().Settings();
+        CustomWindow settingsWindow = new CustomWindow().settings();
         settingsWindow.setMinMaxSize(200,200,600,400);
         settingsWindow.prefWidthProperty().bind(this.mainPane.widthProperty().divide(4));
 
+
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today", InformationContainerSingleton.getInstance().getDoTodayList(),2,25,true);
+        CustomWindow listWindow = new CustomWindow().nodePage("Do-Today", InformationContainerSingleton.getInstance().getDoTodayList(),2,25,true);
         listWindow.setMinMaxSize(100,200,1200,370);
         listWindow.prefWidthProperty().bind(this.mainPane.widthProperty().divide(4).multiply(3));
 
@@ -385,8 +413,8 @@ public class Scenehandler {
     }
 
     /**
-     *
-     * @return
+     * <Strong>Get the setup for the overview screen</Strong>
+     * @return the overview screen
      */
     private VBox setupOverviewScreen(){
 
@@ -404,7 +432,7 @@ public class Scenehandler {
         root.getStyleClass().add("screen-overview");
 
         // Create the headline
-        CustomWindow headline = new CustomWindow().Headline("Overview");
+        CustomWindow headline = new CustomWindow().headline("Overview");
 
         // Add the projects to the view
         ArrayList<Node> overviewProjectContent = new ArrayList<>();
@@ -412,8 +440,9 @@ public class Scenehandler {
             overviewProjectContent.add(new Projectline(p));
         }
 
+
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listOverviewWindow = new CustomWindow().NodePage("View",overviewProjectContent,1,15,false);
+        CustomWindow listOverviewWindow = new CustomWindow().nodePage("View",overviewProjectContent,1,15,false);
         listOverviewWindow.prefHeightProperty().bind(view.heightProperty());
 
 
@@ -433,8 +462,8 @@ public class Scenehandler {
     }
 
     /**
-     *
-     * @return
+     * <Strong>Get the setup for the dotoday screen</Strong>
+     * @return the dotoday screen
      */
     private VBox setupDoTodayScreen() {
 
@@ -452,19 +481,12 @@ public class Scenehandler {
         root.getStyleClass().add("screen-dotoday");
 
         // Create the headline
-        CustomWindow headline = new CustomWindow().Headline("Do Today");
-
-
-
-
-
+        CustomWindow headline = new CustomWindow().headline("Do Today");
 
 
         // Create the list window with the nodeArrayList as it's content
-        CustomWindow listWindow = new CustomWindow().NodePage("Do-Today Tasks",InformationContainerSingleton.getInstance().getDoTodayList(),5,15,true);
+        CustomWindow listWindow = new CustomWindow().nodePage("Do-Today Tasks",InformationContainerSingleton.getInstance().getDoTodayList(),5,15,true);
         listWindow.prefHeightProperty().bind(view.heightProperty());
-
-
 
 
         // Set contentcontainers content
@@ -481,5 +503,7 @@ public class Scenehandler {
 
         return root;
     }
+
+    //endregion
 
 }

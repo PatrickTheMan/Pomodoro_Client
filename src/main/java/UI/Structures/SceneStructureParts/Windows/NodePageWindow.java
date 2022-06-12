@@ -7,24 +7,28 @@ import javafx.scene.Node;
 
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class NodePageWindow extends CustomWindow {
 
+    //region [Constructor]
 
-    /**
-     *
-     */
     public NodePageWindow(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
         // Normal setup
-        NormalSetup(nodes,nodesPrPage,addNodeButton);
+        normalSetup(nodes,nodesPrPage,addNodeButton);
         // Set scaling of the window
         this.prefHeightProperty().bind(this.heightProperty());
     }
 
+    //endregion
+
+    //region [Normal Setup]
 
     /**
-     *
+     * <Strong>The normal setup for the nodePageWindow, contains a headline and a nodepage</Strong>
      */
-    private void NormalSetup(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
+    private void normalSetup(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-nodepages");
@@ -49,7 +53,8 @@ public class NodePageWindow extends CustomWindow {
             InformationContainerSingleton.getInstance().setActiveOverviewNodePage(nodePages);
         }
 
-
     }
+
+    //endregion
 
 }

@@ -2,7 +2,14 @@ package UI.Structures.SceneStructureParts.SmallParts;
 
 import javafx.scene.control.Label;
 
+/**
+ * A simple label with sizing
+ * @author Patrick G. Schemel
+ * @version 0.1
+ */
 public class LabelWithSizing extends Label {
+
+    //region [Constructor]
 
     public LabelWithSizing(String text){
         // Make this object use the custom-menu css styling
@@ -47,5 +54,7 @@ public class LabelWithSizing extends Label {
             }
         });
     }
+
+    //endregion
 
 }

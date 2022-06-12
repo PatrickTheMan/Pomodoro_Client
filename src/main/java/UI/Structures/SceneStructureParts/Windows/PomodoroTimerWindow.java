@@ -2,7 +2,6 @@ package UI.Structures.SceneStructureParts.Windows;
 
 import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
-import UI.Buttons.CustomButtonControls;
 import UI.Enums.MyPos;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.CustomWindow;
@@ -15,21 +14,26 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class PomodoroTimerWindow extends CustomWindow {
 
-    /**
-     *
-     */
+    //region [Constructor]
+
     public PomodoroTimerWindow(){
         // Normal setup
-        NormalSetup();
+        normalSetup();
     }
 
+    //endregion
+
+    //region [Normal Setup]
 
     /**
-     *
+     * <Strong>The normal setup for the pomodoroTimerWindow, contains 2 headlines, a nodeBarH and 2 buttons</Strong>
      */
-    private void NormalSetup(){
+    private void normalSetup(){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-pomodoro");
@@ -96,12 +100,15 @@ public class PomodoroTimerWindow extends CustomWindow {
         nodes.add(buttonStop);
         nodes.add(buttonPausePlay);
         nodes.add(buttonSkip);
-        NodeBarH buttonBarH = new NodeBarH(nodes, MyPos.CENTER);
+        NodeBarH buttonBarH = new NodeBarH(nodes);
+        buttonBarH.setPos(MyPos.CENTER);
 
 
         // Add the content to the class object
         this.getChildren().addAll(timerSection,buttonBarH);
 
     }
+
+    //endregion
 
 }

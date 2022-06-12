@@ -2,7 +2,12 @@ package UI.Structures.SceneStructureParts.SmallParts;
 
 import javafx.scene.control.TextField;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class TextFieldWithSizing extends TextField {
+
+    //region [Constructor]
 
     public TextFieldWithSizing(){
         // Make this object use the custom-menu css styling
@@ -35,5 +40,7 @@ public class TextFieldWithSizing extends TextField {
             }
         });
     }
+
+    //endregion
 
 }

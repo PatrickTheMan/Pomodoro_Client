@@ -16,12 +16,21 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class SettingsWindow extends CustomWindow {
+
+    //region [Variables]
 
     private ChoiceComboBox consultantChoice;
     private ChoiceTextField taskTimeField;
     private ChoiceTextField breakTimeField;
     private ChoiceTextField longbreakTimeField;
+
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public void setTaskTimeFieldText(String text) {
         this.taskTimeField.getTextField().setText(text);
@@ -35,19 +44,23 @@ public class SettingsWindow extends CustomWindow {
         this.longbreakTimeField.getTextField().setText(text);
     }
 
-    /**
-     *
-     */
+    //endregion
+
+    //region [Constructor]
+
     public SettingsWindow(){
         // Normal setup
-        NormalSetup();
+        normalSetup();
     }
 
+    //endregion
+
+    //region [Normal Setup]
 
     /**
-     *
+     * <Strong>The normal setup for the settingWindow, contains 3 choiceTextField, a choiceComboBox, a headline and a nodeBarH</Strong>
      */
-    private void NormalSetup(){
+    private void normalSetup(){
 
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window-settings");
@@ -191,5 +204,7 @@ public class SettingsWindow extends CustomWindow {
         saveButton.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
 
     }
+
+    //endregion
 
 }

@@ -4,11 +4,8 @@ import UI.Enums.MyPos;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-
-import java.util.ArrayList;
 
 /**
  * A simple headline
@@ -17,11 +14,21 @@ import java.util.ArrayList;
  */
 public class Headline extends HBox {
 
+    //region [Variables]
+
     private Label label;
+
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public Label getLabel() {
         return label;
     }
+
+    //endregion
+
+    //region [Constructor]
 
     public Headline(String text){
 
@@ -46,11 +53,21 @@ public class Headline extends HBox {
 
     }
 
+    //endregion
 
+    //region [Option Methods]
+
+    /**
+     * <Strong>Remove the styling from this headline</Strong>
+     */
     public void noStyleClass(){
         this.getStyleClass().setAll("");
     }
 
+    /**
+     * <Strong>Activate scaling (small/big)</Strong>
+     * @param scaling is the scaling chosen with MyScaling
+     */
     public void setScaling(MyScaling scaling){
         // Set the scaling of the label text
         switch (scaling){
@@ -59,25 +76,21 @@ public class Headline extends HBox {
         }
     }
 
+    /**
+     * <Strong>Activate scaling (custom)</Strong>
+     * @param smallestFontSize is the smallest font size
+     * @param biggestFontSize is the biggest font size
+     * @param offset is the offset for the with, so it determines, when the scaling starts and stops
+     */
     public void setScaling(int smallestFontSize, int biggestFontSize, int offset){
         // Set Scaling
         scalingCustom(smallestFontSize,biggestFontSize,offset);
     }
 
-    public void setContent(ArrayList<Node> nodes){
-        // Initiate a button container
-        HBox buttonContainter = new HBox();
-
-        // Make this object use the custom-menu css styling
-        this.getStyleClass().add("headline-buttonContainer");
-
-        // Add the other nodes
-        buttonContainter.getChildren().addAll(nodes);
-
-        // Add the container
-        this.getChildren().add(buttonContainter);
-    }
-
+    /**
+     * <Strong>Set the alignment of the headline</Strong>
+     * @param pos is the position alignment chosen from MyPos
+     */
     public void setPos(MyPos pos){
         // Set the settings
         switch (pos){
@@ -87,6 +100,10 @@ public class Headline extends HBox {
         }
     }
 
+    /**
+     * <Strong>Set the shape of the headline</Strong>
+     * @param shape is the shape chosen from MyShape
+     */
     public void setShape(MyShape shape){
         switch (shape){
             case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
@@ -99,13 +116,17 @@ public class Headline extends HBox {
         }
     }
 
+    /**
+     * <Strong>Set the borders to transparent</Strong>
+     */
     public void removeBorder(){
         // Make this object have nonvisible borders
         this.setStyle("-fx-border-color: transparent");
     }
 
-
-
+    /**
+     * <Strong>Scale the headline with the small standard (15 - 25 font size)</Strong>
+     */
     private void scalingSmall(){
         // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
         this.widthProperty().addListener((obs, old, newVal) -> {
@@ -119,6 +140,9 @@ public class Headline extends HBox {
         });
     }
 
+    /**
+     * <Strong>Scale the headline with the big standard (25 - 35 font size)</Strong>
+     */
     private void scalingBig(){
         // Make the line adjustable to the width of it (Removes the label if it can't be seen anyways)
         this.widthProperty().addListener((obs, old, newVal) -> {
@@ -132,6 +156,12 @@ public class Headline extends HBox {
         });
     }
 
+    /**
+     * <Strong>Scale the headline with the custom (smallestfont - biggestfont font size)</Strong>
+     * @param smallestFont is the smallest font size
+     * @param biggestFont is the biggest font size
+     * @param offset is the offset, this determines at what width of the headline the scaling starts and stops
+     */
     private void scalingCustom(int smallestFont, int biggestFont, int offset){
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("headline-sizing");
@@ -146,5 +176,7 @@ public class Headline extends HBox {
             }
         });
     }
+
+    //endregion
 
 }

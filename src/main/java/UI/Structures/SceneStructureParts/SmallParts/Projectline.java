@@ -8,17 +8,22 @@ import UI.Enums.MyShape;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class Projectline extends HBox {
+
+    //region [Variables]
 
     private Project project;
 
     private NodeBarH buttonGotoBar;
     private Headline projectNameHeadline;
 
+    //endregion
 
-    /**
-     *
-     */
+    //region [Constructor]
+
     public Projectline(Project project){
 
         // Set the project this line works with
@@ -29,9 +34,6 @@ public class Projectline extends HBox {
 
     }
 
-    /**
-     *
-     */
     public Projectline(String customProjectName){
 
         // Set the project this line works with
@@ -45,8 +47,12 @@ public class Projectline extends HBox {
 
     }
 
+    //endregion
+
+    //region [Normal Setup]
+
     /**
-     *
+     * <Strong>The normal setup for the projectline</Strong>
      */
     private void normalSetup(){
 
@@ -83,8 +89,6 @@ public class Projectline extends HBox {
             });
         }
 
-
-
         //
         this.buttonGotoBar = new NodeBarH(buttonSaveEdit);
         this.buttonGotoBar.setAlignment(Pos.TOP_RIGHT);
@@ -94,5 +98,7 @@ public class Projectline extends HBox {
         //
         this.getChildren().addAll(this.projectNameHeadline,this.buttonGotoBar);
     }
+
+    //endregion
 
 }

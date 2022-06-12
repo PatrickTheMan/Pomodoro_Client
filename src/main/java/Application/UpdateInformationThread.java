@@ -31,7 +31,7 @@ public class UpdateInformationThread implements Runnable {
                 Long endTime = System.currentTimeMillis();
 
                 // Print
-                System.out.println("...Done ( "+(endTime-startTime)+"ms )");
+                System.out.println("...Updating is Done ( "+(endTime-startTime)+"ms )");
 
                 // Check if Consultant still exists
                 boolean foundConsultant = false;

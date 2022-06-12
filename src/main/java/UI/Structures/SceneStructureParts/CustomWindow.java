@@ -4,25 +4,36 @@ import UI.Enums.MyPos;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
-import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
-import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import UI.Structures.SceneStructureParts.Windows.NodePageWindow;
 import UI.Structures.SceneStructureParts.Windows.PomodoroTimerWindow;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class CustomWindow extends VBox {
+
+    //region [Constructor]
 
     public CustomWindow(){
         // Make this object use the custom css styling
         this.getStyleClass().add("custom-window");
     }
 
-    public CustomWindow Headline(String text){
+    //endregion
+
+    //region [Windows]
+
+    /**
+     * <Strong>Makes a custom window with a headline as content</Strong>
+     * @param text is the text of the headline
+     * @return this window
+     */
+    public CustomWindow headline(String text){
 
         // Create the headline and set settings
         Headline headline = new Headline(text);
@@ -36,37 +47,11 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow Headline(String text, MyPos pos){
-
-        // Create the headline and set settings
-        Headline headline = new Headline(text);
-        headline.setPos(pos);
-        headline.setShape(MyShape.ROUND);
-        headline.setScaling(MyScaling.BIG);
-
-        // Set content
-        this.getChildren().add(headline);
-
-        return this;
-    }
-
-    public CustomWindow ButtonBarH(ArrayList<Node> nodes){
-
-        // Set content
-        this.getChildren().add(new NodeBarH(nodes));
-
-        return this;
-    }
-
-    public CustomWindow ButtonBarH(ArrayList<Node> nodes, MyPos pos){
-
-        // Set content
-        this.getChildren().add(new NodeBarH(nodes, pos));
-
-        return this;
-    }
-
-    public CustomWindow Settings(){
+    /**
+     * <Strong>Makes a custom window with a settingsWindow and a headline as content</Strong>
+     * @return this window
+     */
+    public CustomWindow settings(){
 
         // Create the headline and set settings
         Headline headline = new Headline("Settings");
@@ -80,7 +65,11 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow Pomodoro(){
+    /**
+     * <Strong>Makes a custom window with a pomodoroTimerWindow and a headline as content</Strong>
+     * @return this window
+     */
+    public CustomWindow pomodoro(){
 
         // Create the headline and set settings
         Headline headline = new Headline("Pomodoro");
@@ -94,7 +83,16 @@ public class CustomWindow extends VBox {
         return this;
     }
 
-    public CustomWindow NodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int offset, boolean addNodeButton){
+    /**
+     * <Strong>Makes a custom window with a nodePages and a headline as content</Strong>
+     * @param text is the text of the headline
+     * @param arrayList is the arraylist which contains the nodes for the nodePages
+     * @param nodesPrPage is the pref amount of nodes pr page
+     * @param offset is the offest for custom scaling of the headline (set to 15 - 25 font size)
+     * @param addNodeButton is whether to have an add taskline button or not
+     * @return this window
+     */
+    public CustomWindow nodePage(String text,ArrayList<Node> arrayList,int nodesPrPage,int offset, boolean addNodeButton){
 
         // Create the headline and set settings
         Headline headline = new Headline(text);
@@ -116,13 +114,23 @@ public class CustomWindow extends VBox {
         return this;
     }
 
+    //endregion
 
+    //region [Option Methods]
 
-
+    /**
+     * <Strong>Set the min and max size of the customWindow</Strong>
+     * @param minWidth is the min width
+     * @param minHeight is the min height
+     * @param maxWidth is the max width
+     * @param maxHeight is the max height
+     */
     public void setMinMaxSize(int minWidth, int minHeight, int maxWidth, int maxHeight){
         // Settings
         this.setMinSize(minWidth,minHeight);
         this.setMaxSize(maxWidth,maxHeight);
     }
+
+    //endregion
 
 }
