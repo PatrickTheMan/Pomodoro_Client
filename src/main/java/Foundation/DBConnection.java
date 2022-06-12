@@ -4,9 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class DBConnection {
 
+    //region [Variables]
+
     private Connection con;
+
+    //endregion
+
+    //region [Constructor]
 
     public Connection getConnection(){
 
@@ -18,8 +27,12 @@ public class DBConnection {
         return this.con;
     }
 
+    //endregion
+
+    //region [Methods]
+
     /**
-     * establishes the connection to the database of the pomodoro programs
+     * <Strong>Establishes the connection to the database of the pomodoro programs</Strong>
      */
     public void connect() {
         try {
@@ -31,7 +44,7 @@ public class DBConnection {
     }
 
     /**
-     * establishes the connection to the database of the test pomodoro programs
+     * <Strong>Establishes the connection to the database of the test pomodoro programs</Strong>
      */
     public void connectTestServer() {
         try {
@@ -42,8 +55,12 @@ public class DBConnection {
         }
     }
 
+    //endregion
+
+    //region [Testing Methods]
+
     /**
-     * Checks if there is a connection
+     * <Strong>Checks if there is a connection</Strong>
      * @return true if there is a connection
      */
     public boolean isConnected() {
@@ -53,5 +70,7 @@ public class DBConnection {
             return false;
         }
     }
+
+    //endregion
 
 }

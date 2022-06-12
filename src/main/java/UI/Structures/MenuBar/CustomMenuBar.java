@@ -7,9 +7,18 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class CustomMenuBar extends VBox {
 
+    //region [Variables]
+
     private ArrayList<CustomButton> customMenuButtonArrayList = new ArrayList<>();
+
+    //endregion
+
+    //region [Constructor]
 
     public CustomMenuBar(ArrayList<CustomButton> arrayMenuButtonList){
 
@@ -29,6 +38,6 @@ public class CustomMenuBar extends VBox {
 
     }
 
-
+    //endregion
 
 }

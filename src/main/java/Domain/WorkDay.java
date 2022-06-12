@@ -1,14 +1,22 @@
 package Domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class WorkDay {
+
+    //region [Variables]
 
     private int id;
     private String email;
     private Timestamp startDateTime;
     private Timestamp endDateTime;
+
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public int getId() {
         return id;
@@ -42,11 +50,17 @@ public class WorkDay {
         this.endDateTime = endDateTime;
     }
 
+    //endregion
+
+    //region [Constructor]
+
     public WorkDay(int id, String email, Timestamp startDateTime, Timestamp endDateTime){
         this.id=id;
         this.email=email;
         this.startDateTime=startDateTime;
         this.endDateTime=endDateTime;
     }
+
+    //endregion
 
 }

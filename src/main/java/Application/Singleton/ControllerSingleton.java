@@ -2,6 +2,9 @@ package Application.Singleton;
 
 import Application.Controller;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class ControllerSingleton {
 
     private static Controller instance;
@@ -10,7 +13,7 @@ public class ControllerSingleton {
     private ControllerSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static Controller getInstance(){

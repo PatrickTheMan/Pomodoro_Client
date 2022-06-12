@@ -220,7 +220,7 @@ public class NodePages extends VBox {
 
         if (this.addNodeButton){
             // Create the add node button
-            CustomButton addNewNode = new CustomButton().Other().Add();
+            CustomButton addNewNode = new CustomButton().other().add();
             addNewNode.setOnAction(e -> {
 
                 // 1 more page or not

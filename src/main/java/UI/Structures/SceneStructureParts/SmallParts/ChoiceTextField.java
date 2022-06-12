@@ -3,7 +3,6 @@ package UI.Structures.SceneStructureParts.SmallParts;
 import Application.Singleton.ControllerSingleton;
 import UI.Enums.MyPos;
 import UI.Enums.MyShape;
-import javafx.beans.property.BooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,12 +11,18 @@ import javafx.scene.layout.HBox;
 /**
  * A simple choice line with a textfield
  * @author Patrick G. Schemel
- * @version 1.0
+ * @version 0.1
  */
 public class ChoiceTextField extends HBox {
 
+    //region [Variables]
+
     private Label textLabel;
     private TextField textField;
+
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public Label getTextLabel() {
         return textLabel;
@@ -27,10 +32,10 @@ public class ChoiceTextField extends HBox {
         return textField;
     }
 
-    /**
-     *
-     * @param text
-     */
+    //endregion
+
+    //region [Constructor]
+
     public ChoiceTextField(String text){
 
         // Make this object use the custom css styling
@@ -63,6 +68,14 @@ public class ChoiceTextField extends HBox {
 
     }
 
+    //endregion
+
+    //region [Option Methods]
+
+    /**
+     * <Strong>Set the shape of the choiceTextField</Strong>
+     * @param shape is the shape chosen from MyShape
+     */
     public void setShape(MyShape shape){
         switch (shape){
             case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
@@ -71,6 +84,10 @@ public class ChoiceTextField extends HBox {
         }
     }
 
+    /**
+     * <Strong>Set the alignment of the choiceTextField</Strong>
+     * @param pos is the position alignment of the choiceTextField
+     */
     public void setPos(MyPos pos){
         switch (pos){
             case LEFT ->
@@ -85,20 +102,18 @@ public class ChoiceTextField extends HBox {
         }
     }
 
+    /**
+     * <Strong>Sets the border to transparent</Strong>
+     */
     public void removeBorder(){
         // Make this object have nonvisible borders
-        this.setStyle("-fx-border-color: -fx-color2");
+        this.setStyle("-fx-border-color: transparent");
     }
 
-    public void setScaling(int width, int height){
-        // Set the preferred label size
-        textLabel.setMinWidth(width/3);
-        textLabel.setMinHeight(height/3);
-
-        // Set the preferred size of the textfield to be max length
-        textField.setMinWidth(width/3*2);
-    }
-
+    /**
+     * <Strong>Activate scaling for the choiceTextField</Strong>
+     * @param labelRemoval is wether or not to remove the label, when the choiceTextField gets to small for the label to be read
+     */
     public void setScaling(boolean labelRemoval){
 
         if (labelRemoval){
@@ -139,5 +154,7 @@ public class ChoiceTextField extends HBox {
             textField.prefWidthProperty().bind(this.widthProperty());
         }
     }
+
+    //endregion
 
 }

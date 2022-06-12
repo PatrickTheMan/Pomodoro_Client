@@ -58,10 +58,12 @@ public class SettingsWindow extends CustomWindow {
         // Get The different consultants' names
         consultants.addAll(InformationContainerSingleton.getInstance().getConsultants());
 
-        // Convert to names only
+        // Convert to names only, only the active ones
         ArrayList<String> consultantNames = new ArrayList<>();
         for (Consultant c: consultants) {
-            consultantNames.add(c.getName());
+            if (c.isActive()){
+                consultantNames.add(c.getName());
+            }
         }
 
         // Add the combobox with the consultantlist, it changes the different values based on the consultant
@@ -90,7 +92,7 @@ public class SettingsWindow extends CustomWindow {
         Pattern timePattern = Pattern.compile("^(\\d?\\d):(\\d?\\d):(\\d?\\d)$");
 
         // Add the save button
-        CustomButton saveButton = new CustomButton().Other().Accept();
+        CustomButton saveButton = new CustomButton().other().accept();
         saveButton.setOnAction(e -> {
             // Saves the consultants settings
 
@@ -161,8 +163,6 @@ public class SettingsWindow extends CustomWindow {
 
             // Remove focus
             this.setFocused(false);
-
-            System.out.println("Consultant Updated");
 
         });
 

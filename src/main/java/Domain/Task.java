@@ -2,7 +2,12 @@ package Domain;
 
 import java.sql.Time;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class Task {
+
+    //region [Variables]
 
     private int id;
     private String email;
@@ -11,6 +16,10 @@ public class Task {
     private Time time;
     private boolean taskDone;
     private int order;
+
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public int getId() {
         return id;
@@ -40,6 +49,10 @@ public class Task {
         return order;
     }
 
+    //endregion
+
+    //region [Constructor]
+
     public Task(int id, String email, Integer projectId, String name, Time time, boolean taskDone, int order) {
         this.id = id;
         this.email = email;
@@ -49,5 +62,7 @@ public class Task {
         this.taskDone = taskDone;
         this.order = order;
     }
+
+    //endregion
 
 }

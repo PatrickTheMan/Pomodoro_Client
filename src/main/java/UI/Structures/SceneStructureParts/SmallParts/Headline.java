@@ -10,6 +10,11 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
+/**
+ * A simple headline
+ * @author Patrick G. Schemel
+ * @version 0.1
+ */
 public class Headline extends HBox {
 
     private Label label;
@@ -96,7 +101,7 @@ public class Headline extends HBox {
 
     public void removeBorder(){
         // Make this object have nonvisible borders
-        this.setStyle("-fx-border-color: -fx-color2");
+        this.setStyle("-fx-border-color: transparent");
     }
 
 

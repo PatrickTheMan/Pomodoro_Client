@@ -7,22 +7,19 @@ import Foundation.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
 import javafx.scene.Node;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class UpdateInformationThread implements Runnable {
 
-    Thread updateInfoThread;
+    private Thread updateInfoThread;
 
     @Override
     public void run() {
 
-        // Print
-        System.out.println("Thread Started");
-
         try {
 
             while (true){
-
-                // Print
-                System.out.println("...Updating");
 
                 // Get the current time, so the used time can be calculated
                 Long startTime = System.currentTimeMillis();
@@ -50,7 +47,11 @@ public class UpdateInformationThread implements Runnable {
                     if (!foundConsultant){
                         System.out.println("Consultant has been removed");
                         System.out.println("TERMINATE CLIENT");
-                        //TODO - CLOSE CLIENT
+                        /*
+                        If you would like to close the client,
+                        when a counsultant has been removed while a client is running with said consultant,
+                        then you could put the code here
+                         */
                     }
                 }
 
@@ -69,7 +70,10 @@ public class UpdateInformationThread implements Runnable {
                     if (!foundTask){
                         System.out.println("Task dont exist any more");
                         System.out.println("TERMINATE TASK");
-                        //TODO - GIVE A NOTICE AND REMOVE TASK
+                        /*
+                        If you would like to remove tasks that don't exists anymore,
+                        then you could had put the code here
+                         */
                     }
                 }
 
@@ -92,10 +96,6 @@ public class UpdateInformationThread implements Runnable {
             this.updateInfoThread = new Thread(this);
             this.updateInfoThread.start();
         }
-    }
-
-    public Thread getUpdateInfoThread(){
-        return this.updateInfoThread;
     }
 
 }

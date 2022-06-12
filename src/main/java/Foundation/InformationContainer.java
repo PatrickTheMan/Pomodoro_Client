@@ -24,13 +24,17 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class InformationContainer {
+
+    //region [Variables]
 
     private NodePages activeNodePage;
     private ArrayList<Taskline> doTodayList;
     private NodePages activeOverviewNodePage;
 
-    private IntegerProperty amountOfActivePomodoros = new SimpleIntegerProperty();
     private boolean workDayCreated = false;
     private WorkDay workDay;
 
@@ -38,9 +42,16 @@ public class InformationContainer {
     private ArrayList<Project> projects;
     private ArrayList<Task> tasks;
 
+    //endregion
+
+    //region [Properties]
+
+    private IntegerProperty amountOfActivePomodoros = new SimpleIntegerProperty();
     private BooleanProperty updateNodePages = new SimpleBooleanProperty(false);
 
+    //endregion
 
+    //region [Normal Getters & Setters]
 
     public BooleanProperty updateNodePagesProperty() {
         return updateNodePages;
@@ -58,16 +69,6 @@ public class InformationContainer {
         this.activeOverviewNodePage = activeOverviewNodePage;
     }
 
-
-    public ArrayList<Node> getDoTodayList() {
-
-        ArrayList<Node> doTodayListAsNodes = new ArrayList();
-
-        doTodayListAsNodes.addAll(this.doTodayList);
-
-        return doTodayListAsNodes;
-    }
-
     public void setDoTodayList(ArrayList<Taskline> doTodayList) {
         this.doTodayList = doTodayList;
     }
@@ -80,28 +81,20 @@ public class InformationContainer {
         return projects;
     }
 
-    public ArrayList<String> getProjectNames() {
-        ArrayList<String> projectNames = new ArrayList<>();
-
-        for (Project p:this.projects) {
-            projectNames.add(p.getName());
-        }
-
-        return projectNames;
-    }
-
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public ArrayList<String> getTaskNames() {
-        ArrayList<String> taskNames = new ArrayList<>();
+    public void setConsultants(ArrayList<Consultant> consultants) {
+        this.consultants = consultants;
+    }
 
-        for (Task t:this.tasks) {
-            taskNames.add(t.getName());
-        }
+    public void setProjects(ArrayList<Project> projects) {
+        this.projects = projects;
+    }
 
-        return taskNames;
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public int getAmountOfActivePomodoros() {
@@ -124,6 +117,55 @@ public class InformationContainer {
         this.workDay = workDay;
     }
 
+    //endregion
+
+    //region [Special Getters & Setters]
+
+    /**
+     * <Strong>Gets all the projects names</Strong>
+     * @return an arraylist with all the names
+     */
+    public ArrayList<String> getProjectNames() {
+        ArrayList<String> projectNames = new ArrayList<>();
+
+        for (Project p:this.projects) {
+            projectNames.add(p.getName());
+        }
+
+        return projectNames;
+    }
+
+    /**
+     * <Strong>Gets all the tasks names</Strong>
+     * @return an arraylist with all the names
+     */
+    public ArrayList<String> getTaskNames() {
+        ArrayList<String> taskNames = new ArrayList<>();
+
+        for (Task t:this.tasks) {
+            taskNames.add(t.getName());
+        }
+
+        return taskNames;
+    }
+
+    /**
+     * <Strong>Gets the dotodaylists tasklines as nodes</Strong>
+     * @return an arraylist of nodes (converted tasklines)
+     */
+    public ArrayList<Node> getDoTodayList() {
+
+        ArrayList<Node> doTodayListAsNodes = new ArrayList();
+
+        doTodayListAsNodes.addAll(this.doTodayList);
+
+        return doTodayListAsNodes;
+    }
+
+    //endregion
+
+    //region [Constructor]
+
     public InformationContainer(){
         this.doTodayList = new ArrayList<>();
         this.consultants = new ArrayList<>();
@@ -135,12 +177,12 @@ public class InformationContainer {
             if (ConsultantSingleton.getInstance().exists()){
 
                 if (old.intValue()>newVal.intValue()){
-                    System.out.println("smaller");
+                    //System.out.println("smaller");
 
                     clearAndRemakePomodoros();
 
                 } else {
-                    System.out.println("larger");
+                    //System.out.println("larger");
 
                     addPomodoroToDB(old.intValue(),newVal.intValue());
 
@@ -153,11 +195,15 @@ public class InformationContainer {
         updateAll();
     }
 
+    //endregion
 
+    //region [Update]
+
+    /**
+     * <Strong>Updates consultants, projects and tasks by getting new data from the DB</Strong>
+     */
     public void updateAll(){
 
-        System.out.println("update-all-method");
-
         this.consultants.clear();
         this.projects.clear();
         this.tasks.clear();
@@ -167,37 +213,54 @@ public class InformationContainer {
         this.tasks.addAll(DBSingleton.getInstance().getTasks());
     }
 
+    /**
+     * <Strong>Updates consultants by getting new data from the DB</Strong>
+     */
     public void updateConsultants(){
-        System.out.println("update-consultants-method");
         this.consultants.clear();
         this.consultants.addAll(DBSingleton.getInstance().getConsultants());
     }
 
+    /**
+     * <Strong>Updates tasks by getting new data from the DB</Strong>
+     */
     public void updateTasks(){
-        System.out.println("update-tasks-method");
         this.tasks.clear();
         this.tasks.addAll(DBSingleton.getInstance().getTasks());
     }
 
+    /**
+     * <Strong>Updates the projects by getting new data from the DB</Strong>
+     */
     public void updateProjects(){
-        System.out.println("update-projects-method");
         this.projects.clear();
         this.projects.addAll(DBSingleton.getInstance().getProjects());
     }
 
-
+    //endregion
 
     //region [DoToday]
 
+    /**
+     * <Strong>Add a taskline to the dotoday arraylist</Strong>
+     * @param taskline is the taskline that gets added
+     */
     public void newTasklineInDoToday(Taskline taskline){
         this.doTodayList.add(taskline);
 
     }
 
+    /**
+     * <Strong>Removes a taskline from the dotoday arraylist</Strong>
+     * @param taskline is the taskline that gets removed
+     */
     public void removeTasklineInDoToday(Taskline taskline){
         this.doTodayList.remove(taskline);
     }
 
+    /**
+     * <Strong>Clears the dotoday arraylist and sets the amount of activepomodoros to 0</Strong>
+     */
     public void clearDoTodayList(){
 
         for (int i = 0; i <= this.doTodayList.size()-1; i++) {
@@ -210,6 +273,9 @@ public class InformationContainer {
 
     }
 
+    /**
+     * <Strong>Go to the next task, update the information of the timer and the last tasks DB tasktimetaken</Strong>
+     */
     public void nextTask(){
 
         // If there is a task in the doTodayList
@@ -263,16 +329,14 @@ public class InformationContainer {
             //Update the activePomodoros
             this.setAmountOfActivePomodoros(this.getAmountOfActivePomodoros()-1);
 
-            System.out.println("Active Pomodoros: "+amountOfActivePomodoros);
-
-            System.out.println("Offset: "+Time.valueOf(TimerSingleton.getInstance().getTaskOffsetTime().getHours()+":"+
-                    TimerSingleton.getInstance().getTaskOffsetTime().getMinutes()+":"+
-                    TimerSingleton.getInstance().getTaskOffsetTime().getSeconds()));
-
         }
 
     }
 
+    /**
+     * <Strong>Gets the tasks associated with the project chosen</Strong>
+     * @param project is the chosen project
+     */
     public void getTasksFromProjectToList(Project project){
 
         // Add the tasks to the view
@@ -296,6 +360,9 @@ public class InformationContainer {
 
     }
 
+    /**
+     * <Strong>Get all the projects as projectlines</Strong>
+     */
     public void getProjectsToList(){
 
         // Add the projectlines to the view
@@ -317,17 +384,23 @@ public class InformationContainer {
 
     //region [Pomodoro&&WorkDay-DB]
 
+    /**
+     * <Strong>Clear and remake all DB pomodoros</Strong>
+     */
     public void clearAndRemakePomodoros(){
 
         // Remove the pomodoros thats not in use
         DBSingleton.getInstance().clearPomodoros(this.workDay);
-        System.out.println("Clear pomodoros");
-
 
         addPomodoroToDB(0,this.amountOfActivePomodoros.getValue());
 
     }
 
+    /**
+     * <Strong>Add a pomodoro to the DB with the right values</Strong>
+     * @param old is the old amount of pomodoros
+     * @param newVal is the new amount of pomodoros
+     */
     public void addPomodoroToDB(Integer old, Integer newVal){
 
         Timestamp newestWorkDay = null;
@@ -374,6 +447,11 @@ public class InformationContainer {
 
     //region [GetSpecific]
 
+    /**
+     * <Strong>Gets the project with the right project id</Strong>
+     * @param projectId is the id searched after
+     * @return the project searched for
+     */
     public Project getProject(int projectId){
         for (Project p:this.projects) {
             if (p.getId()==projectId){
@@ -383,6 +461,11 @@ public class InformationContainer {
         return null;
     }
 
+    /**
+     * <Strong>Gets the project with the right project name</Strong>
+     * @param s is the name searched after
+     * @return the project searched for
+     */
     public Project getProject(String s){
         Project lastAddedProject=null;
         for (Project p:this.projects) {
@@ -393,6 +476,11 @@ public class InformationContainer {
         return lastAddedProject;
     }
 
+    /**
+     * <Strong>Gets the task with the right task id</Strong>
+     * @param taskId is the id searched after
+     * @return the task searched for
+     */
     public Task getTask(int taskId){
         for (Task t:this.tasks) {
             if (t.getId()==taskId){
@@ -402,6 +490,11 @@ public class InformationContainer {
         return null;
     }
 
+    /**
+     * <Strong>Gets the task with the right task name</Strong>
+     * @param taskName is the name searched after
+     * @return the task searched for
+     */
     public Task getTask(String taskName){
         Task lastAddedTask=null;
         for (Task t:this.tasks) {
@@ -417,8 +510,9 @@ public class InformationContainer {
     //region [Convertions]
 
     /**
-     *
-     * @return
+     * <Strong>Gets all the tasks names associated with the chosen project</Strong>
+     * @param project is the project the tasks are associated with
+     * @return the task names in an arraylist
      */
     public ArrayList<String> getTaskNamesFromProject(Project project){
 
@@ -434,8 +528,9 @@ public class InformationContainer {
     }
 
     /**
-     *
-     * @return
+     * <Strong>Gets all the now finished tasks names for a chosen project</Strong>
+     * @param project is the project the tasks are associated with
+     * @return the task names in an arraylist
      */
     public ArrayList<String> getAvailableTaskNamesFromProject(Project project){
 
@@ -461,14 +556,14 @@ public class InformationContainer {
     }
 
     /**
-     *
-     * @return
+     * <Strong>Gets the projects names</Strong>
+     * @return an arraylist with the names
      */
-    public ArrayList<String> getProjectsToNames(ArrayList<Project> projects){
+    public ArrayList<String> getProjectsToNames(){
 
         ArrayList<String> names = new ArrayList<>();
 
-        for (Project p:projects) {
+        for (Project p:this.projects) {
             names.add(p.getName());
         }
 
@@ -476,9 +571,9 @@ public class InformationContainer {
     }
 
     /**
-     *
-     * @param s
-     * @return
+     * <Strong>Gets the consultant with the given name</Strong>
+     * @param s is the name searched after
+     * @return the consultant with the right name
      */
     public Consultant getConsultant(String s){
         for (Consultant c:this.consultants) {

@@ -5,14 +5,30 @@ import Domain.Singletons.TimerSingleton;
 
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class CustomButtonControls extends CustomButton {
 
-    protected CustomButtonControls(){}
-
+    //region [Variables]
 
     private static ArrayList<CustomButtonControls> allPlayAndPauseButtons = new ArrayList<>();
 
-    public CustomButton PlayAndPause() {
+    //endregion
+
+    //region [Constructor]
+
+    protected CustomButtonControls(){}
+
+    //endregion
+
+    //region [Buttons]
+
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButton playAndPause() {
 
         // Get the normal setup
         NormalSetup();
@@ -56,8 +72,11 @@ public class CustomButtonControls extends CustomButton {
         return this;
     }
 
-
-    public CustomButton Stop() {
+    /**
+     * <Strong>Use the Stop button setup</Strong>
+     * @return the button
+     */
+    public CustomButton stop() {
 
         // Get the normal setup
         NormalSetup();
@@ -89,7 +108,11 @@ public class CustomButtonControls extends CustomButton {
         return this;
     }
 
-    public CustomButton Skip() {
+    /**
+     * <Strong>Use the Skip button setup</Strong>
+     * @return the button
+     */
+    public CustomButton skip() {
 
         // Get the normal setup
         NormalSetup();
@@ -111,7 +134,11 @@ public class CustomButtonControls extends CustomButton {
         return this;
     }
 
-    public CustomButton Popout() {
+    /**
+     * <Strong>Use the Popout button setup</Strong>
+     * @return the button
+     */
+    public CustomButton popout() {
 
         // Get the normal setup
         NormalSetup();
@@ -142,7 +169,11 @@ public class CustomButtonControls extends CustomButton {
         return this;
     }
 
-    public CustomButton Sound() {
+    /**
+     * <Strong>Use the Sound button setup</Strong>
+     * @return the button
+     */
+    public CustomButton sound() {
 
         // Get the normal setup
         NormalSetup();
@@ -173,8 +204,13 @@ public class CustomButtonControls extends CustomButton {
         return this;
     }
 
+    //endregion
 
+    //region [Normal Setup]
 
+    /**
+     * <Strong>The standard setup of control buttons</Strong>
+     */
     private void NormalSetup(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-controls-button");
@@ -183,5 +219,7 @@ public class CustomButtonControls extends CustomButton {
             ControllerSingleton.getInstance().setSelected(this,newVal);
         });
     }
+
+    //endregion
 
 }

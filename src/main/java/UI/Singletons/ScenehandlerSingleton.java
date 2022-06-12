@@ -2,6 +2,9 @@ package UI.Singletons;
 
 import UI.Scenehandler;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class ScenehandlerSingleton {
 
     private static Scenehandler instance;
@@ -10,7 +13,7 @@ public class ScenehandlerSingleton {
     private ScenehandlerSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static Scenehandler getInstance(){

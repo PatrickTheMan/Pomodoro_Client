@@ -4,14 +4,20 @@ import Domain.Consultant;
 import Domain.Project;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Task;
-import UI.Structures.SceneStructureParts.SmallParts.Taskline;
-import javafx.scene.Node;
 
 import java.sql.Time;
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class Testing {
 
+    //region [Consultant]
+
+    /**
+     * <Strong>Loads a test consultant to the consultantsingleton</Strong>
+     */
     public void loadTestConsultant(){
 
         ConsultantSingleton.getInstance().setConsultant(new Consultant(
@@ -30,8 +36,8 @@ public class Testing {
     }
 
     /**
-     *
-     * @return
+     * <Strong>Gets the test consultants</Strong>
+     * @return an arraylist with test consultants
      */
     public ArrayList<Consultant> getTestConsultants(){
 
@@ -101,9 +107,13 @@ public class Testing {
         return consultants;
     }
 
+    //endregion
+
+    //region [Projects]
+
     /**
-     *
-     * @return
+     * <Strong>Gets the test projects</Strong>
+     * @return an arraylist of test projects
      */
     public ArrayList<Project> getTestProjects(){
 
@@ -118,9 +128,13 @@ public class Testing {
         return projects;
     }
 
+    //endregion
+
+    //region [Task]
+
     /**
-     *
-     * @return
+     * <Strong>Gets the tasks for the test projects</Strong>
+     * @return an arraylist of test tasks
      */
     public ArrayList<Task> getTestTasksForTestProjects(){
 
@@ -134,5 +148,7 @@ public class Testing {
 
         return tasks;
     }
+
+    //endregion
 
 }

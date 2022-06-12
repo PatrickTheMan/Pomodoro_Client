@@ -111,7 +111,7 @@ public class NodeBarH extends HBox {
 
     public void removeBorder(){
         // Make this object have nonvisible borders
-        this.setStyle("-fx-border-color: -fx-color2");
+        this.setStyle("-fx-border-color: transparent");
     }
 
 }

@@ -2,11 +2,24 @@ package UI.Buttons;
 
 import Application.Singleton.ControllerSingleton;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class CustomButtonMenu extends CustomButton {
+
+    //region [Constructor]
 
     protected CustomButtonMenu(){}
 
-    public CustomButton Home() {
+    //endregion
+
+    //region [Buttons]
+
+    /**
+     * <Strong>Use the Home button setup</Strong>
+     * @return the button
+     */
+    public CustomButton home() {
 
         // Set the text for the hover text
         this.buttonText = "Home";
@@ -22,8 +35,11 @@ public class CustomButtonMenu extends CustomButton {
         return this;
     }
 
-
-    public CustomButton Overview() {
+    /**
+     * <Strong>Use the Overview button setup</Strong>
+     * @return the button
+     */
+    public CustomButton overview() {
 
         // Set the text for the hover text
         this.buttonText = "Overview";
@@ -39,7 +55,11 @@ public class CustomButtonMenu extends CustomButton {
         return this;
     }
 
-    public CustomButton DoToday() {
+    /**
+     * <Strong>Use the DoToday button setup</Strong>
+     * @return the button
+     */
+    public CustomButton doToday() {
 
         // Set the text for the hover text
         this.buttonText = "Do-Today";
@@ -54,5 +74,7 @@ public class CustomButtonMenu extends CustomButton {
 
         return this;
     }
+
+    //endregion
 
 }

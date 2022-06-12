@@ -1,15 +1,19 @@
 package Application;
 
+import UI.Enums.SceneType;
 import UI.Singletons.ScenehandlerSingleton;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class Pomodoro_Client extends Application {
 
     @Override
     public void start(Stage stage) {
 
-        // Start a update thread, which updates the clients' information every 5 min
+        // Start an update thread, which updates the clients' information every 5 min
         new UpdateInformationThread().start();
 
         // Set the scene the scenehandler should work with
@@ -20,6 +24,9 @@ public class Pomodoro_Client extends Application {
 
         // Show the stage
         stage.show();
+
+        // Set the scene
+        ScenehandlerSingleton.getInstance().setStage(SceneType.Home);
     }
 
     public static void main(String[] args) {

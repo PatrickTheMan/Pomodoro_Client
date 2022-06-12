@@ -4,6 +4,9 @@ import Domain.Consultant;
 
 import java.sql.Time;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class ConsultantSingleton {
 
     private static Consultant instance;
@@ -12,7 +15,7 @@ public class ConsultantSingleton {
     private ConsultantSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static Consultant getInstance(){

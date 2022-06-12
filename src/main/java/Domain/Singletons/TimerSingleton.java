@@ -2,6 +2,9 @@ package Domain.Singletons;
 
 import Domain.Timer;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class TimerSingleton {
 
     private static Timer instance;
@@ -10,7 +13,7 @@ public class TimerSingleton {
     private TimerSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static Timer getInstance(){

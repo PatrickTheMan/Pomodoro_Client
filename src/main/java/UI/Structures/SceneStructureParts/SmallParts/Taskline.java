@@ -182,7 +182,7 @@ public class Taskline extends HBox {
         this.projectChoice.removeBorder();
         this.projectChoice.maxWidthProperty().bind(this.widthProperty().divide(10).multiply(2));
         // Fill in the information from DB
-        this.projectChoice.setContent(InformationContainerSingleton.getInstance().getProjectsToNames(DBSingleton.getInstance().getProjects()));
+        this.projectChoice.setContent(InformationContainerSingleton.getInstance().getProjectsToNames());
         this.projectChoice.getChoicebox().setOnAction(e -> {
             // Set the project id for the taskbar
             if (InformationContainerSingleton.getInstance().getProject(this.projectChoice.getChoicebox().getValue().toString())!=null){
@@ -239,7 +239,7 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> buttonsAndCounter = new ArrayList<>();
 
-        CustomButton buttonMinus = new CustomButton().Other().Minus();
+        CustomButton buttonMinus = new CustomButton().other().minus();
         buttonMinus.setOnAction(e -> {
             // Remove focus
             this.setFocused(false);
@@ -271,7 +271,7 @@ public class Taskline extends HBox {
         buttonsAndCounter.add(counterAndImageBar);
 
 
-        CustomButton buttonAdd = new CustomButton().Other().Add();
+        CustomButton buttonAdd = new CustomButton().other().add();
         buttonAdd.setOnAction(e -> {
             // Remove focus
             this.setFocused(false);
@@ -291,7 +291,7 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> buttonsRemoveDone = new ArrayList<>();
 
-        CustomButton buttonDelete = new CustomButton().Other().Delete();
+        CustomButton buttonDelete = new CustomButton().other().delete();
         buttonDelete.setOnAction(e -> {
 
             // Remove this node from active nodepage
@@ -303,7 +303,7 @@ public class Taskline extends HBox {
         });
         buttonsRemoveDone.add(buttonDelete);
 
-        CustomButton buttonSaveEdit = new CustomButton().Other().Accept();
+        CustomButton buttonSaveEdit = new CustomButton().other().accept();
         buttonSaveEdit.setOnAction(e -> {
             if (this.taskChoice.getChoicebox().getValue() != null
                     && !this.taskChoice.getChoicebox().getValue().equals("")
@@ -353,9 +353,7 @@ public class Taskline extends HBox {
 
                 }
 
-                System.out.println("Project: "+this.projectId+" / Task: "+this.taskId);
-
-                // Change activePomodoroAmount
+                                // Change activePomodoroAmount
                 ControllerSingleton.getInstance().addActivePomodoro(Integer.parseInt(this.counter.getLabel().getText()));
 
                 // Set new title to the timertype
@@ -438,7 +436,7 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> arrayListButtonsEditFinish = new ArrayList<>();
 
-        CustomButton buttonFinish = new CustomButton().Other().Accept();
+        CustomButton buttonFinish = new CustomButton().other().accept();
         buttonFinish.setOnAction(e -> {
 
             // Set done
@@ -497,7 +495,7 @@ public class Taskline extends HBox {
         arrayListButtonsEditFinish.add(buttonFinish);
 
 
-        CustomButton buttonEdit = new CustomButton().Other().Edit();
+        CustomButton buttonEdit = new CustomButton().other().edit();
         buttonEdit.setOnAction(e -> {
 
             changeTasklineSetup();

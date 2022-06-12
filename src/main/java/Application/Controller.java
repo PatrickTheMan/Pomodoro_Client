@@ -16,35 +16,36 @@ import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 
 import java.sql.Time;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class Controller {
-
-    //endregion
 
     //region [Scene]
 
     /**
-     *
+     * <Strong>Set the scene to home</Strong>
      */
     public void setSceneHome(){
         ScenehandlerSingleton.getInstance().setStage(SceneType.Home);
     }
 
     /**
-     *
+     * <Strong>Set the scene to overview</Strong>
      */
     public void setSceneOverview(){
         ScenehandlerSingleton.getInstance().setStage(SceneType.Overview);
     }
 
     /**
-     *
+     * <Strong>Set the scene to dotoday</Strong>
      */
     public void setSceneDoToday(){
         ScenehandlerSingleton.getInstance().setStage(SceneType.DoToday);
     }
 
     /**
-     *
+     * <Strong>open or close the mini pomodoro window</Strong>
      */
     public void openCloseMiniStage(){
         if (ScenehandlerSingleton.getInstance().getMiniStage()==null || !ScenehandlerSingleton.getInstance().getMiniStage().isShowing() ){
@@ -61,7 +62,7 @@ public class Controller {
     private boolean consultantSetAlready=false;
 
     /**
-     *
+     * <Strong>Set the consultants name in the stage title</Strong>
      * @param consultant
      */
     public void setConsultantTitle(Consultant consultant){
@@ -81,9 +82,9 @@ public class Controller {
     }
 
     /**
-     *
-     * @param consultant
-     * @param settingsWindow
+     * <Strong>Set the different times for the settings-window fields to the consultants chosen once</Strong>
+     * @param consultant is the consultant, which has the different times
+     * @param settingsWindow is the window, which has the different fields that needs to be updated
      */
     public void getConsultantValues(Consultant consultant, SettingsWindow settingsWindow){
         // Update fields
@@ -98,6 +99,9 @@ public class Controller {
 
     private boolean timerSetAlready=false;
 
+    /**
+     * <Strong>Set the time in the stage title</Strong>
+     */
     public void setTimerTitle(){
 
         // Change title so timer is added
@@ -112,6 +116,10 @@ public class Controller {
 
     }
 
+    /**
+     * <Strong>Set the time on timer</Strong>
+     * @param time is the time, that the timer gets set to
+     */
     public void setTimeOnTimer(Time time){
         TimerSingleton.getInstance().setTime(time);
     }
@@ -120,7 +128,7 @@ public class Controller {
         if (choiceComboBox.getChoicebox().getValue()!=null && !choiceComboBox.getChoicebox().getValue().equals("")){
 
             // Set the consultant & Set the times to the ones chosen
-            ConsultantSingleton.getInstance().setConsultantNewTimes(
+            ConsultantSingleton.getInstance().setConsultant(
                     InformationContainerSingleton.getInstance().getConsultant(choiceComboBox.getChoicebox().getValue().toString()),
                     taskTime,
                     breakTime,
@@ -139,6 +147,10 @@ public class Controller {
         }
     }
 
+    /**
+     * <Strong>Play or pause the timer, depending on the button state</Strong>
+     * @param customButtonControls is the play/pause button
+     */
     public void playOrPause(CustomButtonControls customButtonControls){
         if (customButtonControls.getStyleClass().contains("custom-controls-button-play")){
             TimerSingleton.getInstance().startTimer();
@@ -147,16 +159,22 @@ public class Controller {
         }
     }
 
+    /**
+     * <Strong>Resets the timer</Strong>
+     */
     public void stop(){
         TimerSingleton.getInstance().resetTimer();
     }
 
+    /**
+     * <Strong>Skips the timers current state and goes to the next one</Strong>
+     */
     public void skip(){
         TimerSingleton.getInstance().skipTimer();
     }
 
     /**
-     *
+     * <Strong>Changes the sound boolean in the timersingleton to the  of what it is</Strong>
      */
     public void soundOnOff(){
         if (TimerSingleton.getInstance().isSound()){
@@ -170,6 +188,10 @@ public class Controller {
 
     //region [DB]
 
+    /**
+     * <Strong>Update a task</Strong>
+     * @param task is the task to be updated
+     */
     public void updateTaskDB(Task task){
         DBSingleton.getInstance().updateTask(task);
         InformationContainerSingleton.getInstance().updateTasks();
@@ -179,18 +201,29 @@ public class Controller {
 
     //region [InformationContainer]
 
+    /**
+     * <Strong>Add to the amount of active pomodoros int</Strong>
+     * @param amount is the amount to be added
+     */
     public void addActivePomodoro(int amount){
         InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(
                 InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()+amount
         );
     }
 
+    /**
+     * <Strong>Remove from the active </Strong>
+     * @param amount
+     */
     public void removeActivePomodoro(int amount){
         InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(
                 InformationContainerSingleton.getInstance().getAmountOfActivePomodoros()-amount
         );
     }
 
+    /**
+     * <Strong>Sets the amount of active pomodoros to 0</Strong>
+     */
     public void clearActivePomodoro(){
         InformationContainerSingleton.getInstance().setAmountOfActivePomodoros(0);
     }
@@ -199,12 +232,20 @@ public class Controller {
 
     //region [Buttons]
 
+    /**
+     * <Strong>Adds 1 to the headline, used to set the pomodoro amount on the taskline</Strong>
+     * @param headline is the targetet headline, which contains the label with the pomodoroamount
+     */
     public void addToCounter(Headline headline){
 
         headline.getLabel().setText(""+(Integer.parseInt(headline.getLabel().getText())+1));
 
     }
 
+    /**
+     * <Strong>Removes 1 from the headline, used to set the pomodoro amount on the taskline</Strong>
+     * @param headline is the targetet headline, which contains the label with the pomodoroamount
+     */
     public void subtractToCounter(Headline headline){
 
         if (!headline.getLabel().getText().equals("1")){
@@ -213,10 +254,18 @@ public class Controller {
 
     }
 
+    /**
+     * <Strong>Adds a taskline to the informationcontainers dotoday arraylist</Strong>
+     * @param taskline is the taskline to be added
+     */
     public void newTasklineInDoToday(Taskline taskline){
         InformationContainerSingleton.getInstance().newTasklineInDoToday(taskline);
     }
 
+    /**
+     * <Strong>Removes a taskline from the informationcontainers dotoday arraylist</Strong>
+     * @param taskline is the taskline to be removed
+     */
     public void removeTasklineInDoToday(Taskline taskline){
         InformationContainerSingleton.getInstance().removeTasklineInDoToday(taskline);
     }
@@ -226,8 +275,8 @@ public class Controller {
     //region [Buttons Selected/Hover]
 
     /**
-     *
-     * @param choiceComboBox
+     * <Strong>Makes the node use custom css for focused</Strong>
+     * @param choiceComboBox is the node
      */
     public void setSelected(ChoiceComboBox choiceComboBox, boolean focused){
         // Make this object use the custom css styling
@@ -239,8 +288,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param choiceTextField
+     * <Strong>Makes the node use custom css for focused</Strong>
+     * @param choiceTextField is the node
      */
     public void setSelected(ChoiceTextField choiceTextField, boolean focused){
         // Make this object use the custom css styling
@@ -252,8 +301,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param customButton
+     * <Strong>Makes the node use custom css for focused</Strong>
+     * @param customButton is the node
      */
     public void setSelected(CustomButton customButton, boolean focused){
         // Make this object use the custom css styling
@@ -273,8 +322,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param customButtonOther
+     * <Strong>Makes the node use custom css for focused</Strong>
+     * @param customButtonOther is the node
      */
     public void setSelected(CustomButtonOther customButtonOther, boolean focused){
         // Make this object use the custom css styling
@@ -286,8 +335,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param choiceComboBox
+     * <Strong>Makes the node use custom css for hovered</Strong>
+     * @param choiceComboBox is the node
      */
     public void setHovered(ChoiceComboBox choiceComboBox, boolean hovered){
         // Make this object use the custom css styling
@@ -299,8 +348,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param choiceTextField
+     * <Strong>Makes the node use custom css for hovered</Strong>
+     * @param choiceTextField is the node
      */
     public void setHovered(ChoiceTextField choiceTextField, boolean hovered){
         // Make this object use the custom css styling
@@ -312,8 +361,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param customButton
+     * <Strong>Makes the node use custom css for hovered</Strong>
+     * @param customButton is the node
      */
     public void setHovered(CustomButton customButton, boolean hovered){
         // Make this object use the custom css styling
@@ -333,8 +382,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param customButtonOther
+     * <Strong>Makes the node use custom css for hovered</Strong>
+     * @param customButtonOther is the node
      */
     public void setHovered(CustomButtonOther customButtonOther, boolean hovered){
         // Make this object use the custom css styling
@@ -346,8 +395,8 @@ public class Controller {
     }
 
     /**
-     *
-     * @param customButtonControls
+     * <Strong>Makes the node use custom css for hovered</Strong>
+     * @param customButtonControls is the node
      */
     public void setHovered(CustomButtonControls customButtonControls, boolean hovered){
         // Make this object use the custom css styling

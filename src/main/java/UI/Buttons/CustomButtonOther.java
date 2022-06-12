@@ -2,11 +2,24 @@ package UI.Buttons;
 
 import Application.Singleton.ControllerSingleton;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class CustomButtonOther extends CustomButton {
+
+    //region [Constructor]
 
     protected CustomButtonOther(){}
 
-    public CustomButtonOther Add(){
+    //endregion
+
+    //region [Buttons]
+
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther add(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -23,7 +36,11 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButtonOther Minus(){
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther minus(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -40,7 +57,11 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButtonOther Edit(){
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther edit(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -57,7 +78,11 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButtonOther Accept(){
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther accept(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -74,7 +99,11 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButtonOther Delete(){
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther delete(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -91,7 +120,11 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButtonOther Forward(){
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther forward(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -108,7 +141,11 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-    public CustomButtonOther Back(){
+    /**
+     * <Strong>Use the PlayAndPause button setup</Strong>
+     * @return the button
+     */
+    public CustomButtonOther back(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-other-button");
         // Set the selection function
@@ -125,6 +162,6 @@ public class CustomButtonOther extends CustomButton {
         return this;
     }
 
-
+    //endregion
 
 }

@@ -2,6 +2,9 @@ package Foundation.Singletons;
 
 import Foundation.DB;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class DBSingleton {
 
     private static DB instance;
@@ -10,7 +13,7 @@ public class DBSingleton {
     private DBSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static DB getInstance(){

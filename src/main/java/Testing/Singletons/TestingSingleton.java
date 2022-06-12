@@ -2,6 +2,9 @@ package Testing.Singletons;
 
 import Testing.Testing;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class TestingSingleton {
 
     private static Testing instance;
@@ -10,7 +13,7 @@ public class TestingSingleton {
     private TestingSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static Testing getInstance(){

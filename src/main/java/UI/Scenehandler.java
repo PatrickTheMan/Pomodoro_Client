@@ -29,6 +29,9 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class Scenehandler {
 
     private String sceneTitle;
@@ -221,9 +224,9 @@ public class Scenehandler {
         });
 
         // Add the buttons
-        CustomButton buttonStop = new CustomButton().Controls().Stop();
-        CustomButton buttonPausePlay = new CustomButton().Controls().PlayAndPause();
-        CustomButton buttonSkip = new CustomButton().Controls().Skip();
+        CustomButton buttonStop = new CustomButton().controls().stop();
+        CustomButton buttonPausePlay = new CustomButton().controls().playAndPause();
+        CustomButton buttonSkip = new CustomButton().controls().skip();
 
         // Add seperator
         Separator separator = new Separator();
@@ -314,9 +317,9 @@ public class Scenehandler {
 
         // Add the 3 buttons to the arraylist containing the different buttons
         ArrayList<CustomButton> customButtons = new ArrayList<>();
-        customButtons.add(new CustomButton().Menu().Home());
-        customButtons.add(new CustomButton().Menu().Overview());
-        customButtons.add(new CustomButton().Menu().DoToday());
+        customButtons.add(new CustomButton().menu().home());
+        customButtons.add(new CustomButton().menu().overview());
+        customButtons.add(new CustomButton().menu().doToday());
 
         // Create the buttonpart of the menubar with the given arraylist of buttons
         CustomMenuBar customMenuBar = new CustomMenuBar(customButtons);

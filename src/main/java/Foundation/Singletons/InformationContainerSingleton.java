@@ -2,6 +2,9 @@ package Foundation.Singletons;
 
 import Foundation.InformationContainer;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class InformationContainerSingleton {
 
     private static InformationContainer instance;
@@ -10,7 +13,7 @@ public class InformationContainerSingleton {
     private InformationContainerSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static InformationContainer getInstance(){

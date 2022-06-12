@@ -56,11 +56,6 @@ public class Projectline extends HBox {
         // Set alignment
         this.setAlignment(Pos.CENTER);
 
-        // Some width property functionality
-        this.widthProperty().addListener((obs,old,newVal) -> {
-
-        });
-
         //
         this.projectNameHeadline = new Headline((this.project!=null ? this.project.getName() : ""));
         this.projectNameHeadline.getLabel().setStyle("-fx-font-size: 25");
@@ -74,12 +69,12 @@ public class Projectline extends HBox {
         //
         CustomButton buttonSaveEdit;
         if (this.projectNameHeadline.getLabel().getText().equals("")){
-            buttonSaveEdit = new CustomButton().Other().Back();
+            buttonSaveEdit = new CustomButton().other().back();
             buttonSaveEdit.setOnAction(e -> {
                 InformationContainerSingleton.getInstance().getProjectsToList();
             });
         } else {
-            buttonSaveEdit = new CustomButton().Other().Forward();
+            buttonSaveEdit = new CustomButton().other().forward();
             buttonSaveEdit.setOnAction(e -> {
                 InformationContainerSingleton.getInstance().getTasksFromProjectToList(InformationContainerSingleton.getInstance().getProject(
                                 this.projectNameHeadline.getLabel().getText()

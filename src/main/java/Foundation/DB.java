@@ -9,13 +9,21 @@ import Foundation.Singletons.DBConnectionSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 
 import java.sql.*;
-import java.time.Instant;
 import java.util.ArrayList;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class DB {
 
     //region [PomodoroTimes&&WorkDay]
 
+    /**
+     * <Strong>Add a pomodoro</Strong>
+     * @param workDay is the workday to add to
+     * @param consultant is the consultant to use
+     * @param pomodoroNum is the pomodoros number (every 4th pomodoro uses long break time instead of break time)
+     */
     public void addPomodoro(WorkDay workDay, Consultant consultant, int pomodoroNum) {
 
         int extraHours=0;
@@ -59,14 +67,7 @@ public class DB {
                 )
         );
 
-
-
-        System.out.println(Date.from(Instant.now()));
-        System.out.println(endDateTime);
-
-
         try {
-            //
 
             // Makes a prepared statement with the information and the stored procedure
             PreparedStatement ps = DBConnectionSingleton.getInstance().getConnection().prepareStatement("exec [dbo].[addPomodoro]"+
@@ -91,9 +92,11 @@ public class DB {
 
     }
 
+    /**
+     * <Strong>Clears the pomodoros</Strong>
+     * @param workDay the workday the pomodoros are associated with
+     */
     public void clearPomodoros(WorkDay workDay){
-
-        System.out.println("clear pomodoros");
 
         try {
             // Makes a prepared statement with the information and the stored procedure
@@ -108,9 +111,13 @@ public class DB {
 
     }
 
+    /**
+     * <Strong>Updates the workday</Strong>
+     * @param consultant is the consultant which has the workday
+     * @param amountOfPomodoros is the amount of pomodoros the workday has
+     * @param workDayStart is the start of the workday
+     */
     public void updateWorkDay(Consultant consultant, int amountOfPomodoros, Timestamp workDayStart) {
-
-        System.out.println("update work day");
 
         int extraHours=0;
         int extraMinutes=0;
@@ -135,11 +142,6 @@ public class DB {
         endDateTime.setHours(workDayStart.getHours()+extraHours);
         endDateTime.setMinutes(workDayStart.getMinutes()+extraMinutes);
         endDateTime.setSeconds(workDayStart.getSeconds()+extraSeconds);
-
-        System.out.println(Date.from(Instant.now()));
-        System.out.println(endDateTime);
-
-
 
         try {
 
@@ -178,6 +180,11 @@ public class DB {
 
     }
 
+    /**
+     * <Strong>Gets the workday</Strong>
+     * @param email is the email from the consultant
+     * @return the newest workday from the consultant
+     */
     public WorkDay getWorkDay(String email){
 
         WorkDay workDay = null;
@@ -206,15 +213,13 @@ public class DB {
         return workDay;
     }
 
-
-
     //endregion
 
     //region [Tasks]
 
     /**
-     *
-     * @return
+     * <Strong>Gets the tasks</Strong>
+     * @return an arraylist of task
      */
     public ArrayList<Task> getTasks(){
 
@@ -250,8 +255,8 @@ public class DB {
     }
 
     /**
-     *
-     * @param task
+     * <Strong>Updates a task</Strong>
+     * @param task is the task to be updated
      */
     public void updateTask(Task task){
 
@@ -280,8 +285,8 @@ public class DB {
     //region [Projects]
 
     /**
-     *
-     * @return
+     * <Strong>Gets the projects</Strong>
+     * @return an arraylist of projects
      */
     public ArrayList<Project> getProjects(){
 
@@ -317,8 +322,8 @@ public class DB {
     //region [Consultants]
 
     /**
-     *
-     * @return
+     * <Strong>Gets the consultants</Strong>
+     * @return an arraylist with the consultants
      */
     public ArrayList<Consultant> getConsultants(){
 
@@ -356,8 +361,8 @@ public class DB {
     }
 
     /**
-     *
-     * @param consultant
+     * <Strong>Updates the consultant chosen</Strong>
+     * @param consultant is the consultant chosen
      */
     public void updateConsultant(Consultant consultant){
 
@@ -383,12 +388,6 @@ public class DB {
     }
 
 
-    //
-
-
-
-
-
-
+    //endregion
 
 }

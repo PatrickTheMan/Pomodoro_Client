@@ -68,12 +68,12 @@ public class PomodoroTimerWindow extends CustomWindow {
         buttonContainer.setAlignment(Pos.TOP_RIGHT);
 
         // Add popout button
-        CustomButton buttonPopout = new CustomButton().Controls().Popout();
+        CustomButton buttonPopout = new CustomButton().controls().popout();
         // Styling of button
         buttonPopout.setStyle("-fx-border-color: transparent; -fx-background-color: transparent");
 
         // Add sound button
-        CustomButton buttonSound = new CustomButton().Controls().Sound();
+        CustomButton buttonSound = new CustomButton().controls().sound();
         // Styling of button
         buttonPopout.setStyle("-fx-border-color: transparent; -fx-background-color: transparent");
 
@@ -87,9 +87,9 @@ public class PomodoroTimerWindow extends CustomWindow {
 
 
         // Add the buttons
-        CustomButton buttonStop = new CustomButton().Controls().Stop();
-        CustomButton buttonPausePlay = new CustomButton().Controls().PlayAndPause();
-        CustomButton buttonSkip = new CustomButton().Controls().Skip();
+        CustomButton buttonStop = new CustomButton().controls().stop();
+        CustomButton buttonPausePlay = new CustomButton().controls().playAndPause();
+        CustomButton buttonSkip = new CustomButton().controls().skip();
 
         // Add the button to a bar
         ArrayList<Node> nodes = new ArrayList<>();

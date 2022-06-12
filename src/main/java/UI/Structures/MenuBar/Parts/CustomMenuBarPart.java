@@ -6,9 +6,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class CustomMenuBarPart extends StackPane{
 
+    //region [Variables]
+
     private static final Duration ANIMATION_SPEED = Duration.seconds(0.1);
+
+    //endregion
+
+    //region [Constructor]
 
     public CustomMenuBarPart(CustomButton customMenuButton){
 
@@ -59,5 +68,7 @@ public class CustomMenuBarPart extends StackPane{
         });
 
     }
+
+    //endregion
 
 }

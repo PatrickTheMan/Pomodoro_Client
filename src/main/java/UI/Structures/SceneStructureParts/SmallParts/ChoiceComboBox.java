@@ -2,7 +2,6 @@ package UI.Structures.SceneStructureParts.SmallParts;
 
 import Application.Singleton.ControllerSingleton;
 import UI.Enums.MyPos;
-import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
@@ -14,12 +13,18 @@ import java.util.ArrayList;
 /**
  * A simple choice line with a combobox
  * @author Patrick G. Schemel
- * @version 1.0
+ * @version 0.1
  */
 public class ChoiceComboBox extends HBox {
 
+    //region [Variables]
+
     private Label textLabel;
     private ComboBox comboBox;
+
+    //endregion
+
+    //region [Normal Getters & Setters]
 
     public Label getTextLabel() {
         return textLabel;
@@ -29,10 +34,10 @@ public class ChoiceComboBox extends HBox {
         return comboBox;
     }
 
-    /**
-     *
-     * @param text
-     * */
+    //endregion
+
+    //region [Constructor]
+
     public ChoiceComboBox(String text){
 
         // Make this object use the custom css styling
@@ -66,6 +71,14 @@ public class ChoiceComboBox extends HBox {
 
     }
 
+    //endregion
+
+    //region [Option Methods]
+
+    /**
+     * <Strong>Change the shape of the choiceComboBox</Strong>
+     * @param shape is the shape chosen from MyShape
+     */
     public void setShape(MyShape shape){
         switch (shape){
             case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
@@ -74,6 +87,10 @@ public class ChoiceComboBox extends HBox {
         }
     }
 
+    /**
+     * <Strong>Set the content of the combobox in the choiceComboBox</Strong>
+     * @param choices is the choices available in the combobox
+     */
     public void setContent(ArrayList<String> choices){
         // Clear
         this.comboBox.getItems().clear();
@@ -83,6 +100,10 @@ public class ChoiceComboBox extends HBox {
         }
     }
 
+    /**
+     * <Strong>Set the alignment of the choiceComboBox</Strong>
+     * @param pos is the position alignment chosen from MyPos
+     */
     public void setPos(MyPos pos){
         switch (pos){
             case LEFT ->
@@ -97,25 +118,27 @@ public class ChoiceComboBox extends HBox {
         }
     }
 
+    /**
+     * <Strong>Change write-ability of the combobox</Strong>
+     * @param writeable is wether or not it is writeable
+     */
     public void setWriteable(boolean writeable){
         comboBox.setEditable(writeable);
         comboBox.getStyleClass().add("choice-combobox-combobox-writable");
     }
 
+    /**
+     * <Strong>Makes the borders transparent</Strong>
+     */
     public void removeBorder(){
         // Make this object have nonvisible borders
-        this.setStyle("-fx-border-color: -fx-color2");
+        this.setStyle("-fx-border-color: transparent");
     }
 
-    public void setScaling(int width, int height){
-        // Set the preferred label size
-        textLabel.setMinWidth(width/3);
-        textLabel.setMinHeight(height/3);
-
-        // Set the preferred size of the textfield to be max length
-        comboBox.setMinWidth(width/3*2);
-    }
-
+    /**
+     * <Strong>Activate scaling on the choiceComboBox</Strong>
+     * @param labelRemoval is wether or not to remove the label, when the choiceComboBox gets to small for it to be shown
+     */
     public void setScaling(boolean labelRemoval){
 
         if (labelRemoval){
@@ -156,6 +179,8 @@ public class ChoiceComboBox extends HBox {
             comboBox.prefWidthProperty().bind(this.widthProperty());
         }
     }
+
+    //endregion
 
 }
 

@@ -2,6 +2,9 @@ package Foundation.Singletons;
 
 import Foundation.DBConnection;
 
+/**
+ * @author Patrick G. Schemel
+ */
 public class DBConnectionSingleton {
 
     private static DBConnection instance;
@@ -10,7 +13,7 @@ public class DBConnectionSingleton {
     private DBConnectionSingleton(){}
 
     /**
-     * Gets the instance, it is synchronized because in teori it can be used by multiple threads
+     * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
     public synchronized static DBConnection getInstance(){
