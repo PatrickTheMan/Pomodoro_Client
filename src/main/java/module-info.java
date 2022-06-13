@@ -8,4 +8,8 @@ module Application {
 
     opens Application to javafx.fxml;
     exports Application;
+    exports Testing;
+    exports Domain;
+    exports Foundation;
+    exports UI;
 }
