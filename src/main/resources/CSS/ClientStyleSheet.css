@@ -19,21 +19,21 @@
 
 
     /* The coloration used in the program */
-    -fx-color1: -fx-colorBlueFade;
-    -fx-color2: -fx-colorWhite;
-    -fx-color3: -fx-colorGrey;
-    -fx-color4: -fx-colorWhite;
-    -fx-color5: -fx-colorGreyLight;
-    -fx-color6: -fx-colorRed;
+    -mainBlueColor: -fx-colorBlueFade;
+    -backGroundColor: -fx-colorWhite;
+    -windowBackgroundColor: -fx-colorGrey;
+    -secondaryBackgroundColor: -fx-colorWhite;
+    -hoveredColor: -fx-colorGreyLight;
+    -secondaryMainColor: -fx-colorRed;
 
-    -fx-colorb3: -fx-color3;
-    -fx-colorb4: -fx-color4;
+    -mainBorderColor: -windowBackgroundColor;
+    -backgroundBorder: -secondaryBackgroundColor;
 }
 
 .scroll-pane
 {
-    -fx-background-color: -fx-color2;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -backGroundColor;
+    -fx-border-color: -mainBorderColor;
 
     /*-fx-border-radius: 5 0 0 0;*/
 
@@ -42,10 +42,10 @@
 }
 .scroll-pane > .viewport
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -backGroundColor;
 }
 .combo-box > .text-field {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -secondaryBackgroundColor;
     -fx-background-radius: 10;
 }
 /*
@@ -53,33 +53,33 @@
  */
 .custom-button
 {
-    -fx-background-color: -fx-color1;
+    -fx-background-color: -mainBlueColor;
     -fx-background-radius: 10;
 }
 .custom-button-hovered
 {
-    -fx-background-color: -fx-color5;
+    -fx-background-color: -hoveredColor;
 }
 .custom-button-focused
 {
-    -fx-background-color: -fx-color3;
+    -fx-background-color: -windowBackgroundColor;
 }
 .custom-button-text
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -backGroundColor;
     -fx-background-radius: 10;
-    -fx-border-color: -fx-color2;
+    -fx-border-color: -backGroundColor;
     -fx-border-radius: 10;
     -fx-font-size: 15;
     -fx-padding: 5 10 5 10;
 }
 .custom-button-text-hovered
 {
-    -fx-border-color: -fx-colorb3;
+    -fx-border-color: -mainBorderColor;
 }
 .custom-button-text-focused
 {
-    -fx-border-color: -fx-colorb3;
+    -fx-border-color: -mainBorderColor;
 }
 
 
@@ -133,17 +133,17 @@
 
 .custom-other-button
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -secondaryBackgroundColor;
     -fx-padding: 10 20 10 20;
     -fx-border-radius: 10;
 }
 .custom-other-button-hovered
 {
-    /*-fx-background-color: -fx-color5;*/
+    /*-fx-background-color: -hoveredColor;*/
 }
 .custom-other-button-focused
 {
-    /*-fx-background-color: -fx-color3;*/
+    /*-fx-background-color: -windowBackgroundColor;*/
 }
 .custom-other-button-edit
 {
@@ -276,17 +276,17 @@
 
 .custom-controls-button
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -secondaryBackgroundColor;
     -fx-padding: 10 20 10 20;
     -fx-border-radius: 10;
 }
 .custom-controls-button-hovered
 {
-    /*-fx-background-color: -fx-color5;*/
+    /*-fx-background-color: -hoveredColor;*/
 }
 .custom-controls-button-focused
 {
-    /*-fx-background-color: -fx-color3;*/
+    /*-fx-background-color: -windowBackgroundColor;*/
 }
 .custom-controls-button-pause
 {
@@ -438,25 +438,25 @@
  */
 .choice-textfield
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 .choice-textfield-hovered
 {
-    -fx-background-color: -fx-color5;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -hoveredColor;
+    -fx-border-color: -mainBorderColor;
 }
 .choice-textfield-focused
 {
-    -fx-background-color: -fx-color3;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -windowBackgroundColor;
+    -fx-border-color: -mainBorderColor;
 }
 .choice-textfield-error
 {
-    -fx-background-color: -fx-color6;
+    -fx-background-color: -secondaryMainColor;
 }
 .choice-textfield-label
 {
@@ -464,8 +464,8 @@
 }
 .choice-textfield-textfield
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
@@ -476,16 +476,16 @@
 
 .choice-combobox
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 .choice-combobox .list-view
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
@@ -493,15 +493,15 @@
 }
 .choice-combobox .list-view .list-cell:hover
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-text-fill: Black;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 .choice-combobox .list-view .list-cell:focused
 {
-    -fx-background-color: -fx-color6;
+    -fx-background-color: -secondaryMainColor;
     -fx-text-fill: Black;
     -fx-font-weight: bold;
     -fx-background-radius: 10;
@@ -509,17 +509,17 @@
 }
 .choice-combobox-hovered
 {
-    -fx-background-color: -fx-color5;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -hoveredColor;
+    -fx-border-color: -mainBorderColor;
 }
 .choice-combobox-focused
 {
-    -fx-background-color: -fx-color3;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -windowBackgroundColor;
+    -fx-border-color: -mainBorderColor;
 }
 .choice-combobox-error
 {
-    -fx-background-color: -fx-color6;
+    -fx-background-color: -secondaryMainColor;
 }
 .choice-combobox-label
 {
@@ -527,10 +527,12 @@
 }
 .choice-combobox-combobox
 {
-    -fx-background-color: -fx-color2;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -backGroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
 }
 .choice-combobox-combobox:disabled, .choice-combobox-combobox:disabled > *
 {
@@ -538,9 +540,9 @@
 }
 .choice-combobox-combobox-writable > .arrow-button
 {
-    -fx-background-color: -fx-color6;
+    -fx-background-color: -secondaryMainColor;
     -fx-background-radius: 0 10 10 0;
-    -fx-border-color: -fx-color6;
+    -fx-border-color: -secondaryMainColor;
     -fx-border-radius: 0 10 10 0;
 }
 /*
@@ -551,14 +553,14 @@
  */
 .headline
 {
-    -fx-background-color: -fx-color4;
+    -fx-background-color: -secondaryBackgroundColor;
     -fx-padding: 10 10 0 10;
 }
 
 .headline-halfround
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-padding: 0;
 }
 .headline-label
@@ -572,8 +574,8 @@
 
 .headline-timerandstatus
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
@@ -587,8 +589,8 @@
 
 .textfield-sizing
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
@@ -601,15 +603,15 @@
  */
 .custom-menu-bar
 {
-    -fx-background-color: -fx-color1;
+    -fx-background-color: -mainBlueColor;
     -fx-max-width: 50;
 }
 .custom-menu-bar-part-pane
 {
-    -fx-background-color: -fx-color1;
+    -fx-background-color: -mainBlueColor;
     -fx-background-radius: 0 5 5 0;
 
-    -fx-border-color: -fx-colorb4;
+    -fx-border-color: -backgroundBorder;
     -fx-border-radius: 0 5 5 0;
 
 }
@@ -627,8 +629,8 @@
 
 .node-bar-h
 {
-    -fx-background-color: -fx-color4;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -secondaryBackgroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-padding: 10 10 10 10;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
@@ -636,11 +638,11 @@
 }
 .node-bar-h-error
 {
-    -fx-background-color: -fx-color6;
+    -fx-background-color: -secondaryMainColor;
 }
 .node-bar-h-node-error
 {
-    -fx-background-color: -fx-color6;
+    -fx-background-color: -secondaryMainColor;
     -fx-border-color: red;
 }
 
@@ -650,16 +652,16 @@
 }
 .node-pages-container
 {
-    -fx-background-color: -fx-color2;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -backGroundColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 10;
     -fx-border-radius: 0;
 }
 
 .taskline
 {
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -mainBlueColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-padding: 10;
@@ -668,8 +670,8 @@
 
 .projectline
 {
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -mainBlueColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-padding: 10;
@@ -689,29 +691,29 @@
 }
 .custom-window
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -backGroundColor;
     -fx-padding: 10 10 10 10;
 }
 .custom-window-settings
 {
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -mainBlueColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 0 0 10 10;
     -fx-border-radius: 0 0 10 10;
     -fx-spacing: 10;
 }
 .custom-window-pomodoro
 {
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -mainBlueColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 0 0 10 10;
     -fx-border-radius: 0 0 10 10;
     -fx-spacing: 10;
 }
 .custom-window-nodepages
 {
-    -fx-background-color: -fx-color1;
-    -fx-border-color: -fx-colorb3;
+    -fx-background-color: -mainBlueColor;
+    -fx-border-color: -mainBorderColor;
     -fx-background-radius: 0 0 10 10;
     -fx-border-radius: 0 0 10 10;
     -fx-spacing: 10;
@@ -727,15 +729,15 @@
  */
 .screen-home
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -backGroundColor;
 }
 .screen-overview
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -backGroundColor;
 }
 .screen-dotoday
 {
-    -fx-background-color: -fx-color2;
+    -fx-background-color: -backGroundColor;
 }
 
 /*
