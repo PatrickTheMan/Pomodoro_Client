@@ -78,7 +78,7 @@ public class UnitTesting {
     }
 
     @Test
-    public void skipButtonMethod(){
+    public void skipButtonToNextTimerType(){
         //Testing a EQ (Equivalense portition)
         System.out.println("Testing if the skip button work, skip from Task to Break");
 
@@ -86,6 +86,20 @@ public class UnitTesting {
 
         String expected = "Brea";
         String actual = TimerSingleton.getInstance().timeTypeProperty().getValue().substring(0,4);
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void skipButtonTimeOffset(){
+        //Testing a EQ (Equivalense portition)
+        System.out.println("Testing if the skip button work, set the offset time. Set time to 24:30 out of 25:00 = 00:30");
+
+        TimerSingleton.getInstance().setTime(Time.valueOf("00:24:30"));
+        TimerSingleton.getInstance().setTaskOffsetTime();
+
+        String expected = "00:00:30";
+        String actual = TimerSingleton.getInstance().getTaskOffsetTime().toString();
 
         assertEquals(expected,actual);
     }
