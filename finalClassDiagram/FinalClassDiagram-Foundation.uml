@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Foundation.Singletons.DBConnectionSingleton</OriginalElement>
+  <nodes>
+    <node x="20.5" y="0.0">Foundation.DBConnection</node>
+    <node x="242.23828125" y="660.0">Foundation.Singletons.ScenehandlerSingleton</node>
+    <node x="7.25" y="352.0">Foundation.DB</node>
+    <node x="86.23828125" y="660.0">Foundation.Singletons.DBSingleton</node>
+    <node x="60.73828125" y="791.0">Foundation.Controller</node>
+    <node x="0.0" y="221.0">Foundation.Singletons.DBConnectionSingleton</node>
+    <node x="141.23828125" y="1604.0">Foundation.Singletons.ControllerSingleton</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Foundation.DB" target="Foundation.DBConnection" relationship="DEPENDENCY">
+      <point x="0.0" y="-128.0" />
+      <point x="162.75" y="326.0" />
+      <point x="220.5" y="326.0" />
+      <point x="220.5" y="195.0" />
+      <point x="169.66666666666666" y="195.0" />
+      <point x="59.66666666666666" y="84.5" />
+    </edge>
+    <edge source="Foundation.Singletons.DBSingleton" target="Foundation.DB" relationship="TO_ONE">
+      <point x="-33.75" y="-39.5" />
+      <point x="119.98828125" y="634.0" />
+      <point x="59.083333333333314" y="634.0" />
+      <point x="-103.66666666666667" y="128.0" />
+    </edge>
+    <edge source="Foundation.Singletons.ControllerSingleton" target="Foundation.Controller" relationship="CREATE">
+      <point x="45.25" y="-39.5" />
+      <point x="276.98828125" y="1579.0" />
+      <point x="317.23828125" y="1579.0" />
+      <point x="85.5" y="381.5" />
+    </edge>
+    <edge source="Foundation.Singletons.DBConnectionSingleton" target="Foundation.DBConnection" relationship="CREATE">
+      <point x="52.5" y="-39.5" />
+      <point x="157.5" y="195.0" />
+      <point x="110.0" y="195.0" />
+      <point x="0.0" y="84.5" />
+    </edge>
+    <edge source="Foundation.Singletons.ControllerSingleton" target="Foundation.Controller" relationship="TO_ONE">
+      <point x="-45.25" y="-39.5" />
+      <point x="186.48828125" y="1579.0" />
+      <point x="146.23828125" y="1579.0" />
+      <point x="-85.5" y="381.5" />
+    </edge>
+    <edge source="Foundation.Controller" target="Foundation.DB" relationship="DEPENDENCY">
+      <point x="0.0" y="-381.5" />
+      <point x="231.73828125" y="634.0" />
+      <point x="266.4166666666667" y="634.0" />
+      <point x="103.66666666666669" y="128.0" />
+    </edge>
+    <edge source="Foundation.Controller" target="Foundation.Singletons.DBSingleton" relationship="DEPENDENCY">
+      <point x="0.0" y="-381.5" />
+      <point x="231.73828125" y="765.0" />
+      <point x="153.73828125" y="765.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Foundation.DB" target="Foundation.Singletons.DBConnectionSingleton" relationship="DEPENDENCY">
+      <point x="0.0" y="-128.0" />
+      <point x="162.75" y="326.0" />
+      <point x="105.0" y="326.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Foundation.Singletons.DBSingleton" target="Foundation.DB" relationship="CREATE">
+      <point x="33.75" y="-39.5" />
+      <point x="187.48828125" y="634.0" />
+      <point x="162.75" y="634.0" />
+      <point x="0.0" y="128.0" />
+    </edge>
+    <edge source="Foundation.Controller" target="Foundation.Singletons.ScenehandlerSingleton" relationship="DEPENDENCY">
+      <point x="0.0" y="-381.5" />
+      <point x="231.73828125" y="765.0" />
+      <point x="344.23828125" y="765.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Foundation.Singletons.DBConnectionSingleton" target="Foundation.DBConnection" relationship="TO_ONE">
+      <point x="-52.5" y="-39.5" />
+      <point x="52.5" y="195.0" />
+      <point x="50.33333333333334" y="195.0" />
+      <point x="-59.666666666666664" y="84.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.46564885496183206" showDependencies="true" x="223.5" y="841.5" />
+  <SelectedNodes>
+    <node>Foundation.Singletons.DBConnectionSingleton</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

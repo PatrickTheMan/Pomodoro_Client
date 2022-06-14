@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Domain.Singletons.InformationContainerSingleton</OriginalElement>
+  <nodes>
+    <node x="644.1998697916667" y="901.0">Domain.WorkDay</node>
+    <node x="252.3281250000001" y="1340.0">Domain.InformationContainer</node>
+    <node x="455.19986979166674" y="912.0">Domain.Project</node>
+    <node x="736.1998697916667" y="0.0">Domain.Consultant</node>
+    <node x="851.1998697916667" y="506.0">Domain.Singletons.ConsultantSingleton</node>
+    <node x="1082.078125" y="506.0">Domain.Singletons.TimerSingleton</node>
+    <node x="346.49999999999994" y="506.0">Domain.Singletons.InformationContainerSingleton</node>
+    <node x="960.1738281250001" y="669.0">Domain.Timer</node>
+    <node x="10.5" y="868.0">Domain.Task</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Domain.Timer" target="Domain.Singletons.InformationContainerSingleton" relationship="DEPENDENCY">
+      <point x="-87.33333333333331" y="-304.5" />
+      <point x="1003.8404947916667" y="647.0" />
+      <point x="1077.0" y="647.0" />
+      <point x="1077.0" y="627.0" />
+      <point x="633.6998697916667" y="627.0" />
+      <point x="633.6998697916667" y="617.0" />
+      <point x="560.6666666666667" y="617.0" />
+      <point x="85.66666666666674" y="39.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Singletons.InformationContainerSingleton" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="633.6998697916667" y="1299.0" />
+      <point x="633.6998697916667" y="617.0" />
+      <point x="560.6666666666667" y="617.0" />
+      <point x="85.66666666666674" y="39.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Consultant" relationship="TO_MANY">
+      <point x="0.0" y="-403.5" />
+      <point x="442.3281250000001" y="1309.0" />
+      <point x="335.99999999999994" y="1309.0" />
+      <point x="335.99999999999994" y="485.0" />
+      <point x="640.4531250000001" y="485.0" />
+      <point x="640.4531250000001" y="475.0" />
+      <point x="807.0332031250001" y="475.0" />
+      <point x="-141.66666666666666" y="227.0" />
+    </edge>
+    <edge source="Domain.Timer" target="Domain.Singletons.TimerSingleton" relationship="DEPENDENCY">
+      <point x="-87.33333333333331" y="-304.5" />
+      <point x="1003.8404947916667" y="647.0" />
+      <point x="1077.0" y="647.0" />
+      <point x="1077.0" y="637.0" />
+      <point x="1158.578125" y="637.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Task" relationship="CREATE">
+      <point x="-126.66666666666674" y="-403.5" />
+      <point x="315.66145833333337" y="1319.0" />
+      <point x="94.04882812500023" y="1319.0" />
+      <point x="94.04882812500023" y="1309.0" />
+      <point x="89.25" y="1309.0" />
+      <point x="-78.75" y="105.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.WorkDay" relationship="TO_ONE">
+      <point x="0.0" y="-403.5" />
+      <point x="442.3281250000001" y="1309.0" />
+      <point x="716.4498697916667" y="1309.0" />
+      <point x="-72.25" y="72.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Consultant" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="1247.328125" y="1299.0" />
+      <point x="1247.328125" y="485.0" />
+      <point x="1142.673828125" y="485.0" />
+      <point x="1142.673828125" y="475.0" />
+      <point x="1090.3665364583335" y="475.0" />
+      <point x="141.66666666666663" y="227.0" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Timer" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="1091.173828125" y="1299.0" />
+      <point x="0.0" y="304.5" />
+    </edge>
+    <edge source="Domain.Timer" target="Domain.InformationContainer" relationship="DEPENDENCY">
+      <point x="0.0" y="304.5" />
+      <point x="1091.173828125" y="1299.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="126.66666666666674" y="-403.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.WorkDay" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="860.9498697916667" y="1299.0" />
+      <point x="72.25" y="72.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Singletons.ConsultantSingleton" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="943.6998697916667" y="1299.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Domain.Singletons.TimerSingleton" target="Domain.Timer" relationship="TO_ONE">
+      <point x="-51.0" y="39.5" />
+      <point x="1107.578125" y="627.0" />
+      <point x="1091.173828125" y="627.0" />
+      <point x="0.0" y="-304.5" />
+    </edge>
+    <edge source="Domain.Singletons.InformationContainerSingleton" target="Domain.InformationContainer" relationship="TO_ONE">
+      <point x="0.0" y="39.5" />
+      <point x="474.99999999999994" y="647.0" />
+      <point x="444.69986979166674" y="647.0" />
+      <point x="444.69986979166674" y="1309.0" />
+      <point x="442.3281250000001" y="1309.0" />
+      <point x="0.0" y="-403.5" />
+    </edge>
+    <edge source="Domain.Singletons.ConsultantSingleton" target="Domain.Consultant" relationship="TO_ONE">
+      <point x="-46.25" y="-39.5" />
+      <point x="897.4498697916667" y="485.0" />
+      <point x="640.4531250000001" y="485.0" />
+      <point x="640.4531250000001" y="475.0" />
+      <point x="807.0332031250001" y="475.0" />
+      <point x="-141.66666666666666" y="227.0" />
+    </edge>
+    <edge source="Domain.Timer" target="Domain.Singletons.ConsultantSingleton" relationship="DEPENDENCY">
+      <point x="-87.33333333333331" y="-304.5" />
+      <point x="1003.8404947916667" y="647.0" />
+      <point x="1077.0" y="647.0" />
+      <point x="1077.0" y="617.0" />
+      <point x="943.6998697916667" y="617.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Task" relationship="TO_MANY">
+      <point x="0.0" y="-403.5" />
+      <point x="442.3281250000001" y="1309.0" />
+      <point x="246.75" y="1309.0" />
+      <point x="78.75" y="105.5" />
+    </edge>
+    <edge source="Domain.Singletons.InformationContainerSingleton" target="Domain.InformationContainer" relationship="CREATE">
+      <point x="-85.66666666666663" y="39.5" />
+      <point x="389.3333333333333" y="647.0" />
+      <point x="0.0" y="647.0" />
+      <point x="0.0" y="1309.0" />
+      <point x="94.04882812500023" y="1309.0" />
+      <point x="94.04882812500023" y="1319.0" />
+      <point x="315.66145833333337" y="1319.0" />
+      <point x="-126.66666666666674" y="-403.5" />
+    </edge>
+    <edge source="Domain.Singletons.ConsultantSingleton" target="Domain.Consultant" relationship="CREATE">
+      <point x="46.25" y="-39.5" />
+      <point x="989.9498697916667" y="485.0" />
+      <point x="948.6998697916667" y="485.0" />
+      <point x="-5.6843418860808015E-14" y="227.0" />
+    </edge>
+    <edge source="Domain.Singletons.TimerSingleton" target="Domain.Timer" relationship="CREATE">
+      <point x="51.0" y="39.5" />
+      <point x="1209.578125" y="647.0" />
+      <point x="1178.5071614583335" y="647.0" />
+      <point x="87.33333333333331" y="-304.5" />
+    </edge>
+    <edge source="Domain.Timer" target="Domain.Consultant" relationship="DEPENDENCY">
+      <point x="-87.33333333333331" y="-304.5" />
+      <point x="1003.8404947916667" y="647.0" />
+      <point x="1077.0" y="647.0" />
+      <point x="1077.0" y="607.0" />
+      <point x="1052.3541666666667" y="607.0" />
+      <point x="1052.3541666666667" y="485.0" />
+      <point x="1142.673828125" y="485.0" />
+      <point x="1142.673828125" y="475.0" />
+      <point x="1090.3665364583335" y="475.0" />
+      <point x="141.66666666666663" y="227.0" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Project" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="581.1998697916667" y="1299.0" />
+      <point x="42.0" y="61.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Singletons.TimerSingleton" relationship="DEPENDENCY">
+      <point x="126.66666666666674" y="-403.5" />
+      <point x="568.9947916666669" y="1319.0" />
+      <point x="941.3281250000001" y="1319.0" />
+      <point x="941.3281250000001" y="1299.0" />
+      <point x="1232.673828125" y="1299.0" />
+      <point x="1232.673828125" y="627.0" />
+      <point x="1158.578125" y="627.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="Domain.InformationContainer" target="Domain.Project" relationship="TO_MANY">
+      <point x="0.0" y="-403.5" />
+      <point x="442.3281250000001" y="1309.0" />
+      <point x="497.19986979166674" y="1309.0" />
+      <point x="-42.0" y="61.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.36594370096908163" showDependencies="true" x="624.0" y="1073.5000000000002" />
+  <SelectedNodes>
+    <node>Domain.Singletons.InformationContainerSingleton</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
