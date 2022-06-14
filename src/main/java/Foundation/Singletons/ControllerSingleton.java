@@ -1,25 +1,25 @@
-package UI.Singletons;
+package Foundation.Singletons;
 
-import UI.Scenehandler;
+import Foundation.Controller;
 
 /**
  * @author Patrick G. Schemel
  */
-public class ScenehandlerSingleton {
+public class ControllerSingleton {
 
-    private static Scenehandler instance;
+    private static Controller instance;
 
     // Private so you can't "new" it
-    private ScenehandlerSingleton(){}
+    private ControllerSingleton(){}
 
     /**
      * <Strong>Gets the instance, it is synchronized because in teori it can be used by multiple threads</Strong>
      * @return the instance
      */
-    public synchronized static Scenehandler getInstance(){
+    public synchronized static Controller getInstance(){
         // Create the instance if it hasn't been initiated
         if (instance==null){
-            instance = new Scenehandler();
+            instance = new Controller();
         }
         // Return the instance
         return instance;

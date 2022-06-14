@@ -1,6 +1,6 @@
 package Domain;
 
-import Application.Singleton.ControllerSingleton;
+import Foundation.Singletons.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Foundation.Singletons.DBSingleton;

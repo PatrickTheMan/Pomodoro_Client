@@ -1,8 +1,6 @@
 package UI.Structures.MenuBar;
 
 import UI.Buttons.CustomButton;
-import UI.Structures.MenuBar.Parts.CustomMenuBarPart;
-import UI.Structures.MenuBar.Parts.CustomMenuSeperator;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;

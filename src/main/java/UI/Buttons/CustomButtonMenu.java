@@ -1,6 +1,6 @@
 package UI.Buttons;
 
-import Application.Singleton.ControllerSingleton;
+import Foundation.Singletons.ControllerSingleton;
 
 /**
  * @author Patrick G. Schemel

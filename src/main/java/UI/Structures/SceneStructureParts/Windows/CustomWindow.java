@@ -1,12 +1,9 @@
-package UI.Structures.SceneStructureParts;
+package UI.Structures.SceneStructureParts.Windows;
 
 import UI.Enums.MyPos;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
-import UI.Structures.SceneStructureParts.Windows.NodePageWindow;
-import UI.Structures.SceneStructureParts.Windows.PomodoroTimerWindow;
-import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 

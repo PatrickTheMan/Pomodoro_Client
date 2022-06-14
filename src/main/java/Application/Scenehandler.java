@@ -1,6 +1,6 @@
-package UI;
+package Application;
 
-import Application.Singleton.ControllerSingleton;
+import Foundation.Singletons.ControllerSingleton;
 import Domain.Project;
 import Domain.Singletons.TimerSingleton;
 import Domain.Singletons.InformationContainerSingleton;
@@ -9,9 +9,9 @@ import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
-import UI.Enums.SceneType;
+import Foundation.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
-import UI.Structures.SceneStructureParts.CustomWindow;
+import UI.Structures.SceneStructureParts.Windows.CustomWindow;
 import UI.Structures.SceneStructureParts.SmallParts.*;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -209,7 +209,7 @@ public class Scenehandler {
         NodeBarH buttonContainer = new NodeBarH(nodesControls);
         buttonContainer.setPos(MyPos.RIGHT);
         // Style the container
-        buttonContainer.setStyle("-fx-spacing: 5; -fx-padding: 0; -fx-border-color: -fx-color2");
+        buttonContainer.setStyle("-fx-spacing: 5; -fx-padding: 0; -fx-border-color: -backGroundColor");
 
         // Add the different timer
         nodes.add(statusLabel);

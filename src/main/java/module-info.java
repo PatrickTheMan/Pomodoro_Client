@@ -11,5 +11,5 @@ module Application {
     exports Testing;
     exports Domain;
     exports Foundation;
-    exports UI;
+    opens Foundation to javafx.fxml;
 }

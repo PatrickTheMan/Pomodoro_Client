@@ -1,4 +1,4 @@
-package Application;
+package Foundation;
 
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;

@@ -1,4 +1,4 @@
-package UI.Structures.MenuBar.Parts;
+package UI.Structures.MenuBar;
 
 import javafx.scene.control.Separator;
 
@@ -9,7 +9,7 @@ public class CustomMenuSeperator extends Separator {
 
     //region [Constructor]
 
-    public CustomMenuSeperator(){
+    protected CustomMenuSeperator(){
         this.getStyleClass().add("custom-menu-seperator");
     }
 

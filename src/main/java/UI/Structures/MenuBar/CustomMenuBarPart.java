@@ -1,4 +1,4 @@
-package UI.Structures.MenuBar.Parts;
+package UI.Structures.MenuBar;
 
 import UI.Buttons.CustomButton;
 import javafx.animation.TranslateTransition;
@@ -19,7 +19,7 @@ public class CustomMenuBarPart extends StackPane{
 
     //region [Constructor]
 
-    public CustomMenuBarPart(CustomButton customMenuButton){
+    protected CustomMenuBarPart(CustomButton customMenuButton){
 
         // Make this object use the custom-menu css styling
         this.getStyleClass().add("custom-menu-bar-part");

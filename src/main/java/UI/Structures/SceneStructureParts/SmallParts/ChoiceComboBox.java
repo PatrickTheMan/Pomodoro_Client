@@ -1,6 +1,6 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
-import Application.Singleton.ControllerSingleton;
+import Foundation.Singletons.ControllerSingleton;
 import UI.Enums.MyPos;
 import UI.Enums.MyShape;
 import javafx.geometry.Pos;

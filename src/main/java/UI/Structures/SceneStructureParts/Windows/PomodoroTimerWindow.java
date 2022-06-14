@@ -4,7 +4,6 @@ import Domain.Singletons.TimerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
 import UI.Enums.MyShape;
-import UI.Structures.SceneStructureParts.CustomWindow;
 import UI.Structures.SceneStructureParts.SmallParts.Headline;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import javafx.geometry.Pos;
@@ -21,7 +20,7 @@ public class PomodoroTimerWindow extends CustomWindow {
 
     //region [Constructor]
 
-    public PomodoroTimerWindow(){
+    protected PomodoroTimerWindow(){
         // Normal setup
         normalSetup();
     }

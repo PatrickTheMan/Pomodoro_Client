@@ -1,7 +1,6 @@
 package UI.Structures.SceneStructureParts.Windows;
 
 import Domain.Singletons.InformationContainerSingleton;
-import UI.Structures.SceneStructureParts.CustomWindow;
 import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import javafx.scene.Node;
 
@@ -14,7 +13,7 @@ public class NodePageWindow extends CustomWindow {
 
     //region [Constructor]
 
-    public NodePageWindow(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
+    protected NodePageWindow(ArrayList<Node> nodes , int nodesPrPage, boolean addNodeButton){
         // Normal setup
         normalSetup(nodes,nodesPrPage,addNodeButton);
         // Set scaling of the window

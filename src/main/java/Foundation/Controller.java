@@ -1,4 +1,4 @@
-package Application;
+package Foundation;
 
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
@@ -9,8 +9,8 @@ import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;
-import UI.Enums.SceneType;
-import UI.Singletons.ScenehandlerSingleton;
+import Foundation.Enums.SceneType;
+import Foundation.Singletons.ScenehandlerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.*;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 

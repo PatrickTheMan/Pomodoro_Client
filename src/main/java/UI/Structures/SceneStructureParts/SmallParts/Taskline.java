@@ -1,6 +1,6 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
-import Application.Singleton.ControllerSingleton;
+import Foundation.Singletons.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;

@@ -1,6 +1,6 @@
 package UI.Structures.SceneStructureParts.Windows;
 
-import Application.Singleton.ControllerSingleton;
+import Foundation.Singletons.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
@@ -9,7 +9,6 @@ import UI.Buttons.CustomButton;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceTextField;
-import UI.Structures.SceneStructureParts.CustomWindow;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class SettingsWindow extends CustomWindow {
 
     //region [Constructor]
 
-    public SettingsWindow(){
+    protected SettingsWindow(){
         // Normal setup
         normalSetup();
     }
