@@ -39,14 +39,11 @@ public class UpdateInformationThread implements Runnable {
                     for (Consultant c: InformationContainerSingleton.getInstance().getConsultants()) {
 
                         if (c.getEmail().equals(ConsultantSingleton.getInstance().getEmail())){
-                            System.out.println("Consultant still exists");
                             foundConsultant = true;
                         }
 
                     }
                     if (!foundConsultant){
-                        System.out.println("Consultant has been removed");
-                        System.out.println("TERMINATE CLIENT");
                         /*
                         If you would like to close the client,
                         when a counsultant has been removed while a client is running with said consultant,
@@ -62,14 +59,11 @@ public class UpdateInformationThread implements Runnable {
                     for (Task t:InformationContainerSingleton.getInstance().getTasks()) {
 
                         if (((Taskline) n).getTaskID() != -1 && t.getId() == ((Taskline) n).getTaskID()) {
-                            System.out.println("Task exists");
                             foundTask=true;
                         }
 
                     }
                     if (!foundTask){
-                        System.out.println("Task dont exist any more");
-                        System.out.println("TERMINATE TASK");
                         /*
                         If you would like to remove tasks that don't exists anymore,
                         then you could had put the code here

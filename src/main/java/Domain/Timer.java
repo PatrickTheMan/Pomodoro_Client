@@ -388,4 +388,48 @@ public class Timer {
 
     //endregion
 
+    //region [Test Methods]
+
+    /**
+     * <Strong>Testing the skip function</Strong>
+     */
+    public void skipTimerTest(){
+        // Change timer type
+        if (Objects.equals(timeTypeProperty.getValue().substring(0,4), "Task")){
+            if (this.cycle==4){
+                this.timeTypeProperty.setValue("Long Break");
+                setTime((ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getLongBreakTime() :
+                        this.standardLongBreakTime)
+                );
+            } else {
+                this.timeTypeProperty.setValue("Break");
+                setTime((ConsultantSingleton.getInstance().exists() ?
+                        ConsultantSingleton.getInstance().getBreakTime() :
+                        this.standardBreakTime)
+                );
+            }
+        } else {
+
+            if (this.cycle==4){
+                this.cycle=1;
+            } else {
+                this.cycle++;
+            }
+
+            // Set the timertype to task + the task name
+            setTimerTypeTaskWithTaskName();
+
+            setTime((ConsultantSingleton.getInstance().exists() ?
+                    ConsultantSingleton.getInstance().getTaskTime() :
+                    this.standardTaskTime)
+            );
+        }
+
+        // Change the property
+        this.timeProperty.set(this.time.toString());
+    }
+
+    //endregion
+
 }
