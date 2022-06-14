@@ -32,13 +32,13 @@ public class DB {
 
         for (int i = 1; i <= pomodoroNum; i++) {
             if (i==4){
-                extraHours += (consultant.getTaskTime().getHours()+consultant.getLongBreakTime().getHours());
-                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getLongBreakTime().getMinutes());
-                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getLongBreakTime().getSeconds());
+                extraHours += (consultant.getWorkTime().getHours()+consultant.getLongBreakTime().getHours());
+                extraMinutes += (consultant.getWorkTime().getMinutes()+consultant.getLongBreakTime().getMinutes());
+                extraSeconds += (consultant.getWorkTime().getSeconds()+consultant.getLongBreakTime().getSeconds());
             } else {
-                extraHours += (consultant.getTaskTime().getHours()+consultant.getBreakTime().getHours());
-                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getBreakTime().getMinutes());
-                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getBreakTime().getSeconds());
+                extraHours += (consultant.getWorkTime().getHours()+consultant.getBreakTime().getHours());
+                extraMinutes += (consultant.getWorkTime().getMinutes()+consultant.getBreakTime().getMinutes());
+                extraSeconds += (consultant.getWorkTime().getSeconds()+consultant.getBreakTime().getSeconds());
             }
         }
 
@@ -54,15 +54,15 @@ public class DB {
         startDateTime.setYear(workDay.getStartDateTime().getYear());
         startDateTime.setMonth(workDay.getStartDateTime().getMonth());
         startDateTime.setDate(workDay.getStartDateTime().getDate());
-        startDateTime.setHours(workDay.getStartDateTime().getHours()+extraHours-consultant.getTaskTime().getHours()-(pomodoroNum%4==0 ?
+        startDateTime.setHours(workDay.getStartDateTime().getHours()+extraHours-consultant.getWorkTime().getHours()-(pomodoroNum%4==0 ?
                 consultant.getLongBreakTime().getHours() : consultant.getBreakTime().getHours()
                 )
         );
-        startDateTime.setMinutes(workDay.getStartDateTime().getMinutes()+extraMinutes-consultant.getTaskTime().getMinutes()-(pomodoroNum%4==0 ?
+        startDateTime.setMinutes(workDay.getStartDateTime().getMinutes()+extraMinutes-consultant.getWorkTime().getMinutes()-(pomodoroNum%4==0 ?
                 consultant.getLongBreakTime().getMinutes() : consultant.getBreakTime().getMinutes()
                 )
         );
-        startDateTime.setSeconds(workDay.getStartDateTime().getSeconds()+extraSeconds-consultant.getTaskTime().getSeconds()-(pomodoroNum%4==0 ?
+        startDateTime.setSeconds(workDay.getStartDateTime().getSeconds()+extraSeconds-consultant.getWorkTime().getSeconds()-(pomodoroNum%4==0 ?
                 consultant.getLongBreakTime().getSeconds() : consultant.getBreakTime().getSeconds()
                 )
         );
@@ -74,7 +74,7 @@ public class DB {
                     "@FldWorkday = "+ workDay.getId()+","+
                     "@FldStart = '"+ startDateTime + "'," +
                     "@FldEnd = '"+ endDateTime + "'," +
-                    "@FldWorkTime = '"+ consultant.getTaskTime() + "',"+
+                    "@FldWorkTime = '"+ consultant.getWorkTime() + "',"+
                     "@FldBreaKTime = '"+ (pomodoroNum%4==0 ?
                     consultant.getLongBreakTime() : consultant.getBreakTime()
                     ) + "';"
@@ -125,13 +125,13 @@ public class DB {
 
         for (int i = 1; i <= amountOfPomodoros; i++) {
             if (i==4){
-                extraHours += (consultant.getTaskTime().getHours()+consultant.getLongBreakTime().getHours());
-                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getLongBreakTime().getMinutes());
-                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getLongBreakTime().getSeconds());
+                extraHours += (consultant.getWorkTime().getHours()+consultant.getLongBreakTime().getHours());
+                extraMinutes += (consultant.getWorkTime().getMinutes()+consultant.getLongBreakTime().getMinutes());
+                extraSeconds += (consultant.getWorkTime().getSeconds()+consultant.getLongBreakTime().getSeconds());
             } else {
-                extraHours += (consultant.getTaskTime().getHours()+consultant.getBreakTime().getHours());
-                extraMinutes += (consultant.getTaskTime().getMinutes()+consultant.getBreakTime().getMinutes());
-                extraSeconds += (consultant.getTaskTime().getSeconds()+consultant.getBreakTime().getSeconds());
+                extraHours += (consultant.getWorkTime().getHours()+consultant.getBreakTime().getHours());
+                extraMinutes += (consultant.getWorkTime().getMinutes()+consultant.getBreakTime().getMinutes());
+                extraSeconds += (consultant.getWorkTime().getSeconds()+consultant.getBreakTime().getSeconds());
             }
         }
 
@@ -373,7 +373,7 @@ public class DB {
                     "@FldConsultant_name = '"+consultant.getName()+"', "+
                     "@FldConsultant_email = '"+consultant.getEmail()+"', "+
                     "@FldOffice_name = '"+consultant.getOfficeName()+"', "+
-                    "@FldPreferred_pomodoro_work_time = '"+consultant.getTaskTime()+"', "+
+                    "@FldPreferred_pomodoro_work_time = '"+consultant.getWorkTime()+"', "+
                     "@FldPreferred_pomodoro_break_time = '"+consultant.getBreakTime()+"', "+
                     "@FldPreferred_pomodoro_long_break_time = '"+consultant.getLongBreakTime()+"',"+
                     "@FldActive = "+consultant.isActive()+

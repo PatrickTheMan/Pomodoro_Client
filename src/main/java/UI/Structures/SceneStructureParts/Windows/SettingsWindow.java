@@ -23,7 +23,7 @@ public class SettingsWindow extends CustomWindow {
     //region [Variables]
 
     private ChoiceComboBox consultantChoice;
-    private ChoiceTextField taskTimeField;
+    private ChoiceTextField workTimeField;
     private ChoiceTextField breakTimeField;
     private ChoiceTextField longbreakTimeField;
 
@@ -31,8 +31,8 @@ public class SettingsWindow extends CustomWindow {
 
     //region [Normal Getters & Setters]
 
-    public void setTaskTimeFieldText(String text) {
-        this.taskTimeField.getTextField().setText(text);
+    public void setWorkTimeFieldText(String text) {
+        this.workTimeField.getTextField().setText(text);
     }
 
     public void setBreakTimeFieldText(String text) {
@@ -93,8 +93,8 @@ public class SettingsWindow extends CustomWindow {
         });
 
         // Add the other textFields
-        this.taskTimeField = new ChoiceTextField("Task time: ");
-        this.taskTimeField.setScaling(true);
+        this.workTimeField = new ChoiceTextField("Task time: ");
+        this.workTimeField.setScaling(true);
         this.breakTimeField = new ChoiceTextField("Break time: ");
         this.breakTimeField.setScaling(true);
         this.longbreakTimeField = new ChoiceTextField("Long break time: ");
@@ -111,14 +111,14 @@ public class SettingsWindow extends CustomWindow {
             boolean error=false;
 
             // Validation
-            Matcher matcher = timePattern.matcher(this.taskTimeField.getTextField().getText());
+            Matcher matcher = timePattern.matcher(this.workTimeField.getTextField().getText());
             if (!matcher.find()){
-                if (!this.taskTimeField.getStyleClass().contains("choice-textfield-error")){
-                    this.taskTimeField.getStyleClass().add("choice-textfield-error");
+                if (!this.workTimeField.getStyleClass().contains("choice-textfield-error")){
+                    this.workTimeField.getStyleClass().add("choice-textfield-error");
                 }
                 error=true;
             } else {
-                this.taskTimeField.getStyleClass().remove("choice-textfield-error");
+                this.workTimeField.getStyleClass().remove("choice-textfield-error");
             }
             matcher = timePattern.matcher(this.breakTimeField.getTextField().getText());
             if (!matcher.find()){
@@ -127,7 +127,7 @@ public class SettingsWindow extends CustomWindow {
                 }
                 error=true;
             } else {
-                this.taskTimeField.getStyleClass().remove("choice-textfield-error");
+                this.workTimeField.getStyleClass().remove("choice-textfield-error");
             }
             matcher = timePattern.matcher(this.longbreakTimeField.getTextField().getText());
             if (!matcher.find()){
@@ -144,13 +144,13 @@ public class SettingsWindow extends CustomWindow {
                 // Set the times from the settings window and the consultant (Also in DB)
                 ControllerSingleton.getInstance().setTimes(
                         this.consultantChoice,
-                        Time.valueOf(this.taskTimeField.getTextField().getText()),
+                        Time.valueOf(this.workTimeField.getTextField().getText()),
                         Time.valueOf(this.breakTimeField.getTextField().getText()),
                         Time.valueOf(this.longbreakTimeField.getTextField().getText())
                 );
 
                 // Reset timer
-                ControllerSingleton.getInstance().setTimeOnTimer(Time.valueOf(this.taskTimeField.getTextField().getText()));
+                ControllerSingleton.getInstance().setTimeOnTimer(Time.valueOf(this.workTimeField.getTextField().getText()));
 
                 if (this.consultantChoice.getChoicebox().getValue() != null && !this.consultantChoice.getChoicebox().getValue().toString().equals("")){
                     for (Consultant c: consultants) {
@@ -184,7 +184,7 @@ public class SettingsWindow extends CustomWindow {
         // Add the content to the class object
         this.getChildren().addAll(
                 this.consultantChoice,
-                this.taskTimeField,
+                this.workTimeField,
                 this.breakTimeField,
                 this.longbreakTimeField,
                 buttonBarH);
@@ -197,7 +197,7 @@ public class SettingsWindow extends CustomWindow {
 
         // Lock the fields when the timer runs
         this.consultantChoice.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
-        this.taskTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
+        this.workTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
         this.breakTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
         this.longbreakTimeField.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());
         saveButton.disableProperty().bind(TimerSingleton.getInstance().timeRunningProperty());

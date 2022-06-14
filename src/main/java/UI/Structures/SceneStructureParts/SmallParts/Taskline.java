@@ -32,7 +32,7 @@ public class Taskline extends HBox {
     private Integer projectId= null;
     private int taskId= -1;
     private boolean taskDone = false;
-    private Time taskTimeSpent = Time.valueOf("00:00:00");
+    private Time workTimeSpent = Time.valueOf("00:00:00");
 
     private boolean editing;
     private boolean small;
@@ -110,7 +110,7 @@ public class Taskline extends HBox {
         // Set initial values
         this.taskId = task.getId();
         this.projectId = task.getProjectId();
-        this.taskTimeSpent = task.getTime();
+        this.workTimeSpent = task.getTime();
         this.taskChoice.getChoicebox().setValue(task.getName());
         this.projectChoice.getChoicebox().setValue(InformationContainerSingleton.getInstance().getProject(task.getProjectId()));
 
@@ -355,7 +355,7 @@ public class Taskline extends HBox {
                                         ConsultantSingleton.getInstance().getEmail(),
                                         this.projectId,
                                         this.taskChoice.getChoicebox().getValue().toString(),
-                                        this.taskTimeSpent,
+                                        this.workTimeSpent,
                                         this.taskDone,
                                         0
                                 )

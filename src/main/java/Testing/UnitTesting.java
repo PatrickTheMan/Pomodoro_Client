@@ -105,14 +105,14 @@ public class UnitTesting {
     }
 
     @Test
-    public void updateStandardTaskTime(){
+    public void updateStandardWorkTime(){
         //Testing a EQ (Equivalense portition)
         System.out.println("Testing if the update tasktime works, setting the standard task time to 00:15:00");
 
-        TimerSingleton.getInstance().setStandardTaskTime(Time.valueOf("00:15:00"));
+        TimerSingleton.getInstance().setStandardWorkTime(Time.valueOf("00:15:00"));
 
         Time expected = Time.valueOf("00:15:00");
-        Time actual = Time.valueOf(TimerSingleton.getInstance().getStandardTaskTime().toString());
+        Time actual = Time.valueOf(TimerSingleton.getInstance().getStandardWorkTime().toString());
 
         assertEquals(expected,actual);
     }

@@ -88,7 +88,7 @@ public class Controller {
      */
     public void getConsultantValues(Consultant consultant, SettingsWindow settingsWindow){
         // Update fields
-        settingsWindow.setTaskTimeFieldText(consultant.getTaskTime().toString());
+        settingsWindow.setWorkTimeFieldText(consultant.getWorkTime().toString());
         settingsWindow.setBreakTimeFieldText(consultant.getBreakTime().toString());
         settingsWindow.setLongbreakTimeFieldText(consultant.getLongBreakTime().toString());
     }
@@ -127,17 +127,17 @@ public class Controller {
     /**
      * <Strong>Set the times on the consultantsingleton or set the standardtimes</Strong>
      * @param choiceComboBox is the choiceComboBox with the consultants name
-     * @param taskTime is the task time chosen
+     * @param workTime is the task time chosen
      * @param breakTime is the break time chosen
      * @param longBreakTime is the long break time chosen
      */
-    public void setTimes(ChoiceComboBox choiceComboBox,Time taskTime, Time breakTime, Time longBreakTime){
+    public void setTimes(ChoiceComboBox choiceComboBox,Time workTime, Time breakTime, Time longBreakTime){
         if (choiceComboBox.getChoicebox().getValue()!=null && !choiceComboBox.getChoicebox().getValue().equals("")){
 
             // Set the consultant & Set the times to the ones chosen
             ConsultantSingleton.getInstance().setConsultant(
                     InformationContainerSingleton.getInstance().getConsultant(choiceComboBox.getChoicebox().getValue().toString()),
-                    taskTime,
+                    workTime,
                     breakTime,
                     longBreakTime);
 
@@ -148,7 +148,7 @@ public class Controller {
             TimerSingleton.getInstance().resetTimer();
 
         } else {
-            TimerSingleton.getInstance().setStandardTaskTime(taskTime);
+            TimerSingleton.getInstance().setStandardWorkTime(workTime);
             TimerSingleton.getInstance().setStandardBreakTime(breakTime);
             TimerSingleton.getInstance().setStandardLongBreakTime(longBreakTime);
         }

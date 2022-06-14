@@ -17,7 +17,7 @@ public class Consultant {
     private String email;
     private String name;
     private String officeName;
-    private Time taskTime;
+    private Time workTime;
     private Time breakTime;
     private Time longBreakTime;
     private boolean active;
@@ -50,8 +50,8 @@ public class Consultant {
         return officeName;
     }
 
-    public Time getTaskTime() {
-        return taskTime;
+    public Time getWorkTime() {
+        return workTime;
     }
 
     public Time getBreakTime() {
@@ -90,8 +90,8 @@ public class Consultant {
         this.officeName = officeName;
     }
 
-    public void setTaskTime(Time taskTime) {
-        this.taskTime = taskTime;
+    public void setWorkTime(Time workTime) {
+        this.workTime = workTime;
     }
 
     public void setBreakTime(Time breakTime) {
@@ -142,11 +142,11 @@ public class Consultant {
 
     //region [Constructor]
 
-    public Consultant(String email, String name, String officeName, Time taskTime, Time breakTime, Time longBreakTime, boolean active, int order, String status) {
+    public Consultant(String email, String name, String officeName, Time workTime, Time breakTime, Time longBreakTime, boolean active, int order, String status) {
         this.email = email;
         this.name = name;
         this.officeName = officeName;
-        this.taskTime = taskTime;
+        this.workTime = workTime;
         this.breakTime = breakTime;
         this.longBreakTime = longBreakTime;
         this.active = active;
@@ -168,7 +168,7 @@ public class Consultant {
         this.email = consultant.email;
         this.name = consultant.name;
         this.officeName = consultant.officeName;
-        this.taskTime = consultant.taskTime;
+        this.workTime = consultant.workTime;
         this.breakTime = consultant.breakTime;
         this.longBreakTime = consultant.longBreakTime;
         this.active = consultant.active;
@@ -180,11 +180,11 @@ public class Consultant {
         }
     }
 
-    public void setConsultant(Consultant consultant,Time taskTime, Time breakTime, Time longBreakTime){
+    public void setConsultant(Consultant consultant,Time workTime, Time breakTime, Time longBreakTime){
         this.email = consultant.email;
         this.name = consultant.name;
         this.officeName = consultant.officeName;
-        this.taskTime =taskTime;
+        this.workTime =workTime;
         this.breakTime = breakTime;
         this.longBreakTime = longBreakTime;
         this.active = consultant.active;

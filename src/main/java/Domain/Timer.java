@@ -25,7 +25,7 @@ public class Timer {
 
     private Timeline timeline;
 
-    private Time standardTaskTime = Time.valueOf("00:25:00");
+    private Time standardWorkTime = Time.valueOf("00:25:00");
     private Time standardBreakTime = Time.valueOf("00:05:00");
     private Time standardLongBreakTime = Time.valueOf("00:30:00");
 
@@ -52,12 +52,12 @@ public class Timer {
 
     //region [Normal Getters & Setters]
 
-    public Time getStandardTaskTime() {
-        return standardTaskTime;
+    public Time getStandardWorkTime() {
+        return standardWorkTime;
     }
 
-    public void setStandardTaskTime(Time standardTaskTime) {
-        this.standardTaskTime = standardTaskTime;
+    public void setStandardWorkTime(Time standardWorkTime) {
+        this.standardWorkTime = standardWorkTime;
     }
 
     public Time getStandardBreakTime() {
@@ -100,7 +100,7 @@ public class Timer {
 
         // Set the time to the consultants time
         this.setTime(
-                ConsultantSingleton.getInstance().getTaskTime()
+                ConsultantSingleton.getInstance().getWorkTime()
         );
 
         // Initiate and start timeline
@@ -135,7 +135,7 @@ public class Timer {
      * <Strong>Resets the timer to task first cycle</Strong>
      */
     public void resetTimer(){
-        this.setTime(ConsultantSingleton.getInstance().getTaskTime());
+        this.setTime(ConsultantSingleton.getInstance().getWorkTime());
         this.cycle=1;
         this.timeRunningProperty.setValue(false);
         setTimerTypeTaskWithTaskName();
@@ -196,8 +196,8 @@ public class Timer {
             setTimerTypeTaskWithTaskName();
 
             setTime((ConsultantSingleton.getInstance().exists() ?
-                    ConsultantSingleton.getInstance().getTaskTime() :
-                    this.standardTaskTime)
+                    ConsultantSingleton.getInstance().getWorkTime() :
+                    this.standardWorkTime)
             );
         }
 
@@ -268,14 +268,14 @@ public class Timer {
         switch (timeTypeProperty.getValue().substring(0,4)) {
             case ("Task") -> {
                 if (!ConsultantSingleton.getInstance().exists()){
-                    return Time.valueOf((this.standardTaskTime.getHours()- this.time.getHours()) + ":" +
-                            (this.standardTaskTime.getMinutes() - this.time.getMinutes()) + ":" +
-                            (this.standardTaskTime.getSeconds() - this.time.getSeconds())
+                    return Time.valueOf((this.standardWorkTime.getHours()- this.time.getHours()) + ":" +
+                            (this.standardWorkTime.getMinutes() - this.time.getMinutes()) + ":" +
+                            (this.standardWorkTime.getSeconds() - this.time.getSeconds())
                     );
                 } else {
-                    return Time.valueOf((ConsultantSingleton.getInstance().getTaskTime().getHours()- this.time.getHours()) + ":" +
-                            (ConsultantSingleton.getInstance().getTaskTime().getMinutes() - this.time.getMinutes()) + ":" +
-                            (ConsultantSingleton.getInstance().getTaskTime().getSeconds() - this.time.getSeconds())
+                    return Time.valueOf((ConsultantSingleton.getInstance().getWorkTime().getHours()- this.time.getHours()) + ":" +
+                            (ConsultantSingleton.getInstance().getWorkTime().getMinutes() - this.time.getMinutes()) + ":" +
+                            (ConsultantSingleton.getInstance().getWorkTime().getSeconds() - this.time.getSeconds())
                     );
                 }
             }
@@ -326,8 +326,8 @@ public class Timer {
                 TimerSingleton.getInstance().setTimerTypeTaskWithTaskName();
 
                 setTime((ConsultantSingleton.getInstance().exists() ?
-                        ConsultantSingleton.getInstance().getTaskTime() :
-                        this.standardTaskTime)
+                        ConsultantSingleton.getInstance().getWorkTime() :
+                        this.standardWorkTime)
                 );
 
             } else {
@@ -421,8 +421,8 @@ public class Timer {
             setTimerTypeTaskWithTaskName();
 
             setTime((ConsultantSingleton.getInstance().exists() ?
-                    ConsultantSingleton.getInstance().getTaskTime() :
-                    this.standardTaskTime)
+                    ConsultantSingleton.getInstance().getWorkTime() :
+                    this.standardWorkTime)
             );
         }
 
