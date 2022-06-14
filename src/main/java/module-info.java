@@ -12,4 +12,6 @@ module Application {
     exports Domain;
     exports Foundation;
     opens Foundation to javafx.fxml;
+    exports UI;
+    opens UI to javafx.fxml;
 }

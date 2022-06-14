@@ -1,4 +1,4 @@
-package Foundation.Enums;
+package UI.Enums;
 
 /**
  * @author Patrick G. Schemel

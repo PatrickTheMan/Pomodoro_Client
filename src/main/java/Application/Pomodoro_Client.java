@@ -1,6 +1,6 @@
 package Application;
 
-import Foundation.Enums.SceneType;
+import UI.Enums.SceneType;
 import Foundation.Singletons.ScenehandlerSingleton;
 import Foundation.UpdateInformationThread;
 import javafx.application.Application;

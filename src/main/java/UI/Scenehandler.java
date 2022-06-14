@@ -1,4 +1,4 @@
-package Application;
+package UI;
 
 import Foundation.Singletons.ControllerSingleton;
 import Domain.Project;
@@ -9,7 +9,7 @@ import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;
-import Foundation.Enums.SceneType;
+import UI.Enums.SceneType;
 import UI.Structures.MenuBar.CustomMenuBar;
 import UI.Structures.SceneStructureParts.Windows.CustomWindow;
 import UI.Structures.SceneStructureParts.SmallParts.*;

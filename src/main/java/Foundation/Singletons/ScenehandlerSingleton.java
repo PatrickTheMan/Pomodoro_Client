@@ -1,6 +1,6 @@
 package Foundation.Singletons;
 
-import Application.Scenehandler;
+import UI.Scenehandler;
 
 /**
  * @author Patrick G. Schemel
