@@ -10,7 +10,7 @@ import UI.Buttons.CustomButton;
 import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;
 import UI.Enums.SceneType;
-import Foundation.Singletons.ScenehandlerSingleton;
+import UI.Singleton.ScenehandlerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.*;
 import UI.Structures.SceneStructureParts.Windows.SettingsWindow;
 

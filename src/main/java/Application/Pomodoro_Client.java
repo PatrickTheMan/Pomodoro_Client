@@ -1,7 +1,7 @@
 package Application;
 
 import UI.Enums.SceneType;
-import Foundation.Singletons.ScenehandlerSingleton;
+import UI.Singleton.ScenehandlerSingleton;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

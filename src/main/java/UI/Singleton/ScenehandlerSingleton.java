@@ -1,4 +1,4 @@
-package Foundation.Singletons;
+package UI.Singleton;
 
 import UI.Scenehandler;
 
