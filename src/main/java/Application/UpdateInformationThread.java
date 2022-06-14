@@ -3,7 +3,7 @@ package Application;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Task;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
 import javafx.scene.Node;
 

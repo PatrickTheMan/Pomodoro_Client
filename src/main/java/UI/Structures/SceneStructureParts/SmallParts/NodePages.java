@@ -1,7 +1,7 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
 import Application.Singleton.ControllerSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
 import javafx.beans.property.IntegerProperty;

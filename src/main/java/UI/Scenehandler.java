@@ -3,7 +3,7 @@ package UI;
 import Application.Singleton.ControllerSingleton;
 import Domain.Project;
 import Domain.Singletons.TimerSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 
 import UI.Enums.MyPos;

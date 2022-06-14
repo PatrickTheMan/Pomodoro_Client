@@ -4,7 +4,7 @@ import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
 import UI.Enums.MyScaling;

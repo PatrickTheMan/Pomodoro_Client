@@ -3,7 +3,7 @@ package Domain;
 import Application.Singleton.ControllerSingleton;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

@@ -1,7 +1,7 @@
 package UI.Structures.SceneStructureParts.SmallParts;
 
 import Domain.Project;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyScaling;
 import UI.Enums.MyShape;

@@ -4,7 +4,7 @@ import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Structures.SceneStructureParts.SmallParts.NodeBarH;
 import UI.Structures.SceneStructureParts.SmallParts.ChoiceComboBox;

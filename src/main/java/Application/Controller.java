@@ -5,7 +5,7 @@ import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
 import Foundation.Singletons.DBSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Buttons.CustomButtonControls;
 import UI.Buttons.CustomButtonOther;

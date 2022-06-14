@@ -1,6 +1,6 @@
 package UI.Structures.SceneStructureParts.Windows;
 
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.CustomWindow;
 import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import javafx.scene.Node;

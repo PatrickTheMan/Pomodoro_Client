@@ -1,4 +1,4 @@
-package Foundation.Singletons;
+package Domain.Singletons;
 
 import Domain.InformationContainer;
 

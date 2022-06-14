@@ -1,14 +1,10 @@
 package Domain;
 
 import Application.Singleton.ControllerSingleton;
-import Domain.Consultant;
-import Domain.Project;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
-import Domain.Task;
-import Domain.WorkDay;
 import Foundation.Singletons.DBSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import UI.Structures.SceneStructureParts.SmallParts.NodePages;
 import UI.Structures.SceneStructureParts.SmallParts.Projectline;
 import UI.Structures.SceneStructureParts.SmallParts.Taskline;

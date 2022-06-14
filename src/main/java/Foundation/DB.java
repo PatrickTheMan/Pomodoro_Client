@@ -6,7 +6,7 @@ import Domain.Singletons.ConsultantSingleton;
 import Domain.Task;
 import Domain.WorkDay;
 import Foundation.Singletons.DBConnectionSingleton;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ import Domain.Project;
 import Domain.Singletons.ConsultantSingleton;
 import Domain.Singletons.TimerSingleton;
 import Domain.Task;
-import Foundation.Singletons.InformationContainerSingleton;
+import Domain.Singletons.InformationContainerSingleton;
 import Testing.Singletons.TestingSingleton;
 import org.junit.*;
 
