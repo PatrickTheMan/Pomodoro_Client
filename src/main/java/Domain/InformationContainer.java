@@ -1,4 +1,4 @@
-package Foundation;
+package Domain;
 
 import Application.Singleton.ControllerSingleton;
 import Domain.Consultant;

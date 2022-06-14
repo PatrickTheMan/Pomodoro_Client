@@ -1,6 +1,6 @@
 package Foundation.Singletons;
 
-import Foundation.InformationContainer;
+import Domain.InformationContainer;
 
 /**
  * @author Patrick G. Schemel

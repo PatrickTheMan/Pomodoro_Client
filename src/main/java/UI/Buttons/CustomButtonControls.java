@@ -31,7 +31,7 @@ public class CustomButtonControls extends CustomButton {
     public CustomButton playAndPause() {
 
         // Get the normal setup
-        NormalSetup();
+        normalSetup();
 
         // Set the text for the hover text
         this.buttonText = "Play & Pause";
@@ -79,7 +79,7 @@ public class CustomButtonControls extends CustomButton {
     public CustomButton stop() {
 
         // Get the normal setup
-        NormalSetup();
+        normalSetup();
 
         // Set the text for the hover text
         this.buttonText = "Stop";
@@ -115,7 +115,7 @@ public class CustomButtonControls extends CustomButton {
     public CustomButton skip() {
 
         // Get the normal setup
-        NormalSetup();
+        normalSetup();
 
         // Set the text for the hover text
         this.buttonText = "Skip";
@@ -141,7 +141,7 @@ public class CustomButtonControls extends CustomButton {
     public CustomButton popout() {
 
         // Get the normal setup
-        NormalSetup();
+        normalSetup();
 
         // Set the text for the hover text
         this.buttonText = "Popout";
@@ -176,7 +176,7 @@ public class CustomButtonControls extends CustomButton {
     public CustomButton sound() {
 
         // Get the normal setup
-        NormalSetup();
+        normalSetup();
 
         // Set the text for the hover text
         this.buttonText = "Sound";
@@ -211,7 +211,7 @@ public class CustomButtonControls extends CustomButton {
     /**
      * <Strong>The standard setup of control buttons</Strong>
      */
-    private void NormalSetup(){
+    private void normalSetup(){
         // Make this button use the custom-button css styling
         this.getStyleClass().add("custom-controls-button");
         // Set the selection function
