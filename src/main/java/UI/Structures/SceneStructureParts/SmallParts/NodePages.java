@@ -4,6 +4,8 @@ import Application.Singleton.ControllerSingleton;
 import Foundation.Singletons.InformationContainerSingleton;
 import UI.Buttons.CustomButton;
 import UI.Enums.MyPos;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -24,7 +26,6 @@ public class NodePages extends VBox {
     private ArrayList<Node> buttons= new ArrayList<>();
     private ArrayList<Node> nodes = new ArrayList<>();
 
-    private int nodesPrPage;
     private int currentPage;
     private boolean addNodeButton;
 
@@ -37,7 +38,7 @@ public class NodePages extends VBox {
     //region [Normal Getters & Setters]
 
     public int getNodesPrPage() {
-        return nodesPrPage;
+        return nodesPrPage.getValue();
     }
 
     public ArrayList<Node> getButtons() {
@@ -54,12 +55,18 @@ public class NodePages extends VBox {
 
     //endregion
 
+    //region [Properties]
+
+    private IntegerProperty nodesPrPage = new SimpleIntegerProperty();
+
+    //endregion
+
     //region [Constructor]
 
     public NodePages(ArrayList<Node> nodes, int nodesPrPage, boolean addNodeButton){
 
         // Set the initial value
-        this.nodesPrPage=nodesPrPage;
+        this.nodesPrPage.setValue(nodesPrPage);;
         // Add button on/off?
         this.addNodeButton=addNodeButton;
         // Normal setup
@@ -70,14 +77,20 @@ public class NodePages extends VBox {
 
         // Adjust the node amount pr. page, so it fits the window height
         this.itemContainer.prefHeightProperty().addListener((obs,old,newVal) -> {
-            if ((newVal.intValue()-20)/98!=0){
-                this.nodesPrPage = (newVal.intValue()-20)/98;
+            if ((newVal.intValue()-20)/120!=0){
+                this.nodesPrPage.setValue((newVal.intValue()-20)/120);
                 updatePageContent(false);
-                updatePageButtons();
+
             } else {
-                this.nodesPrPage=1;
+                this.nodesPrPage.setValue(1);
             }
         });
+
+        // Update the page buttons, when the node pr page gets changed
+        this.nodesPrPage.addListener((obs, old, newVal) -> {
+            updatePageButtons();
+        });
+
     }
 
     //endregion
@@ -187,11 +200,11 @@ public class NodePages extends VBox {
             // Add to arraylist
             this.buttons.add(customButton);
 
-        } while (f < this.nodes.size()/(float)this.nodesPrPage);
+        } while (f < this.nodes.size()/(float)this.nodesPrPage.getValue());
 
         // Set the page
         if (this.currentPage>1){
-            if (this.currentPage*this.nodesPrPage>this.nodes.size()){
+            if (this.currentPage*this.nodesPrPage.getValue()>this.nodes.size()){
                 // Go to the page last available page
                 ((Button)this.buttons.get(this.buttons.size()-1)).fire();
             } else {
@@ -229,12 +242,12 @@ public class NodePages extends VBox {
         }
 
         // Add the ones the user wants to see
-        if (this.currentPage*this.nodesPrPage > this.nodes.size()){
-            for (int i = ((this.currentPage-1)*this.nodesPrPage)+1; i <= this.nodes.size(); i++) {
+        if (this.currentPage*this.nodesPrPage.getValue() > this.nodes.size()){
+            for (int i = ((this.currentPage-1)*this.nodesPrPage.getValue())+1; i <= this.nodes.size(); i++) {
                 this.itemContainer.getChildren().add(this.nodes.get(i-1));
             }
         } else {
-            for (int i = (this.currentPage==1 ? 1 : ((this.currentPage-1)*this.nodesPrPage)+1); i <= this.currentPage*this.nodesPrPage; i++) {
+            for (int i = (this.currentPage==1 ? 1 : ((this.currentPage-1)*this.nodesPrPage.getValue())+1); i <= this.currentPage*this.nodesPrPage.getValue(); i++) {
                 this.itemContainer.getChildren().add(this.nodes.get(i-1));
             }
         }
@@ -245,7 +258,7 @@ public class NodePages extends VBox {
             addNewNode.setOnAction(e -> {
 
                 // 1 more page or not
-                if (this.buttons.size()*this.nodesPrPage <= this.nodes.size()){
+                if (this.buttons.size()*this.nodesPrPage.getValue() <= this.nodes.size()){
 
                     // Save the taskline in the informationContainer
                     ControllerSingleton.getInstance().newTasklineInDoToday(new Taskline());
@@ -292,7 +305,7 @@ public class NodePages extends VBox {
     public void removeNode(Node node){
 
         // 1 less page or not
-        if (buttons.size()*nodesPrPage >= this.nodes.size()){
+        if (buttons.size()*nodesPrPage.getValue() >= this.nodes.size()){
 
             this.nodes.remove(node);
 
