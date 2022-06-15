@@ -53,7 +53,7 @@ public class CustomWindow extends VBox {
         // Create the headline and set settings
         Headline headline = new Headline("Settings");
         headline.setPos(MyPos.CENTER);
-        headline.setShape(MyShape.HALFROUND);
+        headline.setShape(MyShape.HALF_ROUND);
         headline.setScaling(MyScaling.SMALL);
 
         // Set content
@@ -71,7 +71,7 @@ public class CustomWindow extends VBox {
         // Create the headline and set settings
         Headline headline = new Headline("Pomodoro");
         headline.setPos(MyPos.CENTER);
-        headline.setShape(MyShape.HALFROUND);
+        headline.setShape(MyShape.HALF_ROUND);
         headline.setScaling(MyScaling.SMALL);
 
         // Set content
@@ -94,7 +94,7 @@ public class CustomWindow extends VBox {
         // Create the headline and set settings
         Headline headline = new Headline(text);
         headline.setPos(MyPos.CENTER);
-        headline.setShape(MyShape.HALFROUND);
+        headline.setShape(MyShape.HALF_ROUND);
         headline.setScaling(15,25,offset);
 
         // Create the nodepage window

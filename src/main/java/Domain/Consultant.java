@@ -28,11 +28,11 @@ public class Consultant {
 
     //region [Properties]
 
-    private StringProperty nameProperty = new SimpleStringProperty("");
-    private BooleanProperty existsProperty = new SimpleBooleanProperty(false);
+    private final StringProperty NAME = new SimpleStringProperty("");
+    private final BooleanProperty EXISTS = new SimpleBooleanProperty(false);
 
-    public StringProperty nameProperty() {return nameProperty;}
-    public BooleanProperty existsProperty() {return existsProperty;}
+    public StringProperty nameProperty() {return NAME;}
+    public BooleanProperty existsProperty() {return EXISTS;}
 
     //endregion
 
@@ -115,27 +115,27 @@ public class Consultant {
     //region [Properties]
 
     public String getNameProperty() {
-        return nameProperty.get();
+        return NAME.get();
     }
 
     public StringProperty namePropertyProperty() {
-        return nameProperty;
+        return NAME;
     }
 
     public void setNameProperty(String nameProperty) {
-        this.nameProperty.set(nameProperty);
+        this.NAME.set(nameProperty);
     }
 
     public boolean isExistsProperty() {
-        return existsProperty.get();
+        return EXISTS.get();
     }
 
     public BooleanProperty existsPropertyProperty() {
-        return existsProperty;
+        return EXISTS;
     }
 
     public void setExistsProperty(boolean existsProperty) {
-        this.existsProperty.set(existsProperty);
+        this.EXISTS.set(existsProperty);
     }
 
     //endregion
@@ -153,7 +153,7 @@ public class Consultant {
         this.order = order;
         this.status = status;
 
-        this.nameProperty.set(name);
+        this.NAME.set(name);
     }
 
     //endregion
@@ -161,7 +161,7 @@ public class Consultant {
     //region [Methods]
 
     public boolean exists(){
-        return existsProperty.getValue();
+        return EXISTS.getValue();
     }
 
     public void setConsultant(Consultant consultant){
@@ -176,7 +176,7 @@ public class Consultant {
         this.status = consultant.status;
 
         if (!this.existsProperty().getValue()){
-            this.existsProperty.setValue(true);
+            this.EXISTS.setValue(true);
         }
     }
 
@@ -192,7 +192,7 @@ public class Consultant {
         this.status = consultant.status;
 
         if (!this.existsProperty().getValue()){
-            this.existsProperty.setValue(true);
+            this.EXISTS.setValue(true);
         }
     }
 

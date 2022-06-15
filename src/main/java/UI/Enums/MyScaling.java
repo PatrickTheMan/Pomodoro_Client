@@ -7,5 +7,5 @@ public enum MyScaling {
     SMALL,
     BIG,
     CUSTOM,
-    LABELGONE
+    LABEL_GONE
 }

@@ -107,12 +107,12 @@ public class Headline extends HBox {
     public void setShape(MyShape shape){
         switch (shape){
             case ROUND -> this.setStyle("-fx-background-radius: 10; -fx-border-radius: 10;");
-            case HALFROUND -> {
+            case HALF_ROUND -> {
                 this.setStyle("-fx-background-radius: 10 10 0 0; -fx-border-radius: 10 10 0 0;");
                 // Make this object use the custom-menu css styling
                 this.getStyleClass().add("headline-halfround");
             }
-            case NOTROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
+            case NOT_ROUND -> this.setStyle("-fx-background-radius: 0; -fx-border-radius: 0;");
         }
     }
 

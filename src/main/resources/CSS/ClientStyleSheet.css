@@ -44,7 +44,8 @@
 {
     -fx-background-color: -backGroundColor;
 }
-.combo-box > .text-field {
+.combo-box > .text-field
+{
     -fx-background-color: -secondaryBackgroundColor;
     -fx-background-radius: 10;
 }

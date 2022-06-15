@@ -46,7 +46,6 @@ public class Taskline extends HBox {
 
     private ChoiceComboBox projectChoiceShow;
     private ChoiceComboBox taskChoiceShow;
-    private Headline pomodorosHeadline;
     private NodeBarH pomodoroHeadlineBar;
     private NodeBarH buttonsEditFinishBar;
 
@@ -54,7 +53,7 @@ public class Taskline extends HBox {
 
     //region [Properties]
 
-    private BooleanProperty diabled = new SimpleBooleanProperty();
+    private final BooleanProperty DISABLED = new SimpleBooleanProperty();
 
     //endregion
 
@@ -399,12 +398,12 @@ public class Taskline extends HBox {
 
 
         // Bind the disable function to the timer
-        this.diabled.bind(TimerSingleton.getInstance().timeRunningProperty());
+        this.DISABLED.bind(TimerSingleton.getInstance().timeRunningProperty());
         // The different things that gets disabled, when the timer is running
-        this.taskChoice.disableProperty().bind(this.diabled);
-        this.projectChoice.disableProperty().bind(this.diabled);
-        this.buttonsCounterBar.disableProperty().bind(this.diabled);
-        this.buttonsRemoveDoneContainerBar.disableProperty().bind(this.diabled);
+        this.taskChoice.disableProperty().bind(this.DISABLED);
+        this.projectChoice.disableProperty().bind(this.DISABLED);
+        this.buttonsCounterBar.disableProperty().bind(this.DISABLED);
+        this.buttonsRemoveDoneContainerBar.disableProperty().bind(this.DISABLED);
 
     }
 
@@ -432,13 +431,13 @@ public class Taskline extends HBox {
         //
         ArrayList<Node> headlineAndImage = new ArrayList<>();
 
-        this.pomodorosHeadline = new Headline("");
-        this.pomodorosHeadline.getLabel().setStyle("-fx-font-size: 25");
-        this.pomodorosHeadline.noStyleClass();
-        this.pomodorosHeadline.setShape(MyShape.ROUND);
-        this.pomodorosHeadline.setScaling(MyScaling.SMALL);
-        this.pomodorosHeadline.getLabel().textProperty().bind(this.counter.getLabel().textProperty());
-        headlineAndImage.add(this.pomodorosHeadline);
+        Headline pomodorosHeadline = new Headline("");
+        pomodorosHeadline.getLabel().setStyle("-fx-font-size: 25");
+        pomodorosHeadline.noStyleClass();
+        pomodorosHeadline.setShape(MyShape.ROUND);
+        pomodorosHeadline.setScaling(MyScaling.SMALL);
+        pomodorosHeadline.getLabel().textProperty().bind(this.counter.getLabel().textProperty());
+        headlineAndImage.add(pomodorosHeadline);
 
         ImageView tomatoImage = new ImageView();
         tomatoImage.setImage(new Image(new File("src/main/resources/Images/tomatoimage.png").toURI().toString()));
@@ -530,7 +529,7 @@ public class Taskline extends HBox {
         this.buttonsEditFinishBar.prefWidthProperty().bind(this.widthProperty().divide(10).multiply(1));
 
         // The different things that gets disabled, when the timer is running
-        buttonEdit.disableProperty().bind(this.diabled);
+        buttonEdit.disableProperty().bind(this.DISABLED);
     }
 
     //endregion

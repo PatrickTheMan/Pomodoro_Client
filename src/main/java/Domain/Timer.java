@@ -40,13 +40,13 @@ public class Timer {
 
     //region [Properties]
 
-    private final StringProperty TIMETYPEPROPERTY = new SimpleStringProperty("Task");
-    private final BooleanProperty TIMERUNNINGPROPERTY = new SimpleBooleanProperty(false);
-    private final StringProperty TIMEPROPERTY = new SimpleStringProperty("");
+    private final StringProperty TIME_TYPE = new SimpleStringProperty("Task");
+    private final BooleanProperty TIME_RUNNING = new SimpleBooleanProperty(false);
+    private final StringProperty TIME = new SimpleStringProperty("");
 
-    public StringProperty timeTypeProperty() {return this.TIMETYPEPROPERTY;}
-    public BooleanProperty timeRunningProperty() {return this.TIMERUNNINGPROPERTY;}
-    public StringProperty timeProperty() {return this.TIMEPROPERTY;}
+    public StringProperty timeTypeProperty() {return this.TIME_TYPE;}
+    public BooleanProperty timeRunningProperty() {return this.TIME_RUNNING;}
+    public StringProperty timeProperty() {return this.TIME;}
 
     //endregion
 
@@ -110,7 +110,7 @@ public class Timer {
                 new KeyFrame(Duration.seconds(1),
                         ae -> {
                             timerTick();
-                            if (!this.TIMERUNNINGPROPERTY.getValue()) {
+                            if (!this.TIME_RUNNING.getValue()) {
                                 this.timeline.stop();
                             }
                         })
@@ -127,7 +127,7 @@ public class Timer {
      */
     public void setTime(Time time){
         this.time = Time.valueOf(time.toString());
-        this.TIMEPROPERTY.setValue(this.time.toString());
+        this.TIME.setValue(this.time.toString());
 
     }
 
@@ -137,7 +137,7 @@ public class Timer {
     public void resetTimer(){
         this.setTime(ConsultantSingleton.getInstance().getWorkTime());
         this.cycle=1;
-        this.TIMERUNNINGPROPERTY.setValue(false);
+        this.TIME_RUNNING.setValue(false);
         setTimerTypeTaskWithTaskName();
         this.timeline.stop();
 
@@ -149,7 +149,7 @@ public class Timer {
      * <Strong>Pauses the timer</Strong>
      */
     public void pauseTimer(){
-        this.TIMERUNNINGPROPERTY.setValue(false);
+        this.TIME_RUNNING.setValue(false);
         if (this.timeline!=null){
             this.timeline.pause();
         }
@@ -159,7 +159,7 @@ public class Timer {
      * <Strong>Starts the timer</Strong>
      */
     public void startTimer(){
-        this.TIMERUNNINGPROPERTY.setValue(true);
+        this.TIME_RUNNING.setValue(true);
         if (this.timeline!=null){
             this.timeline.play();
         }
@@ -170,15 +170,15 @@ public class Timer {
      */
     public void skipTimer(){
         // Change timer type
-        if (Objects.equals(TIMETYPEPROPERTY.getValue().substring(0,4), "Task")){
+        if (Objects.equals(TIME_TYPE.getValue().substring(0,4), "Task")){
             if (this.cycle==4){
-                this.TIMETYPEPROPERTY.setValue("Long Break");
+                this.TIME_TYPE.setValue("Long Break");
                 setTime((ConsultantSingleton.getInstance().exists() ?
                         ConsultantSingleton.getInstance().getLongBreakTime() :
                         this.standardLongBreakTime)
                 );
             } else {
-                this.TIMETYPEPROPERTY.setValue("Break");
+                this.TIME_TYPE.setValue("Break");
                 setTime((ConsultantSingleton.getInstance().exists() ?
                         ConsultantSingleton.getInstance().getBreakTime() :
                         this.standardBreakTime)
@@ -202,7 +202,7 @@ public class Timer {
         }
 
         // Change the property
-        this.TIMEPROPERTY.set(this.time.toString());
+        this.TIME.set(this.time.toString());
 
         // Set stage title, so you can se the time
         ControllerSingleton.getInstance().setTimerTitle();
@@ -222,7 +222,7 @@ public class Timer {
         media = null;
 
         if (sound){
-            switch (this.TIMETYPEPROPERTY.getValue().substring(0,4)){
+            switch (this.TIME_TYPE.getValue().substring(0,4)){
                 case ("Task") -> media = new Media(new File("src/main/resources/Sound/taskSound.mp3").toURI().toString());
                 case ("Brea") -> media = new Media(new File("src/main/resources/Sound/breakSound.mp3").toURI().toString());
                 case ("Long") -> media = new Media(new File("src/main/resources/Sound/longbreakSound.mp3").toURI().toString());
@@ -249,9 +249,9 @@ public class Timer {
         if (InformationContainerSingleton.getInstance().getDoTodayList().size()>0 &&
                 ((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue() != null &&
                 !((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue().toString().equals("")){
-            this.TIMETYPEPROPERTY.setValue("Task - "+((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue().toString());
+            this.TIME_TYPE.setValue("Task - "+((Taskline)InformationContainerSingleton.getInstance().getDoTodayList().get(0)).getTaskChoice().getChoicebox().getValue().toString());
         } else {
-            this.TIMETYPEPROPERTY.setValue("Task");
+            this.TIME_TYPE.setValue("Task");
         }
     }
 
@@ -265,7 +265,7 @@ public class Timer {
      */
     public Time getCurrentTimeSpent(){
 
-        switch (this.TIMETYPEPROPERTY.getValue().substring(0,4)) {
+        switch (this.TIME_TYPE.getValue().substring(0,4)) {
             case ("Task") -> {
                 if (!ConsultantSingleton.getInstance().exists()){
                     return Time.valueOf((this.standardWorkTime.getHours()- this.time.getHours()) + ":" +
@@ -317,7 +317,7 @@ public class Timer {
         // If the timer is done
         if (this.time.getHours()==0 && this.time.getMinutes()==0 && this.time.getSeconds()==0){
             // Set the next timer to the right state (Task, Break or Long Break)
-            if (this.TIMETYPEPROPERTY.getValue().equals("Long Break") || this.TIMETYPEPROPERTY.getValue().equals("Break")){
+            if (this.TIME_TYPE.getValue().equals("Long Break") || this.TIME_TYPE.getValue().equals("Break")){
 
                 // Next cycle
                 cycle++;
@@ -338,7 +338,7 @@ public class Timer {
                 if (cycle==4){
 
                     // Set long break
-                    this.TIMETYPEPROPERTY.setValue("Long Break");
+                    this.TIME_TYPE.setValue("Long Break");
                     setTime((ConsultantSingleton.getInstance().exists() ?
                             ConsultantSingleton.getInstance().getLongBreakTime() :
                             this.standardLongBreakTime)
@@ -350,7 +350,7 @@ public class Timer {
 
 
                     // Set break
-                    this.TIMETYPEPROPERTY.setValue("Break");
+                    this.TIME_TYPE.setValue("Break");
                     setTime((ConsultantSingleton.getInstance().exists() ?
                             ConsultantSingleton.getInstance().getBreakTime() :
                             this.standardBreakTime)
@@ -380,7 +380,7 @@ public class Timer {
         }
 
         // Change the property
-        this.TIMEPROPERTY.set(this.time.toString());
+        this.TIME.set(this.time.toString());
 
         // Set stage title, so you can se the time
         ControllerSingleton.getInstance().setTimerTitle();
@@ -395,15 +395,15 @@ public class Timer {
      */
     public void skipTimerTest(){
         // Change timer type
-        if (Objects.equals(this.TIMETYPEPROPERTY.getValue().substring(0,4), "Task")){
+        if (Objects.equals(this.TIME_TYPE.getValue().substring(0,4), "Task")){
             if (this.cycle==4){
-                this.TIMETYPEPROPERTY.setValue("Long Break");
+                this.TIME_TYPE.setValue("Long Break");
                 setTime((ConsultantSingleton.getInstance().exists() ?
                         ConsultantSingleton.getInstance().getLongBreakTime() :
                         this.standardLongBreakTime)
                 );
             } else {
-                this.TIMETYPEPROPERTY.setValue("Break");
+                this.TIME_TYPE.setValue("Break");
                 setTime((ConsultantSingleton.getInstance().exists() ?
                         ConsultantSingleton.getInstance().getBreakTime() :
                         this.standardBreakTime)
@@ -427,7 +427,7 @@ public class Timer {
         }
 
         // Change the property
-        this.TIMEPROPERTY.set(this.time.toString());
+        this.TIME.set(this.time.toString());
     }
 
     //endregion

@@ -31,7 +31,6 @@ public class InformationContainer {
     private ArrayList<Taskline> doTodayList;
     private NodePages activeOverviewNodePage;
 
-    private boolean workDayCreated = false;
     private WorkDay workDay;
 
     private ArrayList<Consultant> consultants;
@@ -42,15 +41,15 @@ public class InformationContainer {
 
     //region [Properties]
 
-    private IntegerProperty amountOfActivePomodoros = new SimpleIntegerProperty();
-    private BooleanProperty updateNodePages = new SimpleBooleanProperty(false);
+    private final IntegerProperty AMOUNT_OF_ACTIVE_POMODOROS = new SimpleIntegerProperty();
+    private final BooleanProperty UPDATE_NODEPAGES = new SimpleBooleanProperty(false);
 
     //endregion
 
     //region [Normal Getters & Setters]
 
     public BooleanProperty updateNodePagesProperty() {
-        return updateNodePages;
+        return UPDATE_NODEPAGES;
     }
 
     public NodePages getActiveNodePage() {return activeNodePage;}
@@ -94,19 +93,19 @@ public class InformationContainer {
     }
 
     public int getAmountOfActivePomodoros() {
-        return amountOfActivePomodoros.get();
+        return AMOUNT_OF_ACTIVE_POMODOROS.get();
     }
 
     public IntegerProperty amountOfActivePomodorosProperty() {
-        return amountOfActivePomodoros;
+        return AMOUNT_OF_ACTIVE_POMODOROS;
     }
 
     public void setAmountOfActivePomodoros(int amountOfActivePomodoros) {
-        this.amountOfActivePomodoros.set(amountOfActivePomodoros);
+        this.AMOUNT_OF_ACTIVE_POMODOROS.set(amountOfActivePomodoros);
     }
 
     public boolean isUpdateNodePages() {
-        return updateNodePages.get();
+        return UPDATE_NODEPAGES.get();
     }
 
     public void setWorkDay(WorkDay workDay) {
@@ -168,7 +167,7 @@ public class InformationContainer {
         this.projects = new ArrayList<>();
         this.tasks = new ArrayList<>();
 
-        this.amountOfActivePomodoros.addListener((obs,old,newVal) -> {
+        this.AMOUNT_OF_ACTIVE_POMODOROS.addListener((obs,old,newVal) -> {
 
             if (ConsultantSingleton.getInstance().exists()){
 
@@ -265,7 +264,7 @@ public class InformationContainer {
 
             this.doTodayList.remove(this.doTodayList.get(i));
         }
-        this.amountOfActivePomodoros.setValue(0);
+        this.AMOUNT_OF_ACTIVE_POMODOROS.setValue(0);
 
     }
 
@@ -310,7 +309,7 @@ public class InformationContainer {
                         (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())-1)
                 );
                 // Update nodePages
-                this.updateNodePages.setValue(true);
+                this.UPDATE_NODEPAGES.setValue(true);
                 // Remove taskline for that task in dotoday
                 this.doTodayList.remove(0);
             } else {
@@ -319,7 +318,7 @@ public class InformationContainer {
                         (Integer.parseInt(this.doTodayList.get(0).getCounter().getLabel().getText())-1)
                 );
                 // Update nodePages
-                this.updateNodePages.setValue(true);
+                this.UPDATE_NODEPAGES.setValue(true);
             }
 
             //Update the activePomodoros
@@ -388,7 +387,7 @@ public class InformationContainer {
         // Remove the pomodoros thats not in use
         DBSingleton.getInstance().clearPomodoros(this.workDay);
 
-        addPomodoroToDB(0,this.amountOfActivePomodoros.getValue());
+        addPomodoroToDB(0,this.AMOUNT_OF_ACTIVE_POMODOROS.getValue());
 
     }
 
@@ -411,12 +410,12 @@ public class InformationContainer {
 
         // Update or create the workday
         if (this.workDay!=null){
-            DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(),this.workDay.getStartDateTime());
+            DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.AMOUNT_OF_ACTIVE_POMODOROS.getValue(),this.workDay.getStartDateTime());
         } else {
             if (newestWorkDay!=null && BigInteger.valueOf(newestWorkDay.getTime()).compareTo(BigInteger.valueOf(yesterday.getTime()))==1){
                 remakeDB = true;
             } else {
-                DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.amountOfActivePomodoros.getValue(), today);
+                DBSingleton.getInstance().updateWorkDay(ConsultantSingleton.getInstance(),this.AMOUNT_OF_ACTIVE_POMODOROS.getValue(), today);
             }
         }
         this.workDay = DBSingleton.getInstance().getWorkDay(ConsultantSingleton.getInstance().getEmail());
