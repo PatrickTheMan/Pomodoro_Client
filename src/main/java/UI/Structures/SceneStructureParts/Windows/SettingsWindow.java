@@ -114,9 +114,7 @@ public class SettingsWindow extends CustomWindow {
             Matcher matcher = timePattern.matcher(this.workTimeField.getTextField().getText());
             if (!matcher.find()){
                 if (!this.workTimeField.getStyleClass().contains("choice-textfield-error")){
-                    this.workTimeField.getStyleClass().add("choice-textfield-erro");
-                    //this.workTimeField.setStyle("-fx-background-color: -secondaryMainColor");
-                    System.out.println("error");
+                    this.workTimeField.getStyleClass().add("choice-textfield-error");
                 }
                 error=true;
             } else {

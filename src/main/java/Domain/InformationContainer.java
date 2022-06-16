@@ -206,6 +206,7 @@ public class InformationContainer {
         this.consultants.addAll(DBSingleton.getInstance().getConsultants());
         this.projects.addAll(DBSingleton.getInstance().getProjects());
         this.tasks.addAll(DBSingleton.getInstance().getTasks());
+
     }
 
     /**
