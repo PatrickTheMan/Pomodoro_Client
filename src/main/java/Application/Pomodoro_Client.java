@@ -28,7 +28,6 @@ public class Pomodoro_Client extends Application {
         // Set the scene
         ScenehandlerSingleton.getInstance().setStage(SceneType.HOME);
     }
-
     public static void main(String[] args) {
         launch();
     }
